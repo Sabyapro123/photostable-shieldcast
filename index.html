@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ShieldCast · Photostable</title>
+<meta name="description" content="ShieldCast turns a dermatologist's Photostable prescription into a daily plan that reads the live UV forecast, times every reapplication, tracks the tube and finds the refill. Concept prototype by team ChampsGrid, IIM Mumbai.">
+<meta property="og:title" content="ShieldCast: the prescription that reads the sky">
+<meta property="og:description" content="A weather-aware Photostable prescription. No app, no login, no stored health data.">
+<meta name="theme-color" content="#1F1A3A">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='14' fill='%23F2B33D'/%3E%3Cg stroke='%23E0701A' stroke-width='5' stroke-linecap='round'%3E%3Cpath d='M32 4v8M32 52v8M4 32h8M52 32h8M12 12l6 6M46 46l6 6M12 52l6-6M46 18l6-6'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<script src="vendor/qrcode.min.js" defer></script>
+<script type="module" src="js/app.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <div class="wrap top-in">
+    <a class="brand" href="#home" aria-label="ShieldCast home">
+      <svg viewBox="0 0 64 64" width="30" height="30" aria-hidden="true"><circle cx="32" cy="32" r="13" fill="var(--amber)"/><g stroke="var(--orange)" stroke-width="5" stroke-linecap="round"><path d="M32 5v8M32 51v8M5 32h8M51 32h8M13 13l6 6M45 45l6 6M13 51l6-6M45 19l6-6"/></g></svg>
+      <span><b>ShieldCast</b><small>by Photostable Rx Spectrum</small></span>
+    </a>
+    <nav class="tabs" aria-label="Main">
+      <a href="#doctor" data-v="doctor">Doctor</a>
+      <a href="#today" data-v="today">Patient</a>
+      <a href="#pharmacy" data-v="pharmacy">Pharmacy</a>
+      <a href="#supply" data-v="supply">Supply</a>
+      <a href="#how" data-v="how">How it works</a>
+    </nav>
+  </div>
+</header>
+<div class="notice"><div class="wrap">Concept prototype by team ChampsGrid, IIM Mumbai, for Sun PRISM Season 2. It is not a Sun Pharma service and gives no medical advice. Use made-up names only.</div></div>
+
+<main id="main" class="wrap">
+
+<!-- ================= HOME ================= -->
+<section class="view" id="v-home" hidden>
+  <div class="hero">
+    <div class="hero-copy">
+      <span class="eyebrow">The prescription that reads the sky</span>
+      <h1>A Photostable prescription that knows today's UV, times every reapplication and finds the next tube.</h1>
+      <p class="lead">Dr Iyer writes a Shield Plan. Its QR code opens a daily plan built from the live UV forecast for the patient's city. There is no app to install, no login and no health data on a server, because the prescription lives inside the link.</p>
+      <div class="row">
+        <a class="btn" href="#doctor">Write a Shield Plan</a>
+        <a class="btn ghost" id="sampleLink" href="#today">Open Ananya's plan</a>
+      </div>
+    </div>
+    <div class="hero-sky panel dark">
+      <div class="row between"><span class="eyebrow light">Peak UV today</span><span class="pill" id="skyLive">Loading the forecast</span></div>
+      <div class="sky" id="sky"></div>
+      <p class="tiny muted-light">WHO advises sun protection whenever the UV index is 3 or more. Most Indian metros pass 8 before noon.</p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="row between"><h2>One loop, seven hand-offs</h2><span class="small muted">Click any step to try it.</span></div>
+    <ol class="loop" id="loop"></ol>
+  </div>
+
+  <div class="grid3">
+    <div class="panel evidence"><span class="big">30% to 56%</span><p>Daily sunscreen use rose from 30% to 56% when people got a text with the local weather and a reminder (Armstrong et al., Archives of Dermatology, 2009, randomised, 70 adults).</p></div>
+    <div class="panel evidence"><span class="big">35%</span><p>Only 35% of Indian melasma patients used any sunscreen in a nine-centre study of 331 patients (KrupaShankar et al., Dermatology and Therapy, 2014).</p></div>
+    <div class="panel evidence"><span class="big">15%</span><p>Visible-light protection improved melasma scores by 15% more than UV-only sunscreen in a double-blind trial (Castanedo-Cazares et al., 2014). This is why Pro+ stays every day for melasma.</p></div>
+  </div>
+</section>
+
+<!-- ================= DOCTOR ================= -->
+<section class="view" id="v-doctor" hidden>
+  <div class="persona"><div class="avatar">MI</div><div><span class="eyebrow">Dr Meera Iyer · dermatologist · Kothrud, Pune</span><h2>Write a Shield Plan in under a minute</h2><p class="muted">Pick the need, the skin type, the patient's city and routine, and an optional second tube with a weather rule. The plan and the QR card are ready at once.</p></div></div>
+  <div class="doc-grid">
+    <form class="panel" id="planForm" autocomplete="off">
+      <fieldset><legend>Patient</legend>
+        <div class="row"><label class="fld">First name<input type="text" id="fName" value="Ananya" maxlength="20"></label><label class="fld small-fld">Age<input type="text" id="fAge" value="29" maxlength="3" inputmode="numeric"></label>
+        <label class="fld">City<select id="fCity"></select></label></div>
+      </fieldset>
+      <fieldset><legend>Main reason for sunscreen</legend><div class="chips" id="cNeed"></div></fieldset>
+      <fieldset><legend>Skin type</legend><div class="chips" id="cSkin"></div></fieldset>
+      <fieldset><legend>Daily routine</legend><div class="chips" id="cRoutine"></div></fieldset>
+      <fieldset><legend>Second tube with a weather rule</legend><div class="chips" id="cSwitch"></div><p class="tiny muted" id="swNote"></p></fieldset>
+    </form>
+    <div class="view tight">
+      <div class="panel" id="planPreview"></div>
+      <div class="panel">
+        <div class="row between"><div><span class="eyebrow">Rx card</span><h3>Print it, or send the link</h3></div><button class="btn" id="issueBtn" type="button">Issue the card</button></div>
+        <div id="cardSlot"><p class="small muted">The card carries one exact variant, the backup, the dose and a QR code. Scanning it opens the patient's plan on any phone.</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="row between"><h3>Cards issued on this device</h3><span class="small muted" id="issuedCount"></span></div>
+    <div class="tablewrap"><table class="data" id="issuedTable"></table></div>
+  </div>
+</section>
+
+<!-- ================= PATIENT ================= -->
+<section class="view" id="v-today" hidden>
+  <div id="noPlan" class="panel" hidden>
+    <h2>Scan the QR code on your Rx card</h2>
+    <p class="muted">Your plan opens straight from the card. To try it now, open an example plan.</p>
+    <div class="row" id="examples"></div>
+  </div>
+  <div id="planView" hidden>
+    <div class="pt-head panel dark" id="ptHead"></div>
+    <div class="pt-grid">
+      <div class="view tight">
+        <div class="panel" id="todayPanel"></div>
+        <div class="panel" id="weekPanel"></div>
+      </div>
+      <div class="view tight">
+        <div class="panel" id="tubePanel"></div>
+        <div class="panel" id="remindPanel"></div>
+        <div class="panel" id="routinePanel"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PHARMACY ================= -->
+<section class="view" id="v-pharmacy" hidden>
+  <div class="persona"><div class="avatar ink">RP</div><div><span class="eyebrow">Ramesh Patil · Shree Medicals · 300 m from the clinic</span><h2>Scan the card, dispense the exact tube</h2><p class="muted">The QR code carries the prescription and a check code, so Ramesh can verify it without calling the clinic. He can also see which variants the coming week's UV will pull off his shelf.</p></div></div>
+  <div class="grid2">
+    <div class="panel">
+      <h3>Check a card</h3>
+      <div class="row"><button class="btn" id="scanBtn" type="button">Scan with camera</button><span class="small muted" id="scanState"></span></div>
+      <video id="scanVideo" playsinline muted hidden></video>
+      <canvas id="scanCanvas" hidden></canvas>
+      <form class="row" id="pasteForm"><input type="text" id="pasteIn" placeholder="Or paste the link from the card" aria-label="Card link"><button class="btn ghost" type="submit">Check</button></form>
+      <div id="verifyOut"></div>
+    </div>
+    <div class="panel">
+      <div class="row between"><h3>Shelf at Shree Medicals</h3><span class="small muted">50 g tubes</span></div>
+      <div class="tablewrap"><table class="data" id="shelf"></table></div>
+      <div id="reorder"></div>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="row between"><h3>Dispensing log on this device</h3><button class="btn ghost small" id="clearLog" type="button">Clear the log</button></div>
+    <div class="tablewrap"><table class="data" id="dispLog"></table></div>
+  </div>
+</section>
+
+<!-- ================= SUPPLY ================= -->
+<section class="view" id="v-supply" hidden>
+  <div class="persona"><div class="avatar violet">SC</div><div><span class="eyebrow">Sun trade and supply team</span><h2>The same forecast that times Ananya's reapplication tells Sun where to move stock</h2><p class="muted">Tubes run out faster in weeks that need more reapplication. ShieldCast reads the 7-day UV and humidity outlook for each metro and flags where partner pharmacies should be topped up before demand arrives.</p></div></div>
+  <div class="row between"><span class="pill" id="supplyLive">Loading the outlook</span><span class="tiny muted">UV load is the sum of each day's peak UV above 5 over the next 7 days.</span></div>
+  <div class="metro" id="metro"></div>
+  <div class="panel callout">
+    <b>This is a hypothesis to test, not a proven rule.</b> The pilot will compare stockist sell-out with the UV load in each city for 28 weeks and fit the real relationship before Sun changes any stock norms.
+  </div>
+</section>
+
+<!-- ================= HOW ================= -->
+<section class="view" id="v-how" hidden>
+  <div class="panel">
+    <span class="eyebrow">How it works</span>
+    <h2>Everything connects through one signed link and one public forecast</h2>
+    <p class="muted measure">The doctor's choices are written into the QR link itself. The patient's phone reads the link and the live forecast and works out the day's plan on the device. Nothing about the patient is stored on a server unless she agrees to reminders.</p>
+    <div class="arch" id="arch"></div>
+  </div>
+  <div class="grid2">
+    <div class="panel"><h3>What makes it realistic</h3><ul class="list" id="realList"></ul></div>
+    <div class="panel"><h3>What it costs to run</h3><div class="tablewrap"><table class="data" id="costTable"></table></div><p class="tiny muted">The capex and opex for the full programme are in the team's financial model: ₹5.05 crore of capex, a ₹1.39 crore gated pilot and a base-case NPV of ₹20.5 crore.</p></div>
+  </div>
+  <div class="grid2">
+    <div class="panel"><h3>Privacy and compliance by design</h3><ul class="list" id="privList"></ul></div>
+    <div class="panel"><h3>Roll-out, gate by gate</h3><ol class="list" id="phaseList"></ol></div>
+  </div>
+  <div class="panel"><h3>Sources</h3><ol class="list small" id="srcList"></ol></div>
+</section>
+
+</main>
+<footer class="foot"><div class="wrap">
+  <span>UV, humidity and temperature data: <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> (CC BY 4.0). UV bands follow the WHO Global Solar UV Index.</span>
+  <span>Product facts are from November 2026 Indian pharmacy listings. Stores and stock are examples. Code on <a href="https://github.com/Sabyapro123/photostable-shieldcast" target="_blank" rel="noopener">GitHub</a>.</span>
+</div></footer>
+<div class="toast" id="toast" role="status" hidden></div>
+</body>
+</html>
