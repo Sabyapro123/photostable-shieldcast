@@ -1,7 +1,7 @@
 import { SKUS, SKU_ORDER, NEEDS, SWITCHES, ROUTINES, CITIES, STORES, storesFor, TUBE_G, DOSE_G, DOSE_TEXT, SITE_URL } from "./data.js";
 import { encodePlan, decodePlan, planCode, resolvePlan, uvBand, todaysTube, daySchedule, averageDailyGrams, tubeStatus, restockSignal, fmtTime, skuName, icsFor } from "./plan.js";
 import { cityForecast, metroOutlook, todayISO } from "./forecast.js";
-import { runCopilot, runCompanion, runRestock, runOrchestrator, runWithClaude, AGENT_TOOLS, TOOLS } from "./agents.js";
+import { runCopilot, runCompanion, runRestock, runOrchestrator, runWithClaude, AGENT_TOOLS, TOOLS, joinList } from "./agents.js";
 
 /* ---------------- helpers ---------------- */
 const $ = (s, el = document) => el.querySelector(s);
@@ -126,7 +126,7 @@ async function preview() {
   const d = days[0], sch = daySchedule(plan, d.hours), tube = todaysTube(plan, d);
   const pv = $("#pvDay"); if (!pv) return;
   pv.className = "small";
-  pv.innerHTML = `<b>Today in ${esc(CITIES[plan.city].name)}:</b> peak UV ${uvChip(d.uvMax)} so the patient would use <b>${esc(skuName(tube.sku))}</b> at ${sch.apps.map((a) => fmtTime(a.t)).join(", ")}. <span class="pill ${live ? "ok" : "warn"}">${live ? "Live forecast" : "Sample forecast"}</span>`;
+  pv.innerHTML = `<b>Today in ${esc(CITIES[plan.city].name)}:</b> peak UV ${uvChip(d.uvMax)} so the patient would use <b>${esc(skuName(tube.sku))}</b> at ${joinList(sch.apps.map((a) => fmtTime(a.t)))}. <span class="pill ${live ? "ok" : "warn"}">${live ? "Live forecast" : "Sample forecast"}</span>`;
 }
 function issue() {
   const plan = formPlan(); if (!resolvePlan(plan).base) return;
@@ -244,7 +244,7 @@ function renderTube(plan, code, days) {
 function renderRemind(plan, code, days) {
   const c = ls.get("sc-consent-" + code, { wa: false, check: false, share: false });
   const t = days[1] || days[0], tube = todaysTube(plan, t), sch = daySchedule(plan, t.hours);
-  const msg = `Tomorrow in ${CITIES[plan.city].name}: peak UV ${Math.round(t.uvMax)}. Use ${SKUS[tube.sku].short} at ${sch.apps.map((a) => fmtTime(a.t)).join(", ")}. Reply STOP to end reminders.`;
+  const msg = `Tomorrow in ${CITIES[plan.city].name}: peak UV ${Math.round(t.uvMax)}. Use ${SKUS[tube.sku].short} at ${joinList(sch.apps.map((a) => fmtTime(a.t)))}. Reply STOP to end reminders.`;
   $("#remindPanel").innerHTML = `<h3>Reminders, only if you say yes</h3>
     <label class="toggle"><input type="checkbox" id="cWa" ${c.wa ? "checked" : ""}> Send me a WhatsApp message each evening with tomorrow's UV and times.</label>
     <label class="toggle"><input type="checkbox" id="cCheck" ${c.check ? "checked" : ""}> Ask me after one week how the sunscreen feels on my skin.</label>
@@ -364,7 +364,7 @@ const AGENTS = {
     examples: ["Ananya 29F, melasma, combination skin, two-wheeler commute in Pune", "Rohit 22M acne on isotretinoin, oily skin, office job in Mumbai", "Farah 41F tanning and post-acne marks, field sales in Chennai", "Neha 30F after a laser peel last week, Pune"], llm: true },
   companion: { name: "Patient Companion", who: "On the patient's phone", icon: "Pt", blurb: "Answers the patient in her own words with exact times from the live UV forecast, changes one day's routine, tracks the tube and holds a refill.",
     guards: ["It cannot change the prescribed variant.", "Any skin reaction, eye contact, pregnancy or child goes to a human pharmacist.", "It never names or compares other brands.", "A refill is held only after the patient taps to confirm."],
-    examples: ["What do I do today?", "Going to the beach on Saturday", "It is cloudy, do I still need it?", "It feels oily on my skin", "My tube is almost finished", "I got a rash after applying it", "Can I use a cheaper brand instead?"], llm: true },
+    examples: ["What do I do today?", "Trekking to Sinhagad fort on Saturday", "It is cloudy, do I still need it?", "It feels oily on my skin", "My tube is almost finished", "I got a rash after applying it", "Can I use a cheaper brand instead?"], llm: true },
   restock: { name: "Pharmacy Restock agent", who: "For partner pharmacies", icon: "Ph", blurb: "Reads the shelf, the coming week's UV load and the refills that fall due, then drafts a purchase order for the pharmacist to approve.",
     guards: ["Orders are drafts until the pharmacist approves them.", "It can only order the four Photostable variants.", "Each line is capped at 12 tubes."], llm: false },
   orchestrator: { name: "Orchestrator", who: "The 6 am morning run", icon: "Or", blurb: "Wakes up every morning, fetches one forecast per city, queues each consented patient's reminder, flags refills, hands cities to the Restock agent and writes the doctor and rep digest.",
