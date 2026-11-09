@@ -1,4 +1,4 @@
-name: Plan engine tests
+name: Plan engine and agent tests
 on:
   push:
   pull_request:
@@ -10,4 +10,4 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: node --test tests/plan.test.mjs
+      - run: node --test tests/plan.test.mjs tests/agents.test.mjs

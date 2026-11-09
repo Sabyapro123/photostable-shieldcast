@@ -10,7 +10,9 @@ The prototype on GitHub Pages proves the whole patient journey with no backend a
 | Plan engine | `js/plan.js` | Encodes the plan in the link, chooses today's tube, builds the schedule, runs the tube clock, scores the restock signal and writes calendar files. |
 | Forecast | `js/forecast.js` | Reads hourly UV, humidity and temperature from Open-Meteo, caches it for 30 minutes and falls back to a labelled sample. |
 | Interface | `index.html`, `js/app.js`, `css/style.css` | Six views: Home, Doctor, Patient, Pharmacy, Supply and How it works. |
-| Tests | `tests/plan.test.mjs` | 13 tests of the clinical and supply rules, run on every push by GitHub Actions. |
+| Agents | `js/agents.js` | Tools with JSON schemas, the four agents, the guardrails and the optional Claude tool-use loop. |
+| Tests | `tests/plan.test.mjs`, `tests/agents.test.mjs` | 24 tests of the clinical, supply and agent rules, run on every push by GitHub Actions. |
+| Claude proxy | `worker/proxy.js` | A Cloudflare Worker that holds the API key, limits origins, models, tokens and tools. |
 
 ## 2. The rules
 
@@ -32,7 +34,18 @@ The prototype on GitHub Pages proves the whole patient journey with no backend a
   - Four or more humid days shift the extra stock towards gels.
   - These cut-offs are hypotheses for the pilot to calibrate against stockist sell-out.
 
-## 3. Production path
+## 3. The agents
+
+| Agent | Trigger | Steps | Human checkpoint |
+| --- | --- | --- | --- |
+| Prescribing Copilot | The doctor types a one-line note. | Read the note, fetch the city forecast, choose a weather rule only with a clinical reason, draft the plan. | The doctor approves the card. |
+| Patient Companion | The patient asks a question. | Check for red flags first, classify the question, call the plan tools, answer in plain words. | The patient confirms a refill hold; a pharmacist handles clinical questions. |
+| Pharmacy Restock agent | A pharmacy or the Orchestrator asks. | Read the shelf, score the UV load, add refills due, draft an order per store. | The pharmacist approves the order. |
+| Orchestrator | 6 am every day. | One forecast per city, a message for each consented patient, refill flags, hand-offs to the Restock agent, a doctor and rep digest. | None for messages, because consent is checked by the tool. |
+
+In the pilot the Orchestrator runs as a scheduled job (for example a Cloudflare Cron Trigger), the outbox feeds the WhatsApp Business API, and the care desk queue feeds the pharmacists' helpdesk.
+
+## 4. Production path
 
 | Need | Prototype | Pilot and scale-up |
 | --- | --- | --- |
@@ -43,7 +56,7 @@ The prototype on GitHub Pages proves the whole patient journey with no backend a
 | Insight | None | Anonymised events (card scanned, tube dispensed, consent given, refill bought) flow to a warehouse that feeds the doctor's monthly report and the Rep Copilot brief. |
 | Identity | None | Optional link to the ABHA health ID when the patient chooses, as ABDM pharmacy workflows mature. |
 
-## 4. Privacy and compliance
+## 5. Privacy and compliance
 
 - **Data minimisation.** The link holds a first name, an age, the need, a city and a routine. It never holds a phone number, surname or diagnosis code.
 - **Consent.** Each purpose (reminders, week-one check-in, sharing adherence with the clinic) has its own opt-in, in line with the DPDP Act 2023 and Rules 2025. STOP withdraws it.
@@ -51,7 +64,7 @@ The prototype on GitHub Pages proves the whole patient journey with no backend a
 - **UCPMP 2024.** Cards and desk guides are informational and cost far less than ₹1,000 each.
 - **Claims.** Evidence passports quote only in vivo SPF results under BIS IS 17494.
 
-## 5. Running costs per patient
+## 6. Running costs per patient
 
 | Item | Cost |
 | --- | --- |

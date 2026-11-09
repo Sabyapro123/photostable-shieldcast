@@ -1,0 +1,8 @@
+name = "shieldcast-claude-proxy"
+main = "proxy.js"
+compatibility_date = "2026-10-01"
+
+# Optional rate limit store. Create it with: npx wrangler kv namespace create RATE
+# [[kv_namespaces]]
+# binding = "RATE"
+# id = "your-namespace-id"

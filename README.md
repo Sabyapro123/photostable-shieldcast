@@ -19,6 +19,8 @@ There is no app to install, no login and no patient data on a server, because th
 | Melasma relapses without visible-light protection. | Pro+ stays on every day for melasma, with a midday top-up. | Visible-light protection improved MASI by 15% more than UV-only (Castanedo-Cazares et al., 2014) |
 | The prescription is lost at the pharmacy counter. | The pharmacist scans the card, checks its code and can only offer the doctor's backup. | Euromonitor: pharmacies grew slower due to limited education and low visibility |
 | Stock runs out in the wrong cities at the wrong time. | A 7-day UV load per metro flags where to top up partner pharmacies. | A hypothesis to calibrate in the pilot |
+| The sale still happens at the counter. | The pharmacy view and the Restock agent work at the partner pharmacy. | Statista Market Insights: offline channels hold 93.6% of India's sun protection revenue in 2026 |
+| Patients need answers between visits. | The Patient Companion answers in plain words and hands clinical questions to a pharmacist. | About 800 million WhatsApp users in India in 2025 (Statista) |
 
 ## How everything connects
 
@@ -47,13 +49,30 @@ flowchart LR
 | **Patient** | Open the plan from the QR code to see which tube to use today, the hourly UV chart, exact times with tick boxes, a 7-day outlook, a calendar file of reminders, the tube clock, refill reservation, separate consents and a routine override. |
 | **Pharmacy** | Scan a card with the phone camera or paste its link, verify the check code, dispense the exact tube or the backup, see the shelf and the week's restock signal, and approve a reorder. |
 | **Supply** | See the 7-day UV outlook for eight metros, ranked by UV load, with a suggested top-up and product mix. |
+| **Agents** | Run the four agents and watch every thought, tool call, guardrail and hand-off. Approve the drafts they produce, and see the care-desk queue, the WhatsApp outbox and the draft orders fill up. |
 | **How it works** | Read the architecture, costs, privacy design, roll-out gates and sources. |
+
+## The Agent Desk
+
+ShieldCast runs on four agents that share one set of tools. Each agent may call only the tools it is given, and every guardrail is enforced inside the tools, so it holds whether the agent runs on rules or on Claude.
+
+| Agent | Who it serves | Tools it may call | What a person must approve |
+| --- | --- | --- | --- |
+| Prescribing Copilot | The dermatologist | `get_uv_forecast`, `build_shield_plan` | The doctor approves the draft plan before any card is issued. |
+| Patient Companion | The patient, on her phone | `todays_protection`, `set_day_routine`, `tube_status`, `find_stock`, `reserve_refill`, `log_feedback_for_doctor`, `escalate_to_care_desk` | The patient confirms a refill hold. A pharmacist handles every clinical question. |
+| Pharmacy Restock agent | Partner pharmacies | `restock_signal` | The pharmacist approves each draft order. |
+| Orchestrator | The 6 am morning run | `get_uv_forecast`, `queue_whatsapp`, `restock_signal`, and hand-offs to the Restock agent | Messages go only to patients who opted in. |
+
+**Guardrails.** The Companion cannot change the prescribed variant, names no other brand and hands any reaction, eye contact, pregnancy or child to a human pharmacist before any model is called. The Copilot never adds a humid or dry rule for melasma and logs a portfolio gap when no variant fits. The Orchestrator's message tool refuses any patient without reminder consent.
+
+**Two engines.** The rules engine is the default: it is free, works offline and gives the same answer every time, which suits a judged demo and an audited pilot. Choosing **Claude** in the Agent Desk lets the Copilot and the Companion plan their own tool calls through the Anthropic Messages API, using the same tool schemas (`claudeTools()` in `js/agents.js`). The key stays in the browser, or a pilot can deploy the Cloudflare Worker in [`worker/`](worker/README.md) so no key reaches any browser.
 
 ## Architecture
 
 - **Static front end.** Plain HTML, CSS and ES modules, hosted on GitHub Pages. There is no build step.
 - **Plan in the link.** The Shield Plan is compact JSON, base64url-encoded into `?rx=`, with a 6-character check code. In production Sun would sign the plan (for example as a JWS) so pharmacies can trust it offline.
 - **Plan engine.** `js/plan.js` holds pure functions for variant choice, the schedule, the tube clock, the restock signal and calendar export, tested in `tests/plan.test.mjs`.
+- **Agents.** `js/agents.js` holds the tools, the four agents, the guardrails and the optional Claude loop, tested in `tests/agents.test.mjs`.
 - **Live data.** `js/forecast.js` calls the Open-Meteo forecast API for hourly `uv_index`, `relative_humidity_2m` and `temperature_2m`. If the API cannot be reached, the page shows a clearly labelled sample forecast.
 - **Scanning.** The browser's `BarcodeDetector` is used where available, with [jsQR](https://github.com/cozmo/jsQR) as the fallback.
 - **State.** Tick boxes, the tube date, consents and reservations stay in the patient's own browser (`localStorage`).
@@ -65,7 +84,7 @@ The production path, the data model and the costs are in [docs/ARCHITECTURE.md](
 ```bash
 python3 -m http.server 8000
 # open http://localhost:8000
-node --test tests/plan.test.mjs
+node --test tests/plan.test.mjs tests/agents.test.mjs
 ```
 
 ## Data and licences

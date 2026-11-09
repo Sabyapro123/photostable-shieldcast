@@ -29,6 +29,7 @@
       <a href="#today" data-v="today">Patient</a>
       <a href="#pharmacy" data-v="pharmacy">Pharmacy</a>
       <a href="#supply" data-v="supply">Supply</a>
+      <a href="#agents" data-v="agents" class="tab-ai">Agents</a>
       <a href="#how" data-v="how">How it works</a>
     </nav>
   </div>
@@ -61,6 +62,12 @@
     <ol class="loop" id="loop"></ol>
   </div>
 
+  <a class="panel agent-strip" href="#agents">
+    <span class="eyebrow">Agent Desk</span>
+    <b>Four agents keep the loop running, and a person approves every step that matters.</b>
+    <span class="small muted">The Prescribing Copilot drafts plans from a one-line note, the Patient Companion answers in plain words, the Restock agent drafts orders and the Orchestrator runs every morning at 6 am. Open the desk to watch each step.</span>
+  </a>
+
   <div class="grid3">
     <div class="panel evidence"><span class="big">30% to 56%</span><p>Daily sunscreen use rose from 30% to 56% when people got a text with the local weather and a reminder (Armstrong et al., Archives of Dermatology, 2009, randomised, 70 adults).</p></div>
     <div class="panel evidence"><span class="big">35%</span><p>Only 35% of Indian melasma patients used any sunscreen in a nine-centre study of 331 patients (KrupaShankar et al., Dermatology and Therapy, 2014).</p></div>
@@ -70,7 +77,7 @@
 
 <!-- ================= DOCTOR ================= -->
 <section class="view" id="v-doctor" hidden>
-  <div class="persona"><div class="avatar">MI</div><div><span class="eyebrow">Dr Meera Iyer · dermatologist · Kothrud, Pune</span><h2>Write a Shield Plan in under a minute</h2><p class="muted">Pick the need, the skin type, the patient's city and routine, and an optional second tube with a weather rule. The plan and the QR card are ready at once.</p></div></div>
+  <div class="persona"><div class="avatar">MI</div><div><span class="eyebrow">Dr Meera Iyer · dermatologist · Kothrud, Pune</span><h2>Write a Shield Plan in under a minute</h2><p class="muted">Pick the need, the skin type, the patient's city and routine, and an optional second tube with a weather rule. The plan and the QR card are ready at once.</p><p class="small"><a href="#agents" id="toCopilot">Or type a one-line note and let the Prescribing Copilot draft it.</a></p></div></div>
   <div class="doc-grid">
     <form class="panel" id="planForm" autocomplete="off">
       <fieldset><legend>Patient</legend>
@@ -113,6 +120,7 @@
       <div class="view tight">
         <div class="panel" id="tubePanel"></div>
         <div class="panel" id="remindPanel"></div>
+        <div class="panel" id="askPanel"></div>
         <div class="panel" id="routinePanel"></div>
       </div>
     </div>
@@ -150,6 +158,51 @@
   <div class="metro" id="metro"></div>
   <div class="panel callout">
     <b>This is a hypothesis to test, not a proven rule.</b> The pilot will compare stockist sell-out with the UV load in each city for 28 weeks and fit the real relationship before Sun changes any stock norms.
+  </div>
+</section>
+
+<!-- ================= AGENTS ================= -->
+<section class="view" id="v-agents" hidden>
+  <div class="panel dark agent-hero">
+    <div class="row between" style="align-items:flex-start">
+      <div class="view tight" style="gap:6px">
+        <span class="eyebrow light">ShieldCast Agent Desk</span>
+        <h2>Four agents run the loop, and a person approves every step that matters</h2>
+        <p class="muted-light measure">Each agent can only use the tools it is given, every step is shown, and guardrails sit inside the tools rather than in a prompt. The agents run on transparent rules by default, so this demo is free and gives the same answer every time. Add a Claude API key and the Copilot and the Companion plan their own tool calls.</p>
+      </div>
+      <div class="view tight" style="gap:8px;min-width:240px">
+        <div class="seg" role="radiogroup" aria-label="Agent engine" id="engineSeg">
+          <label><input type="radio" name="engine" value="rules" checked><span>Rules engine</span></label>
+          <label><input type="radio" name="engine" value="claude"><span>Claude</span></label>
+        </div>
+        <span class="tiny muted-light" id="engineNote">Rules engine: free, offline and repeatable.</span>
+      </div>
+    </div>
+    <details class="aiset" id="aiSettings">
+      <summary>Claude settings</summary>
+      <div class="row" style="align-items:flex-end">
+        <label class="fld">Your Anthropic API key<input type="password" id="aiKey" autocomplete="off" placeholder="sk-ant-..." spellcheck="false"></label>
+        <label class="fld">Model<select id="aiModel"><option value="claude-sonnet-5-5">claude-sonnet-5-5</option><option value="claude-haiku-5-5">claude-haiku-5-5</option><option value="claude-opus-5-5">claude-opus-5-5</option></select></label>
+        <label class="fld">Proxy URL, optional<input type="url" id="aiProxy" placeholder="https://your-worker.workers.dev" spellcheck="false"></label>
+        <label class="toggle" style="color:var(--on-dark2)"><input type="checkbox" id="aiRemember"> Remember on this device</label>
+        <button class="btn small" type="button" id="aiSave">Save</button><button class="btn small ghost" type="button" id="aiClear">Forget the key</button>
+      </div>
+      <p class="tiny muted-light">The key stays in this browser and is sent only to Anthropic or to the proxy you name. For a shared pilot, deploy <span class="mono">worker/proxy.js</span> so no key sits in any browser.</p>
+    </details>
+  </div>
+  <div class="agent-pick" id="agentPick"></div>
+  <div class="agent-grid">
+    <div class="panel" id="agentIn"></div>
+    <div class="panel">
+      <div class="row between"><h3>What the agent did</h3><span class="pill" id="traceState">Idle</span></div>
+      <ol class="trace" id="trace"><li class="muted small">Run an agent to see each thought, tool call, guardrail and hand-off.</li></ol>
+      <div id="agentOut"></div>
+    </div>
+  </div>
+  <div class="grid3">
+    <div class="panel"><div class="row between"><h3>Care desk queue</h3><span class="small muted" id="deskCount"></span></div><div id="deskList" class="view tight" style="gap:8px"></div></div>
+    <div class="panel"><div class="row between"><h3>WhatsApp outbox</h3><span class="small muted" id="outCount"></span></div><div id="outList" class="view tight" style="gap:8px"></div></div>
+    <div class="panel"><div class="row between"><h3>Draft orders</h3><span class="small muted" id="poCount"></span></div><div id="poList" class="view tight" style="gap:8px"></div></div>
   </div>
 </section>
 

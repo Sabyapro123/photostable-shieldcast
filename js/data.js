@@ -59,8 +59,8 @@ export const STORES = {
 };
 export function storesFor(city) {
   return STORES[city] || [
-    { id: "p1", name: "Partner pharmacy 1", dist: "near the clinic", stock: { pro: 3, gold: 5, acne: 2, emulgel: 2 } },
-    { id: "p2", name: "Partner pharmacy 2", dist: "near the clinic", stock: { pro: 1, gold: 2, acne: 0, emulgel: 4 } },
+    { id: city + "-p1", name: "Partner pharmacy 1", dist: "near the clinic", stock: { pro: 3, gold: 5, acne: 2, emulgel: 2 } },
+    { id: city + "-p2", name: "Partner pharmacy 2", dist: "near the clinic", stock: { pro: 1, gold: 2, acne: 0, emulgel: 4 } },
   ];
 }
 

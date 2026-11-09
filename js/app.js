@@ -1,6 +1,7 @@
 import { SKUS, SKU_ORDER, NEEDS, SWITCHES, ROUTINES, CITIES, STORES, storesFor, TUBE_G, DOSE_G, DOSE_TEXT, SITE_URL } from "./data.js";
 import { encodePlan, decodePlan, planCode, resolvePlan, uvBand, todaysTube, daySchedule, averageDailyGrams, tubeStatus, restockSignal, fmtTime, skuName, icsFor } from "./plan.js";
 import { cityForecast, metroOutlook, todayISO } from "./forecast.js";
+import { runCopilot, runCompanion, runRestock, runOrchestrator, runWithClaude, AGENT_TOOLS, TOOLS } from "./agents.js";
 
 /* ---------------- helpers ---------------- */
 const $ = (s, el = document) => el.querySelector(s);
@@ -39,7 +40,7 @@ const SAMPLES = [
 const sampleToken = (i) => encodePlan(SAMPLES[i]);
 
 /* ---------------- routing ---------------- */
-const VIEWS = ["home", "doctor", "today", "pharmacy", "supply", "how"];
+const VIEWS = ["home", "doctor", "today", "pharmacy", "supply", "agents", "how"];
 const params = new URLSearchParams(location.search);
 let rxToken = params.get("rx");
 function route() {
@@ -47,7 +48,7 @@ function route() {
   if (!VIEWS.includes(v)) v = "home";
   VIEWS.forEach((n) => { $("#v-" + n).hidden = n !== v; });
   document.querySelectorAll(".tabs a").forEach((a) => { if (a.dataset.v === v) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); });
-  ({ home: renderHome, doctor: renderDoctor, today: renderPatient, pharmacy: renderPharmacy, supply: renderSupply, how: renderHow })[v]();
+  ({ home: renderHome, doctor: renderDoctor, today: renderPatient, pharmacy: renderPharmacy, supply: renderSupply, agents: renderAgents, how: renderHow })[v]();
   window.scrollTo(0, 0);
 }
 window.addEventListener("hashchange", route);
@@ -94,6 +95,7 @@ function renderDoctor() {
     $("#fAge").oninput = (e) => { F.a = e.target.value.replace(/\D/g, "").slice(0, 3); };
     $("#fCity").onchange = (e) => { F.city = e.target.value; preview(); };
     $("#issueBtn").onclick = issue;
+    $("#toCopilot").onclick = () => { AG.agent = "copilot"; };
   }
   chips($("#cNeed"), Object.values(NEEDS), "need", F.need, (v) => { F.need = v; if (swDisabled(SWITCHES[F.sw])) F.sw = "none"; renderDoctor(); });
   chips($("#cSkin"), SKINS, "skin", F.skin, (v) => { F.skin = v; if (swDisabled(SWITCHES[F.sw])) F.sw = "none"; renderDoctor(); });
@@ -184,13 +186,16 @@ async function renderPatient() {
   $("#todayPanel").innerHTML = `<p class="muted">Reading the forecast for ${esc(city.name)}.</p>`;
   const { days, live } = await cityForecast(plan.city);
   const d = days.find((x) => x.date === TODAY) || days[0];
-  const tube = todaysTube(plan, d), sch = daySchedule(plan, d.hours), band = uvBand(d.uvMax), S = SKUS[tube.sku];
+  const dayPlan = (x) => ({ ...plan, routine: ls.get(`sc-dayroutine-${code}-${x.date}`, null) || routine });
+  const pd = dayPlan(d), dayChanged = pd.routine !== routine;
+  const tube = todaysTube(pd, d), sch = daySchedule(pd, d.hours), band = uvBand(d.uvMax), S = SKUS[tube.sku];
   const doneKey = `sc-done-${code}-${d.date}`, done = ls.get(doneKey, []);
   $("#todayPanel").innerHTML = `
     <div class="row between"><h3>Today, ${dateLong(d.date)}</h3><span class="pill ${live ? "ok" : "warn"}">${live ? "Live forecast" : "Sample forecast, live data unavailable"}</span></div>
     <div class="bigtube"><img src="${S.img}" alt=""><div class="view tight" style="gap:4px"><span class="eyebrow">Use today</span><b style="font-family:var(--f-display);font-size:1.4rem">${esc(S.name)}</b><span class="small">${esc(tube.reason)}</span></div></div>
     <div class="row"><span>Peak UV</span>${uvChip(d.uvMax)}<b>${band.label}</b><span class="small muted">around ${fmtTime(sch.peak.h)}. ${esc(band.advice)}</span></div>
-    ${hourlyChart(d.hours, r.routine.windows, sch.apps)}
+    ${dayChanged ? `<p class="small"><span class="pill vi">Changed for today</span> Your companion set today to ${esc(ROUTINES[pd.routine].label.toLowerCase())}.</p>` : ""}
+    ${hourlyChart(d.hours, ROUTINES[pd.routine].windows, sch.apps)}
     <p class="tiny muted">Bars show the hourly UV index. Shaded bands are the times you are usually outdoors. Orange marks are when to apply and dark marks are when to reapply.</p>
     <ul class="sched">${sch.apps.map((a, i) => `<li class="${done.includes(i) ? "done" : ""}"><span class="t">${fmtTime(a.t)}</span><span>${a.kind === "apply" ? "Apply" : "Reapply"} ${esc(S.short)}: two finger-lengths for face and neck${a.kind === "apply" ? ", 15 minutes before you step out" : ""}.</span><label><input type="checkbox" data-i="${i}" ${done.includes(i) ? "checked" : ""}> Done</label></li>`).join("")}</ul>
     ${sch.pw ? "" : `<p class="small">UV stays below 3 all day, so one morning application is enough.</p>`}`;
@@ -199,7 +204,7 @@ async function renderPatient() {
     cb.closest("li").classList.toggle("done", cb.checked); renderTube(plan, code, days);
   }));
   $("#weekPanel").innerHTML = `<div class="row between"><h3>Your next 7 days</h3><button class="btn small" id="icsBtn" type="button">Add all reminders to my calendar</button></div>
-    <div class="week">${days.slice(0, 7).map((x) => { const t = todaysTube(plan, x), s = daySchedule(plan, x.hours); return `<div class="wday ${t.switched ? "sw" : ""}"><b>${dayLabel(x.date)}</b>${uvChip(x.uvMax)}<span>${esc(SKUS[t.sku].short)}</span><span class="muted">${s.apps.length} time${s.apps.length === 1 ? "" : "s"}</span></div>`; }).join("")}</div>
+    <div class="week">${days.slice(0, 7).map((x) => { const xp = dayPlan(x), t = todaysTube(xp, x), s = daySchedule(xp, x.hours); return `<div class="wday ${t.switched ? "sw" : ""} ${xp.routine !== routine ? "chg" : ""}"><b>${dayLabel(x.date)}</b>${uvChip(x.uvMax)}<span>${esc(SKUS[t.sku].short)}</span><span class="muted">${s.apps.length} time${s.apps.length === 1 ? "" : "s"}</span></div>`; }).join("")}</div>
     ${r.second ? `<p class="small">Highlighted days follow your doctor's rule: ${esc(skuName(r.second))} when ${esc(r.sw.when.charAt(0).toLowerCase() + r.sw.when.slice(1))}.</p>` : ""}
     <p class="tiny muted">The calendar file works with Google Calendar, Apple Calendar and Outlook, and needs no account with us.</p>`;
   $("#icsBtn").onclick = () => {
@@ -209,6 +214,9 @@ async function renderPatient() {
   };
   renderTube(plan, code, days);
   renderRemind(plan, code, days);
+  $("#askPanel").innerHTML = `<h3>Ask your companion</h3><p class="small muted">Ask in your own words. It reads the same forecast and your plan, and hands anything clinical to a pharmacist.</p>
+    <form class="row" id="askForm"><input type="text" id="askIn" placeholder="For example: going to the beach on Saturday" aria-label="Question for the companion"><button class="btn small" type="submit">Ask</button></form>`;
+  $("#askForm").onsubmit = (e) => { e.preventDefault(); const q = $("#askIn").value.trim(); if (!q) return; AG.pending = { agent: "companion", q, token: rxToken }; location.hash = "agents"; };
   $("#routinePanel").innerHTML = `<h3>Is your day different from the plan?</h3><p class="small muted">Change your usual routine and the times update. This stays on your phone.</p><div class="chips" id="cRoutineP"></div>`;
   chips($("#cRoutineP"), Object.values(ROUTINES), "routineP", routine, (v) => { ls.set("sc-routine-" + code, v); renderPatient(); });
 }
@@ -348,6 +356,168 @@ async function renderSupply() {
    </div>`).join("");
 }
 
+
+/* ================= AGENTS ================= */
+const AGENTS = {
+  copilot: { name: "Prescribing Copilot", who: "For Dr Meera Iyer", icon: "Rx", blurb: "Turns a one-line clinic note into a draft Shield Plan, checks this week's weather for the patient's city and explains its choice.",
+    guards: ["It only drafts. The doctor approves before any card is issued.", "It never adds a humid or dry rule for melasma.", "No fit means no prescription, and the case is logged as a portfolio gap."],
+    examples: ["Ananya 29F, melasma, combination skin, two-wheeler commute in Pune", "Rohit 22M acne on isotretinoin, oily skin, office job in Mumbai", "Farah 41F tanning and post-acne marks, field sales in Chennai", "Neha 30F after a laser peel last week, Pune"], llm: true },
+  companion: { name: "Patient Companion", who: "On the patient's phone", icon: "Pt", blurb: "Answers the patient in her own words with exact times from the live UV forecast, changes one day's routine, tracks the tube and holds a refill.",
+    guards: ["It cannot change the prescribed variant.", "Any skin reaction, eye contact, pregnancy or child goes to a human pharmacist.", "It never names or compares other brands.", "A refill is held only after the patient taps to confirm."],
+    examples: ["What do I do today?", "Going to the beach on Saturday", "It is cloudy, do I still need it?", "It feels oily on my skin", "My tube is almost finished", "I got a rash after applying it", "Can I use a cheaper brand instead?"], llm: true },
+  restock: { name: "Pharmacy Restock agent", who: "For partner pharmacies", icon: "Ph", blurb: "Reads the shelf, the coming week's UV load and the refills that fall due, then drafts a purchase order for the pharmacist to approve.",
+    guards: ["Orders are drafts until the pharmacist approves them.", "It can only order the four Photostable variants.", "Each line is capped at 12 tubes."], llm: false },
+  orchestrator: { name: "Orchestrator", who: "The 6 am morning run", icon: "Or", blurb: "Wakes up every morning, fetches one forecast per city, queues each consented patient's reminder, flags refills, hands cities to the Restock agent and writes the doctor and rep digest.",
+    guards: ["No message goes to a patient without reminder consent.", "One forecast call per city keeps the run cheap.", "Only anonymised counts reach the doctor digest and the rep brief."], llm: false },
+};
+const AG = { agent: "copilot", pending: null, chat: [], patientIdx: 0, running: false, restockCity: "pune", lastCopilot: null };
+const aiCfg = () => { let key = ""; try { key = sessionStorage.getItem("sc-ai-key") || localStorage.getItem("sc-ai-key") || ""; } catch (e) {} return { key, model: ls.get("sc-ai-model", "claude-sonnet-5-5"), proxy: ls.get("sc-ai-proxy", "") }; };
+const engine = () => ls.get("sc-engine", "rules");
+function agentPatient() {
+  const opts = companionOptions(), o = opts[Math.min(AG.patientIdx, opts.length - 1)];
+  const code = planCode(o.plan);
+  return { plan: { ...o.plan, routine: ls.get("sc-routine-" + code, o.plan.routine) }, code, opened: ls.get("sc-opened-" + code, null) || new Date(Date.parse(TODAY) - 14 * 864e5).toISOString().slice(0, 10), consent: ls.get("sc-consent-" + code, { wa: true, check: false, share: true }) };
+}
+function companionOptions() {
+  const list = SAMPLES.map((p) => ({ plan: p, label: `${p.n}: ${NEEDS[p.need].label}, ${CITIES[p.city].name}` }));
+  const mine = rxToken ? decodePlan(rxToken) : null;
+  if (mine && mine._valid && !SAMPLES.some((p) => planCode(p) === planCode(mine))) list.unshift({ plan: mine, label: `${mine.n} (the plan you opened)` });
+  return list;
+}
+function agentCtx(patient) { return { today: TODAY, store: ls, forecast: cityForecast, patient, now: () => Date.now() }; }
+const KIND = { think: "Thinking", tool: "Tool call", result: "Tool result", guard: "Guardrail", handoff: "Hand-off", answer: "Answer" };
+function stepHtml(s) {
+  let body = "";
+  if (s.kind === "tool") body = `<span class="mono">${esc(s.name)}</span><code>${esc(JSON.stringify(s.args))}</code>`;
+  else if (s.kind === "result") body = `<details><summary><span class="mono">${esc(s.name)}</span> returned</summary><pre>${esc(JSON.stringify(s.out, null, 2))}</pre></details>`;
+  else if (s.kind === "handoff") body = `<b>${esc(s.to)}.</b> ${esc(s.text)}`;
+  else body = esc(s.text);
+  return `<li class="st st-${s.kind} fade"><span class="k">${KIND[s.kind]}</span><div>${body}</div></li>`;
+}
+const pause = (ms) => new Promise((r) => setTimeout(r, window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : ms));
+async function runAgent(input) {
+  if (AG.running) return; AG.running = true;
+  const id = AG.agent, tr = $("#trace"), st = $("#traceState");
+  tr.innerHTML = ""; $("#agentOut").innerHTML = ""; st.textContent = "Running"; st.className = "pill warn";
+  const onStep = async (s) => { tr.insertAdjacentHTML("beforeend", stepHtml(s)); await pause(s.kind === "result" ? 160 : 260); };
+  const useClaude = engine() === "claude" && AGENTS[id].llm;
+  let out;
+  try {
+    if (useClaude) {
+      const cfg = aiCfg();
+      if (!cfg.key && !cfg.proxy) { st.textContent = "Needs a key"; st.className = "pill bad"; tr.innerHTML = `<li class="small">Add your Anthropic API key or a proxy URL in Claude settings, or switch back to the rules engine.</li>`; $("#aiSettings").open = true; AG.running = false; return; }
+      out = await runWithClaude(agentCtx(id === "companion" ? agentPatient() : null), id, input, onStep, cfg);
+    } else if (id === "copilot") out = await runCopilot(agentCtx(null), input, onStep);
+    else if (id === "companion") out = await runCompanion(agentCtx(agentPatient()), input, onStep);
+    else if (id === "restock") out = await runRestock(agentCtx(null), AG.restockCity, onStep);
+    else out = await runOrchestrator(agentCtx(null), onStep);
+    st.textContent = useClaude ? "Done with Claude" : "Done with rules"; st.className = "pill ok";
+  } catch (e) {
+    tr.insertAdjacentHTML("beforeend", `<li class="st st-guard"><span class="k">Error</span><div>${esc(e.message)}. The rules engine still works, so you can switch back.</div></li>`);
+    st.textContent = "Error"; st.className = "pill bad"; AG.running = false; return;
+  }
+  AG.running = false;
+  const answer = (out.steps.filter((s) => s.kind === "answer").pop() || {}).text;
+  if (id === "companion" && answer) { AG.chat.push({ who: "agent", text: answer }); renderChat(); }
+  if (id === "copilot" && out.result && out.result.fit) { AG.lastCopilot = out.result; renderCopilotOut(out.result); }
+  if (id === "companion" && out.actions && out.actions.length) renderCompanionActions(out.actions);
+  renderBoards();
+}
+function renderCopilotOut(r) {
+  $("#agentOut").innerHTML = `<div class="draft fade"><div class="row between"><span class="eyebrow">Draft Shield Plan for ${esc(r.plan.n)}</span><span class="mono small">${esc(r.code)}</span></div>
+    <dl class="kv"><dt>Variant</dt><dd>${esc(r.variant)}</dd><dt>Backup</dt><dd>${esc(r.backup)}</dd><dt>Second tube</dt><dd>${esc(r.second_tube || "None")}</dd><dt>Today</dt><dd>Peak UV ${r.today.peak_uv}: ${esc(r.today.tube)} at ${esc(r.today.times)}</dd></dl>
+    <div class="row"><button class="btn small" id="approvePlan" type="button">Approve and issue the card</button><button class="btn small ghost" id="editPlan" type="button">Edit in the Doctor view</button></div><div id="approvedSlot"></div></div>`;
+  $("#approvePlan").onclick = () => {
+    const url = planUrl(r.token), list = ls.get("sc-issued", []).filter((x) => x.code !== r.code);
+    list.unshift({ code: r.code, token: r.token, n: r.plan.n, need: r.plan.need, city: r.plan.city, at: Date.now() }); ls.set("sc-issued", list.slice(0, 30));
+    $("#approvedSlot").innerHTML = `<div class="row" style="align-items:center"><div class="qr" id="agentQr"></div><div class="view tight" style="gap:6px"><span class="pill ok">Approved by Dr Meera Iyer</span><a class="btn small" href="${esc(url)}">Open as the patient</a><span class="tiny muted">Scan the code with a phone to open the plan.</span></div></div>`;
+    qrInto($("#agentQr"), url, 150); $("#approvePlan").disabled = true; toast("Approved. The card is in the Doctor view too.");
+  };
+  $("#editPlan").onclick = () => { Object.assign(F, { n: r.plan.n, a: r.plan.a, need: r.plan.need, skin: r.plan.skin, city: r.plan.city, routine: r.plan.routine, sw: r.plan.sw }); $("#fName").value = F.n; $("#fAge").value = F.a; if ($("#fCity").options.length) $("#fCity").value = F.city; location.hash = "doctor"; };
+}
+function renderCompanionActions(actions) {
+  const a = actions[0], p = agentPatient();
+  $("#agentOut").innerHTML = `<div class="draft fade"><span class="eyebrow">Waiting for the patient</span><div class="row"><button class="btn small" id="confirmAct" type="button">${esc(a.label)}</button><span class="tiny muted">${a.proposal.is_backup ? "This is the doctor's backup, because the prescribed tube is out." : "This is the exact tube on the prescription."}</span></div></div>`;
+  $("#confirmAct").onclick = () => { const pin = String(Math.floor(1000 + Math.random() * 9000)); ls.set("sc-reserve-" + p.code, { store: a.proposal.store_id, sku: a.proposal.sku, pin, at: Date.now() }); $("#confirmAct").disabled = true; AG.chat.push({ who: "agent", text: `Done. ${a.proposal.tube} is held at ${a.proposal.store} for 24 hours. Show pickup code ${pin}.` }); renderChat(); toast(`Held. Pickup code ${pin}.`); };
+}
+function renderChat() {
+  const el = $("#chatLog"); if (!el) return;
+  el.innerHTML = AG.chat.length ? AG.chat.map((m) => `<div class="bubble ${m.who}">${esc(m.text)}</div>`).join("") : `<p class="small muted">Pick a question below or type your own.</p>`;
+  el.scrollTop = el.scrollHeight;
+}
+function renderAgentIn() {
+  const id = AG.agent, A = AGENTS[id], el = $("#agentIn");
+  const tools = AGENT_TOOLS[id].map((t) => `<span class="pill vi mono" title="${esc(TOOLS[t].description)}">${esc(t)}</span>`).join(" ");
+  const engineLine = A.llm ? (engine() === "claude" ? "This agent is using Claude to plan its tool calls." : "This agent is using the rules engine.") : "This agent stays on rules in both modes, because stock and messages need repeatable decisions.";
+  let input = "";
+  if (id === "copilot") input = `<label class="fld">Clinic note<textarea id="agentText" rows="3">${esc(AG.pending?.q || A.examples[0])}</textarea></label>
+      <div class="chips ex">${A.examples.map((e) => `<button type="button" class="chip-btn" data-ex="${esc(e)}">${esc(e)}</button>`).join("")}</div>
+      <div class="row"><button class="btn" id="runAgent" type="button">Draft the plan</button></div>`;
+  if (id === "companion") input = `<label class="fld">Talking as<select id="ptSel">${companionOptions().map((o, i) => `<option value="${i}" ${i === AG.patientIdx ? "selected" : ""}>${esc(o.label)}</option>`).join("")}</select></label>
+      <div class="chat" id="chatLog"></div>
+      <form class="row" id="chatForm"><input type="text" id="agentText" placeholder="Ask in your own words" aria-label="Message to the companion"><button class="btn" type="submit">Send</button></form>
+      <div class="chips ex">${A.examples.map((e) => `<button type="button" class="chip-btn" data-ex="${esc(e)}">${esc(e)}</button>`).join("")}</div>`;
+  if (id === "restock") input = `<label class="fld">City<select id="rsCity">${Object.values(CITIES).map((c) => `<option value="${c.id}" ${c.id === AG.restockCity ? "selected" : ""}>${esc(c.name)}</option>`).join("")}</select></label><div class="row"><button class="btn" id="runAgent" type="button">Plan this week's orders</button></div>`;
+  if (id === "orchestrator") input = `<p class="small">The run covers ten made-up patients in five cities, each with their own consent choices.</p><div class="row"><button class="btn" id="runAgent" type="button">Run the 6 am morning run</button></div>`;
+  el.innerHTML = `<div class="row between"><div><span class="eyebrow">${esc(A.who)}</span><h3>${esc(A.name)}</h3></div></div>
+    <p class="small">${esc(A.blurb)}</p>
+    <div class="small"><b>Tools it may call:</b> ${tools}</div>
+    <ul class="guards">${A.guards.map((g) => `<li>${esc(g)}</li>`).join("")}</ul>
+    <p class="tiny muted">${engineLine}</p>
+    ${input}`;
+  el.querySelectorAll("[data-ex]").forEach((b) => b.addEventListener("click", () => { $("#agentText").value = b.dataset.ex; if (id === "companion") sendChat(); else runAgent(b.dataset.ex); }));
+  const rb = $("#runAgent"); if (rb) rb.onclick = () => runAgent(id === "copilot" ? $("#agentText").value : "");
+  if (id === "restock") $("#rsCity").onchange = (e) => { AG.restockCity = e.target.value; };
+  if (id === "companion") {
+    $("#ptSel").onchange = (e) => { AG.patientIdx = +e.target.value; AG.chat = []; renderChat(); };
+    $("#chatForm").onsubmit = (e) => { e.preventDefault(); sendChat(); };
+    renderChat();
+  }
+}
+function sendChat() { const q = $("#agentText").value.trim(); if (!q || AG.running) return; AG.chat.push({ who: "me", text: q }); renderChat(); $("#agentText").value = ""; runAgent(q); }
+function renderBoards() {
+  const desk = ls.get("sc-desk", []), out = ls.get("sc-outbox", []), po = ls.get("sc-po", []);
+  const open = desk.filter((t) => t.status === "open");
+  $("#deskCount").textContent = `${open.length} open`;
+  $("#deskList").innerHTML = desk.length ? desk.slice(0, 5).map((t, i) => `<div class="ticket ${t.severity} ${t.status}"><div class="row between"><b>${esc(t.n)}</b><span class="pill ${t.status === "open" ? (t.severity === "urgent" ? "bad" : "warn") : "ok"}">${t.status === "open" ? cap1(t.severity) : "Resolved"}</span></div><span class="small">${esc(t.reason)}</span>${t.status === "open" ? `<button class="btn small ghost" data-resolve="${i}" type="button">Mark as called back</button>` : ""}</div>`).join("") : `<p class="small muted">No tickets. The Companion opens one when a patient reports a reaction or asks a clinical question.</p>`;
+  $("#deskList").querySelectorAll("[data-resolve]").forEach((b) => b.addEventListener("click", () => { const l = ls.get("sc-desk", []); l[+b.dataset.resolve].status = "resolved"; ls.set("sc-desk", l); renderBoards(); }));
+  $("#outCount").textContent = `${out.length} queued`;
+  $("#outList").innerHTML = out.length ? out.slice(0, 4).map((m) => `<div class="msg">${esc(m.text)}<small>To card ${esc(m.code)}, utility template, about ₹0.12</small></div>`).join("") + (out.length > 4 ? `<span class="tiny muted">And ${out.length - 4} more.</span>` : "") : `<p class="small muted">Empty. The Orchestrator fills it on the morning run, only for patients who opted in.</p>`;
+  $("#poCount").textContent = `${po.filter((x) => x.status !== "approved").length} waiting`;
+  $("#poList").innerHTML = po.length ? po.slice(0, 5).map((x, i) => `<div class="ticket ${x.status === "approved" ? "resolved" : ""}"><div class="row between"><b>${esc(x.storeName)}</b><span class="pill ${x.status === "approved" ? "ok" : "warn"}">${x.status === "approved" ? "Approved" : "Awaiting approval"}</span></div><span class="small">${x.lines.map((l) => `${l.order} ${esc(SKUS[l.sku].short)}`).join(", ")} · ${esc(CITIES[x.city].name)}</span>${x.status === "approved" ? "" : `<button class="btn small" data-po="${i}" type="button">Approve as the pharmacist</button>`}</div>`).join("") : `<p class="small muted">No drafts yet. Run the Restock agent or the morning run.</p>`;
+  $("#poList").querySelectorAll("[data-po]").forEach((b) => b.addEventListener("click", () => {
+    const l = ls.get("sc-po", []), x = l[+b.dataset.po]; const storeObj = (STORES[x.city] || storesFor(x.city)).find((s) => s.id === x.store);
+    if (storeObj) { const s = stockFor(storeObj); x.lines.forEach((ln) => { s[ln.sku] = (s[ln.sku] || 0) + ln.order; }); setStock(storeObj, s); }
+    x.status = "approved"; ls.set("sc-po", l); toast(`Order approved for ${x.storeName}. The shelf is updated.`); renderBoards();
+  }));
+}
+const cap1 = (s) => s.charAt(0).toUpperCase() + s.slice(1);
+let agentsInit = false;
+function renderAgents() {
+  if (!agentsInit) {
+    agentsInit = true;
+    const seg = $("#engineSeg"); seg.querySelector(`input[value="${engine()}"]`).checked = true;
+    const note = () => { const c = aiCfg(); $("#engineNote").textContent = engine() === "claude" ? (c.key || c.proxy ? `Claude: ${c.model}${c.proxy ? " through your proxy" : ""}.` : "Claude: add a key or a proxy in the settings below.") : "Rules engine: free, offline and repeatable."; };
+    seg.onchange = (e) => { ls.set("sc-engine", e.target.value); note(); renderAgentIn(); if (e.target.value === "claude" && !aiCfg().key && !aiCfg().proxy) $("#aiSettings").open = true; };
+    const c = aiCfg(); $("#aiModel").value = c.model; $("#aiProxy").value = c.proxy; $("#aiKey").value = c.key ? "••••••••" : "";
+    $("#aiSave").onclick = () => {
+      const k = $("#aiKey").value.trim();
+      try { if (k && !k.startsWith("•")) { sessionStorage.setItem("sc-ai-key", k); if ($("#aiRemember").checked) localStorage.setItem("sc-ai-key", k); else localStorage.removeItem("sc-ai-key"); } } catch (e) {}
+      ls.set("sc-ai-model", $("#aiModel").value); ls.set("sc-ai-proxy", $("#aiProxy").value.trim()); $("#aiKey").value = aiCfg().key ? "••••••••" : ""; note(); toast("Claude settings saved in this browser");
+    };
+    $("#aiClear").onclick = () => { try { sessionStorage.removeItem("sc-ai-key"); localStorage.removeItem("sc-ai-key"); } catch (e) {} $("#aiKey").value = ""; note(); toast("The key is forgotten"); };
+    note();
+  }
+  if (AG.pending) {
+    AG.agent = AG.pending.agent;
+    if (AG.pending.token) { const i = companionOptions().findIndex((o) => planCode(o.plan) === planCode(decodePlan(AG.pending.token) || {})); if (i >= 0) AG.patientIdx = i; }
+  }
+  $("#agentPick").innerHTML = Object.entries(AGENTS).map(([k, a]) => `<button type="button" class="apick ${k === AG.agent ? "on" : ""}" data-agent="${k}"><span class="ic">${a.icon}</span><span><b>${esc(a.name)}</b><span class="small">${esc(a.who)}</span></span></button>`).join("");
+  $("#agentPick").querySelectorAll("[data-agent]").forEach((b) => b.addEventListener("click", () => { AG.agent = b.dataset.agent; AG.pending = null; renderAgents(); }));
+  renderAgentIn(); renderBoards();
+  if (AG.pending) { const q = AG.pending.q; AG.pending = null; if (AG.agent === "companion" && q) { AG.chat.push({ who: "me", text: q }); renderChat(); runAgent(q); } }
+}
+
 /* ================= HOW ================= */
 let howDone = false;
 function renderHow() {
@@ -361,6 +531,7 @@ function renderHow() {
     ["Supply signal", "The 7-day UV load per city tells stockists where to move tubes before demand arrives.", true],
     ["Insight", "Anonymised events only: card scanned, tube dispensed, consent given, tube refilled.", false],
     ["Rep Copilot and doctor report", "Each doctor sees how many of her patients bought, applied and refilled, by variant.", false],
+    ["Agent Desk", "Four agents share these tools: the Copilot drafts plans, the Companion answers patients, the Restock agent drafts orders and the Orchestrator runs every morning.", true],
   ];
   $("#arch").innerHTML = nodes.map((n, i) => `<div class="node ${n[2] ? "key" : ""}"><span class="tiny mono">${String(i + 1).padStart(2, "0")}</span><b>${esc(n[0])}</b><span class="small">${esc(n[1])}</span></div>`).join("");
   const li = (arr) => arr.map((t) => `<li>${t}</li>`).join("");
@@ -370,6 +541,7 @@ function renderHow() {
     "The QR code works with any phone camera, and the scanner works in any modern mobile browser.",
     "Every rule is plain, testable code. The repository includes automated tests for the plan engine.",
     "It uses Sun's existing field force, stockists and partner pharmacies, so the operating change is small.",
+    "The agents work without any AI bill. Rules run every decision today, and a Claude key or a small proxy adds language understanding without changing the tools or the guardrails.",
   ]);
   $("#costTable").innerHTML = `<tr><th>Item</th><th>Cost</th></tr>` + [
     ["Rx card with QR code", "About ₹2 a card"],
@@ -399,6 +571,8 @@ function renderHow() {
     `KrupaShankar D.S.R. et al., <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4065278" target="_blank" rel="noopener">A multicentric clinico-epidemiological study of melasma in India</a>, Dermatology and Therapy, 2014.`,
     `Kohli M. et al., <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12439021/" target="_blank" rel="noopener">PRISM-ISF Delphi consensus on sunscreen use in Indians</a>, Journal of Cosmetic Dermatology, 2025.`,
     `Euromonitor International, Sun Care in India, May 2026. Source: © Euromonitor International.`,
+    `Statista Market Insights, Sun Protection in India, September 2026: offline channels hold 93.6% of 2026 revenue. Statista, number of WhatsApp users in India, 2025.`,
+    `Chambergo-Michilot D. et al., <a href="https://doi.org/10.1371/journal.pone.0233220" target="_blank" rel="noopener">Text message reminders for improving sun protection habits: a systematic review</a>, PLOS ONE, 2020. The evidence is mixed, so the pilot tests reminders against no reminders.`,
     `<a href="https://open-meteo.com/en/docs" target="_blank" rel="noopener">Open-Meteo forecast API</a>, hourly uv_index and relative_humidity_2m, CC BY 4.0.`,
     `<a href="https://hmpi.org/2026/07/09/from-infrastructure-to-impact-operationalizing-indias-ayushman-bharat-digital-mission/" target="_blank" rel="noopener">From infrastructure to impact: operationalizing India's Ayushman Bharat Digital Mission</a>, HMPI, July 2026.`,
   ]);
