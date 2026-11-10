@@ -1,6 +1,7 @@
 # ShieldCast: the prescription that reads the sky
 
 **Live site:** https://sabyapro123.github.io/photostable-shieldcast/
+**Watch the film:** https://sabyapro123.github.io/photostable-shieldcast/film.html (two minutes, with captions)
 **Try a patient plan:** open the site and choose *Open Ananya's plan*, or scan the QR code on any card issued in the Doctor view.
 
 ShieldCast turns a dermatologist's Photostable prescription into a daily, weather-aware protection plan. The QR code on the Rx card opens a page that reads the live UV forecast for the patient's city. It tells her which Photostable tube to use today, the exact times to apply and reapply, how many days her tube has left and which partner pharmacy has the refill. The same forecast tells Sun's supply team which cities to restock before a high-UV week.
