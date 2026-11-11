@@ -52,11 +52,9 @@
 
   <div class="grid2">
     <div class="panel">
-      <span class="eyebrow">Live patient survey</span>
-      <h2>Two minutes, sixteen tick boxes, no name or number</h2>
-      <p class="small">Real answers replace the modelled patient numbers as they arrive. The survey is anonymous and reports only totals.</p>
-      <div class="row"><a class="btn" target="_blank" rel="noopener" href="https://docs.google.com/forms/d/e/1FAIpQLSdTzWxVR_gYSt6cCenM-p6zF8hNUcJF6g28NC7v_BLpWuaAzw/viewform">Take the survey</a><span class="pill" id="liveN">Collecting responses</span></div>
-      <div id="liveOut"></div>
+      <span class="eyebrow">How the panel was built</span>
+      <h2>Four hundred simulated respondents, with every source shown</h2>
+      <p class="small">A published study sets each answer share where one exists, and a stated team assumption fills the rest. The respondents are simulated with a fixed seed, so anyone can rerun the model. Real interviews in the pilot replace every modelled number.</p>
     </div>
     <div class="panel">
       <span class="eyebrow">Modelled leak funnel</span>
@@ -147,11 +145,6 @@ fetch("survey/survey_model.json").then((r) => r.json()).then((m) => {
   $("#funnel").innerHTML = m.funnel.steps.map(([l, v]) => `<div style="width:${Math.max(34, v)}%"><span>${esc(l)}</span><b>${v}</b></div>`).join("");
   $("#funnelNote").textContent = `Modelled from the ${m.funnel.base_n} simulated patients who were given a named sunscreen. It is a planning picture, not a measurement.`;
 }).catch(() => { $("#qs").innerHTML = `<p class="small">The modelled panel could not be loaded.</p>`; });
-fetch("survey/live.json").then((r) => (r.ok ? r.json() : null)).then((live) => {
-  if (!live || !live.n) return;
-  $("#liveN").textContent = `${live.n} real responses by ${live.asOf}`; $("#liveN").className = "pill ok";
-  $("#liveOut").innerHTML = live.items.map((x) => `<div class="bar top"><span>${esc(x.label)}</span><i style="width:${Math.max(1, x.pct)}%"></i><b>${Math.round(x.pct)}%</b></div>`).join("") + `<p class="tiny muted">${esc(live.note)}</p>`;
-}).catch(() => {});
 </script>
 </body>
 </html>

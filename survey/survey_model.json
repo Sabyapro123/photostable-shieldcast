@@ -332,7 +332,7 @@
    "q": "Which one would help you most?",
    "n": 300,
    "basis": "assumed",
-   "note": "Team assumption, to be replaced by the live survey",
+   "note": "Team assumption, to be replaced by pilot interviews",
    "options": [
     {
      "label": "Exact reapply times for today's sun",

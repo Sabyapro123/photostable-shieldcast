@@ -24,7 +24,7 @@ PAT = [  # id, question, [(option, share)], basis, note; shares for the whole ba
  ("lasts", "How long does a 50 g tube last you?", [("Less than 1 month", .14), ("1 to 2 months", .38), ("3 months or more", .33), ("Not sure", .15)], H, "At the tested dose a 50 g tube lasts about 3 weeks, so longer means under-dosing"),
  ("qr", "Would you scan a QR code on your prescription for a daily plan?", [("Yes", .52), ("Maybe", .31), ("No", .17)], H, "Team assumption; QR payments are an everyday habit in Indian cities"),
  ("wa", "Would you accept WhatsApp reminders you can stop any time?", [("Yes", .41), ("Maybe", .30), ("No", .29)], H, "Team assumption; evidence on reminders is mixed (PLOS ONE 2020)"),
- ("help", "Which one would help you most?", [("Exact reapply times for today's sun", .29), ("A sunscreen matched to the season", .27), ("A reminder when my tube runs low", .18), ("Knowing which pharmacy has it", .14), ("None of these", .12)], H, "Team assumption, to be replaced by the live survey"),
+ ("help", "Which one would help you most?", [("Exact reapply times for today's sun", .29), ("A sunscreen matched to the season", .27), ("A reminder when my tube runs low", .18), ("Knowing which pharmacy has it", .14), ("None of these", .12)], H, "Team assumption, to be replaced by pilot interviews"),
 ]
 FREQ = {"Woman": [("Every day", .38), ("A few days a week", .19), ("Only when I expect strong sun", .21), ("Rarely", .11), ("Never", .11)],
         "Man":   [("Every day", .21), ("A few days a week", .15), ("Only when I expect strong sun", .23), ("Rarely", .18), ("Never", .23)]}
