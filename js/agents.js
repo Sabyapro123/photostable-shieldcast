@@ -65,7 +65,7 @@ export const TOOLS = {
     },
   },
   build_shield_plan: {
-    description: "Draft a Shield Plan from patient facts. It picks the Photostable variant, the backup and checks any weather rule against the Delphi-based rules. The doctor must approve it before a card is issued.",
+    description: "Draft a Shield Plan from patient facts. It picks the Photostable variant, the backup and checks any season rule against the Delphi-based rules. The doctor must approve it before a card is issued.",
     input_schema: { type: "object", properties: {
       name: { type: "string", description: "First name only" }, age: { type: "string" },
       need: { type: "string", enum: Object.keys(NEEDS), description: "mel melasma, acne acne or retinoids, pih tanning or post-acne marks, daily daily use with dry skin, drug sun-sensitising medicine, proc after laser or peel" },
@@ -84,13 +84,13 @@ export const TOOLS = {
         push(ctx, "sc-gaplog", { need: plan.need, city: plan.city });
         return { fit: false, guardrail: "No Photostable variant fits this need. Nothing is prescribed and the case is logged as a portfolio gap.", note: r.need.note };
       }
-      if (plan.need === "mel" && (plan.sw === "humid" || plan.sw === "dry")) { flags.push("A humid or dry-day rule would take a melasma patient off Pro+, so the rule was removed."); plan.sw = "none"; }
-      if (SWITCHES[plan.sw].sku && SWITCHES[plan.sw].sku === r.base) { flags.push("The weather rule pointed to the same variant as the base, so it was removed."); plan.sw = "none"; }
+      if (plan.need === "mel" && (plan.sw === "humid" || plan.sw === "dry")) { flags.push("A humid or dry season rule would take a melasma patient off Pro+, so the rule was removed."); plan.sw = "none"; }
+      if (SWITCHES[plan.sw].sku && SWITCHES[plan.sw].sku === r.base) { flags.push("The season rule pointed to the same variant as the base, so it was removed."); plan.sw = "none"; }
       r = resolvePlan(plan);
       const { days, live } = await ctx.forecast(plan.city);
       const d = days[0], tube = todaysTube(plan, d), sch = daySchedule(plan, d.hours);
       const switchDays = r.second ? days.slice(0, 7).filter((x) => todaysTube(plan, x).switched).length : 0;
-      return { fit: true, plan, code: planCode(plan), token: encodePlan(plan), variant: skuName(r.base), backup: skuName(r.backup), second_tube: r.second ? `${skuName(r.second)} when ${lower1(r.sw.when)}` : null, switch_days_this_week: switchDays, reapply_every_hours: r.need.reapplyH, dose: DOSE_TEXT, today: { live, peak_uv: Math.round(d.uvMax), tube: skuName(tube.sku), times: times(sch) }, guardrail_notes: flags, status: "Draft. The doctor must approve it before the card is issued." };
+      return { fit: true, plan, code: planCode(plan), token: encodePlan(plan), variant: skuName(r.base), backup: skuName(r.backup), second_tube: r.second ? `${skuName(r.second)} at a refill when ${lower1(r.sw.when)}` : null, course: `12 weeks, about ${Math.max(1, Math.ceil((12 * 7 * averageDailyGrams(plan, days.slice(0, 7))) / TUBE_G))} tubes`, switch_days_this_week: switchDays, reapply_every_hours: r.need.reapplyH, dose: DOSE_TEXT, today: { live, peak_uv: Math.round(d.uvMax), tube: skuName(tube.sku), times: times(sch) }, guardrail_notes: flags, status: "Draft. The doctor must approve it before the card is issued." };
     },
   },
   todays_protection: {
@@ -258,14 +258,14 @@ export async function runCopilot(ctx, note, onStep) {
   await T.add({ kind: "think", text: `I found: ${[found.name && "name " + found.name, found.age && "age " + found.age, "need " + NEEDS[found.need].label.toLowerCase(), "skin " + found.skin, "city " + CITIES[found.city].name, "routine " + ROUTINES[found.routine].label.toLowerCase()].filter(Boolean).join(", ")}.` });
   for (const a of assumed) await T.add({ kind: "guard", text: a });
   const fc = await T.tool(ctx, "copilot", "get_uv_forecast", { city: found.city });
-  // Pick a weather rule only when there is a clinical reason and this week's weather makes it matter.
-  let rule = "none", why = "No weather rule is needed, because one variant covers this week.";
+  // Pick a season rule only when there is a clinical reason and the weather makes it matter.
+  let rule = "none", why = "No season switch is needed, because one variant covers this spell.";
   const base = resolvePlan({ need: found.need, skin: found.skin, sw: "none", routine: found.routine }).base;
   const humidDays = fc.next_7_days.filter((d) => d.midday_humidity >= 75).length, dryDays = fc.next_7_days.filter((d) => d.midday_humidity < 40).length, peakDays = fc.next_7_days.filter((d) => d.peak_uv >= 8).length;
-  if (found.need === "mel") why = "Melasma stays on Pro+ every day for its visible-light cover, so no switch rule is added.";
-  else if (found.isotretinoin && base !== "emulgel") { rule = "dry"; why = `The patient is on isotretinoin, which dries the skin, so I added Emulgel for dry days. ${dryDays} of the next 7 days are dry in ${fc.city}.`; }
-  else if (found.routine === "field" && base !== "pro" && peakDays >= 2) { rule = "peak"; why = `Field work and ${peakDays} days with UV of 8 or more this week, so I added Pro+ for very high UV days.`; }
-  else if ((base === "emulgel" || base === "acne") && humidDays >= 3) { rule = "humid"; why = `${humidDays} of the next 7 days are humid in ${fc.city}, so I added the matte gel for humid days.`; }
+  if (found.need === "mel") why = "Melasma stays on Pro+ every day for its visible-light cover, so no season switch is added.";
+  else if (found.isotretinoin && base !== "emulgel") { rule = "dry"; why = `The patient is on isotretinoin, which dries the skin, so I allowed a season switch to Emulgel for dry spells. ${dryDays} of the next 7 days are dry in ${fc.city}.`; }
+  else if (found.routine === "field" && base !== "pro" && peakDays >= 2) { rule = "peak"; why = `Field work and ${peakDays} days with UV of 8 or more this week, so I allowed a season switch to Pro+ for very high UV spells.`; }
+  else if ((base === "emulgel" || base === "acne") && humidDays >= 3) { rule = "humid"; why = `${humidDays} of the next 7 days are humid in ${fc.city}, so I allowed a season switch to the matte gel for humid spells.`; }
   await T.add({ kind: "think", text: why });
   const out = await T.tool(ctx, "copilot", "build_shield_plan", { name: found.name || "Patient", age: found.age || "", need: found.need, skin: found.skin, city: found.city, routine: found.routine, weather_rule: rule });
   if (out.fit === false) {
@@ -337,7 +337,7 @@ export async function runCompanion(ctx, question, onStep) {
   } else if (intent === "feel") {
     const fb = await T.tool(ctx, "companion", "log_feedback_for_doctor", { feedback: q });
     const r = resolvePlan(p.plan);
-    answer = `Thank you, I have noted this for your doctor. ${fb.note} ${r.second ? `Your plan already switches to ${skuName(r.second)} when ${lower1(r.sw.when)}.` : "I cannot change the variant myself, because that is your doctor's decision."} Meanwhile, apply on clean, dry skin and let it settle for two minutes before makeup.`;
+    answer = `Thank you, I have noted this for your doctor. ${fb.note} ${r.second ? `Your plan already allows a season switch to ${skuName(r.second)} when ${lower1(r.sw.when)}.` : "I cannot change the variant myself, because that is your doctor's decision."} Meanwhile, apply on clean, dry skin and let it settle for two minutes before makeup.`;
   } else if (intent === "cloudy") {
     const dm = q.match(DAYWORD);
     const r = await T.tool(ctx, "companion", "todays_protection", { day: dm ? dm[1] : "today" });
@@ -409,7 +409,7 @@ export async function runOrchestrator(ctx, onStep) {
     variants[t.sku] = (variants[t.sku] || 0) + 1;
     const avg = averageDailyGrams(x.plan, fc[x.plan.city].slice(0, 7)), st = tubeStatus(x.opened, avg, ctx.today);
     let text = `Good morning ${x.plan.n}. Peak UV in ${CITIES[x.plan.city].name} today is ${Math.round(d.uvMax)}. Use ${SKUS[t.sku].short} at ${times(sch)}.`;
-    if (t.switched) text += " Your doctor's weather rule applies today.";
+    if (t.switched) text += " Your doctor's season rule applies this week.";
     if (st.daysLeft <= 7) { text += ` Your tube has about ${st.daysLeft} days left. Reply REFILL to hold one nearby.`; const r = resolvePlan(x.plan); (dueByCity[x.plan.city] = dueByCity[x.plan.city] || {})[r.base] = (dueByCity[x.plan.city][r.base] || 0) + 1; nudges.push(x.plan.n); }
     text += " Reply STOP to end reminders.";
     const out = await TOOLS.queue_whatsapp.run(ctx, { code: x.code, text, consent: x.consent });

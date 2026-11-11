@@ -1,7 +1,7 @@
 // Run with: node --test tests/
 import test from "node:test";
 import assert from "node:assert/strict";
-import { encodePlan, decodePlan, planCode, resolvePlan, todaysTube, daySchedule, tubeStatus, restockSignal, uvBand, icsFor } from "../js/plan.js";
+import { encodePlan, decodePlan, planCode, resolvePlan, todaysTube, daySchedule, tubeStatus, restockSignal, uvBand, icsFor, courseTubes, courseWeeks, protectedDays, sunDot } from "../js/plan.js";
 
 const plan = { v: 1, n: "Ananya", a: "29", need: "mel", skin: "combo", city: "pune", routine: "commute", sw: "none", doc: "Dr Meera Iyer", clinic: "Kothrud", d: "2026-11-08" };
 const day = (peak, rh = 60) => {
@@ -85,4 +85,44 @@ test("the calendar file has one event per application", () => {
   const ics = icsFor(plan, [day(10)], planCode(plan));
   const n = (ics.match(/BEGIN:VEVENT/g) || []).length;
   assert.equal(n, daySchedule(plan, day(10).hours).apps.length);
+});
+
+/* ---------- v2: Season Switch, Course Rx, Protected Days, SunDot ---------- */
+test("Season Switch reads the week's average, so one odd day does not flip the tube", () => {
+  const p = { ...plan, need: "acne", skin: "oily", sw: "dry" };
+  const humidDayInDryWeek = { ...day(9, 70), rhWeek: 30, uvWeek: 9 };
+  const dryDayInHumidWeek = { ...day(9, 30), rhWeek: 70, uvWeek: 9 };
+  assert.equal(todaysTube(p, humidDayInDryWeek).sku, "emulgel");
+  assert.equal(todaysTube(p, dryDayInHumidWeek).sku, "acne");
+});
+
+test("a melasma patient never leaves Pro+ whatever the season", () => {
+  const p = { ...plan, sw: "humid" };
+  assert.equal(todaysTube(p, { ...day(9, 90), rhWeek: 90, uvWeek: 9 }).sku, "pro");
+});
+
+test("Course Rx turns weeks and grams a day into tubes", () => {
+  assert.equal(courseTubes(12, 2.5), 5);
+  assert.equal(courseTubes(8, 1.25), 2);
+  assert.equal(courseWeeks({ c: 24 }), 24);
+  assert.equal(courseWeeks({}), 12);
+});
+
+test("the default course is left out of the link, so older cards keep their check code", () => {
+  assert.equal(planCode({ ...plan }), planCode({ ...plan, c: undefined }));
+  assert.notEqual(planCode({ ...plan }), planCode({ ...plan, c: 24 }));
+});
+
+test("a protected day needs every planned application ticked", () => {
+  const s = protectedDays([{ need: 2, done: 2 }, { need: 3, done: 2 }, { need: 1, done: 1 }, null]);
+  assert.equal(s.days, 3);
+  assert.equal(s.protectedDays, 2);
+  assert.equal(s.pct, 67);
+});
+
+test("SunDot turns violet once UV reaches 3", () => {
+  assert.equal(sunDot(0).key, "clear");
+  assert.equal(sunDot(2).key, "pale");
+  assert.equal(sunDot(3).key, "violet");
+  assert.equal(sunDot(8).key, "deep");
 });

@@ -3,7 +3,7 @@
 import { SKUS, NEEDS, SWITCHES, ROUTINES, TUBE_G, DOSE_G } from "./data.js";
 
 /* ---------- prescription link ---------- */
-const keyOrder = ["v", "n", "a", "need", "skin", "city", "routine", "sw", "doc", "clinic", "d"];
+const keyOrder = ["v", "n", "a", "need", "skin", "city", "routine", "sw", "doc", "clinic", "d", "c"];
 export function canonical(plan) {
   const o = {};
   keyOrder.forEach((k) => { if (plan[k] !== undefined && plan[k] !== "") o[k] = plan[k]; });
@@ -50,7 +50,8 @@ export function resolvePlan(plan) {
   if (base && plan.skin === "oily" && base === "emulgel") { base = "gold"; backup = "emulgel"; }
   if (base && plan.skin === "dry" && base === "gold") { base = "emulgel"; backup = "gold"; }
   const sw = SWITCHES[plan.sw] || SWITCHES.none;
-  const second = sw.sku && sw.sku !== base ? sw.sku : null;
+  // Melasma stays on Pro+ all year for its visible-light cover, so the engine itself refuses a season switch.
+  const second = sw.sku && sw.sku !== base && plan.need !== "mel" ? sw.sku : null;
   return { need, base, backup, sw: second ? sw : SWITCHES.none, second, routine: ROUTINES[plan.routine] || ROUTINES.commute };
 }
 
@@ -69,12 +70,33 @@ export function todaysTube(plan, day) {
   const r = resolvePlan(plan);
   if (!r.base) return { sku: null, reason: "There is no Photostable fit for this need, so follow your doctor's instructions." };
   if (r.second) {
-    const sw = r.sw;
-    if (sw.id === "humid" && day.rhMidday >= 75) return { sku: r.second, switched: true, reason: `Humidity is about ${Math.round(day.rhMidday)}% at midday, so your doctor's rule says use the matte gel today.` };
-    if (sw.id === "dry" && day.rhMidday < 40) return { sku: r.second, switched: true, reason: `The air is dry today (about ${Math.round(day.rhMidday)}% humidity), so your doctor's rule says use Emulgel.` };
-    if (sw.id === "peak" && day.uvMax >= 8) return { sku: r.second, switched: true, reason: `Peak UV is ${day.uvMax.toFixed(0)} today, so your doctor's rule says use Pro+.` };
+    // Season Switch looks at the week's average when the forecast provides it, so the tube stays the same all week.
+    const sw = r.sw, rh = day.rhWeek ?? day.rhMidday, uv = day.uvWeek ?? day.uvMax;
+    if (sw.id === "humid" && rh >= 75) return { sku: r.second, switched: true, reason: `This is a humid spell (about ${Math.round(rh)}% humidity at midday), so your doctor's season rule moves you to the matte gel.` };
+    if (sw.id === "dry" && rh < 40) return { sku: r.second, switched: true, reason: `This is a dry spell (about ${Math.round(rh)}% humidity at midday), so your doctor's season rule moves you to Emulgel.` };
+    if (sw.id === "peak" && uv >= 8) return { sku: r.second, switched: true, reason: `Peak UV is averaging ${uv.toFixed(0)} this week, so your doctor's season rule moves you to Pro+.` };
   }
   return { sku: r.base, switched: false, reason: "This is the variant your doctor prescribed." };
+}
+
+/* ---------- Course Rx: how many tubes the course needs ---------- */
+export function courseWeeks(plan) { const w = Number(plan.c); return w === 8 || w === 24 ? w : 12; }
+export function courseTubes(weeks, gramsPerDay) { return Math.max(1, Math.ceil((weeks * 7 * gramsPerDay) / TUBE_G)); }
+
+/* ---------- Protected Days: the one number the doctor sees ---------- */
+// log is a list of { need, done } for recent days. A day is protected when every planned application was ticked.
+export function protectedDays(log) {
+  const days = log.filter((d) => d && d.need > 0);
+  const ok = days.filter((d) => d.done >= d.need).length;
+  return { days: days.length, protectedDays: ok, pct: days.length ? Math.round((100 * ok) / days.length) : 0 };
+}
+
+/* ---------- SunDot: the colour a UV-reactive cap dot would show ---------- */
+export function sunDot(uvNow) {
+  if (uvNow < 1) return { key: "clear", label: "clear", text: "The sun is down or very weak, so the dot stays clear." };
+  if (uvNow < 3) return { key: "pale", label: "pale lilac", text: "UV is low, so the dot is only pale lilac." };
+  if (uvNow < 6) return { key: "violet", label: "violet", text: "UV is 3 or more, so the dot turns violet. Sunscreen should be on." };
+  return { key: "deep", label: "deep violet", text: "UV is high, so the dot is deep violet. Reapply if you are outdoors." };
 }
 
 /* ---------- the day's schedule ---------- */

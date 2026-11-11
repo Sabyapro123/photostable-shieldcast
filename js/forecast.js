@@ -14,12 +14,19 @@ function shape(json) {
     const d = iso.slice(0, 10), h = Number(iso.slice(11, 13));
     (days[d] = days[d] || []).push({ h, uv: H.uv_index[i] ?? 0, rh: H.relative_humidity_2m[i] ?? 60, t: H.temperature_2m[i] ?? 28 });
   });
-  return Object.keys(days).sort().map((date, i) => {
+  return withWeek(Object.keys(days).sort().map((date, i) => {
     const hours = days[date];
     const mid = hours.find((x) => x.h === 13) || hours[Math.floor(hours.length / 2)];
     const uvMax = json.daily && json.daily.uv_index_max ? (json.daily.uv_index_max[i] ?? Math.max(...hours.map((x) => x.uv))) : Math.max(...hours.map((x) => x.uv));
     return { date, hours, uvMax, rhMidday: mid.rh, tMax: Math.max(...hours.map((x) => x.t)) };
-  });
+  }));
+}
+
+// Season Switch reads the week as a whole. Every day carries the week's average midday humidity and peak UV.
+export function withWeek(days) {
+  const n = days.length || 1;
+  const rhWeek = days.reduce((s, d) => s + d.rhMidday, 0) / n, uvWeek = days.reduce((s, d) => s + d.uvMax, 0) / n;
+  return days.map((d) => ({ ...d, rhWeek, uvWeek }));
 }
 
 // A clearly labelled stand-in, used only when the live forecast cannot be reached.
@@ -38,7 +45,7 @@ export function sampleForecast(city, startISO) {
     }
     out.push({ date, hours, uvMax: Math.max(...hours.map((x) => x.uv)), rhMidday: hours[13].rh, tMax: Math.max(...hours.map((x) => x.t)) });
   }
-  return out;
+  return withWeek(out);
 }
 
 export async function cityForecast(cityId) {

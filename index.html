@@ -31,6 +31,7 @@
       <a href="#supply" data-v="supply">Supply</a>
       <a href="#agents" data-v="agents" class="tab-ai">Agents</a>
       <a href="#how" data-v="how">How it works</a>
+      <a href="research.html">Research</a>
     </nav>
   </div>
 </header>
@@ -63,6 +64,15 @@
     <ol class="loop" id="loop"></ol>
   </div>
 
+  <div class="panel">
+    <div class="row between"><h2>Right tube, right time, right through the year</h2><a class="small" href="research.html">See the research behind it</a></div>
+    <div class="grid3 feat">
+      <div><span class="eyebrow">Course Rx</span><b>A dose and a course, like any other prescription</b><p class="small">The doctor writes 12 weeks, and the plan turns that into a number of tubes. The patient knows on day one that one tube is not the whole treatment.</p></div>
+      <div><span class="eyebrow">Season Switch</span><b>The texture changes with the weather, at the refill</b><p class="small">Gold for humid spells and Emulgel for dry ones, only if the doctor allows it. One patient uses two Photostable variants across the year and never holds two tubes in a day.</p></div>
+      <div><span class="eyebrow">SunDot</span><b>A cap that shows when UV is up</b><p class="small">A UV-reactive dot on the cap turns violet when the UV index passes 3. It works without a phone. In a field trial, UV stickers lifted reapplication from 68% to 80% (Hacker et al., 2019).</p><div class="row"><span class="dot dot-clear"></span><span class="dot dot-pale"></span><span class="dot dot-violet"></span><span class="dot dot-deep"></span><span class="tiny muted">from indoors to midday sun</span></div></div>
+    </div>
+  </div>
+
   <a class="panel agent-strip" href="#agents">
     <span class="eyebrow">Agent Desk</span>
     <b>Four agents keep the loop running, and a person approves every step that matters.</b>
@@ -78,7 +88,7 @@
 
 <!-- ================= DOCTOR ================= -->
 <section class="view" id="v-doctor" hidden>
-  <div class="persona"><div class="avatar">MI</div><div><span class="eyebrow">Dr Meera Iyer · dermatologist · Kothrud, Pune</span><h2>Write a Shield Plan in under a minute</h2><p class="muted">Pick the need, the skin type, the patient's city and routine, and an optional second tube with a weather rule. The plan and the QR card are ready at once.</p><p class="small"><a href="#agents" id="toCopilot">Or type a one-line note and let the Prescribing Copilot draft it.</a></p></div></div>
+  <div class="persona"><div class="avatar">MI</div><div><span class="eyebrow">Dr Meera Iyer · dermatologist · Kothrud, Pune</span><h2>Write a Shield Plan in under a minute</h2><p class="muted">Pick the need, the skin type, the patient's city and routine, the course length and an optional season switch. The plan and the QR card are ready at once.</p><p class="small"><a href="#agents" id="toCopilot">Or type a one-line note and let the Prescribing Copilot draft it.</a></p></div></div>
   <div class="doc-grid">
     <form class="panel" id="planForm" autocomplete="off">
       <fieldset><legend>Patient</legend>
@@ -88,13 +98,14 @@
       <fieldset><legend>Main reason for sunscreen</legend><div class="chips" id="cNeed"></div></fieldset>
       <fieldset><legend>Skin type</legend><div class="chips" id="cSkin"></div></fieldset>
       <fieldset><legend>Daily routine</legend><div class="chips" id="cRoutine"></div></fieldset>
-      <fieldset><legend>Second tube with a weather rule</legend><div class="chips" id="cSwitch"></div><p class="tiny muted" id="swNote"></p></fieldset>
+      <fieldset><legend>Course length</legend><div class="chips" id="cCourse"></div><p class="tiny muted">The card tells the patient how many tubes the course takes, so the refill is planned on day one.</p></fieldset>
+      <fieldset><legend>Season switch at refill</legend><div class="chips" id="cSwitch"></div><p class="tiny muted" id="swNote"></p></fieldset>
     </form>
     <div class="view tight">
       <div class="panel" id="planPreview"></div>
       <div class="panel">
         <div class="row between"><div><span class="eyebrow">Rx card</span><h3>Print it, or send the link</h3></div><button class="btn" id="issueBtn" type="button">Issue the card</button></div>
-        <div id="cardSlot"><p class="small muted">The card carries one exact variant, the backup, the dose and a QR code. Scanning it opens the patient's plan on any phone.</p></div>
+        <div id="cardSlot"><p class="small muted">The card carries one exact variant, the backup, the dose, the course and a QR code. Scanning it opens the patient's plan on any phone. Clinics on e-prescription software can paste the same link into the advice box.</p></div>
       </div>
     </div>
   </div>
@@ -229,7 +240,7 @@
 </main>
 <footer class="foot"><div class="wrap">
   <span>UV, humidity and temperature data: <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> (CC BY 4.0). UV bands follow the WHO Global Solar UV Index.</span>
-  <span>Product facts are from November 2026 Indian pharmacy listings. Stores and stock are examples. Code on <a href="https://github.com/Sabyapro123/photostable-shieldcast" target="_blank" rel="noopener">GitHub</a>.</span>
+  <span>Product facts are from November 2026 Indian pharmacy listings. Stores and stock are examples. Our <a href="research.html">research page</a> shows the modelled survey and the live survey. Code on <a href="https://github.com/Sabyapro123/photostable-shieldcast" target="_blank" rel="noopener">GitHub</a>.</span>
 </div></footer>
 <div class="toast" id="toast" role="status" hidden></div>
 </body>

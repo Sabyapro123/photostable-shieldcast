@@ -11,17 +11,20 @@ The prototype on GitHub Pages proves the whole patient journey with no backend a
 | Forecast | `js/forecast.js` | Reads hourly UV, humidity and temperature from Open-Meteo, caches it for 30 minutes and falls back to a labelled sample. |
 | Interface | `index.html`, `js/app.js`, `css/style.css` | Six views: Home, Doctor, Patient, Pharmacy, Supply and How it works. |
 | Agents | `js/agents.js` | Tools with JSON schemas, the four agents, the guardrails and the optional Claude tool-use loop. |
-| Tests | `tests/plan.test.mjs`, `tests/agents.test.mjs` | 24 tests of the clinical, supply and agent rules, run on every push by GitHub Actions. |
+| Tests | `tests/plan.test.mjs`, `tests/agents.test.mjs` | 30 tests of the clinical, supply and agent rules, run on every push by GitHub Actions. |
 | Claude proxy | `worker/proxy.js` | A Cloudflare Worker that holds the API key, limits origins, models, tokens and tools. |
 
 ## 2. The rules
 
 - **Variant choice.** Each need has a first-choice variant and a backup. Oily skin moves Emulgel to Gold, and dry skin moves Gold to Emulgel.
-- **Weather rule.** The doctor may add a second tube with one rule:
-  - Gold on humid days, when midday humidity is 75% or more.
-  - Emulgel on dry days, when midday humidity is below 40%.
-  - Pro+ on very high UV days, when peak UV is 8 or more.
-  Melasma always stays on Pro+.
+- **Season Switch.** The doctor may allow one texture change. The engine reads the week's average, so the tube never flips from day to day, and the change is offered at a refill:
+  - Gold in humid spells, when the week's midday humidity averages 75% or more.
+  - Emulgel in dry spells, when it averages below 40%.
+  - Pro+ in very high UV spells, when the week's peak UV averages 8 or more.
+  Melasma always stays on Pro+, and the engine itself refuses a switch for it.
+- **Course Rx.** The plan carries a course of 8, 12 or 24 weeks (12 by default). Tubes needed are the course days times the forecast grams a day, divided by 50 g.
+- **Protected Days.** A day counts as protected when every planned application was ticked. With consent, the clinic sees only this count.
+- **SunDot.** `sunDot(uv)` returns the colour a UV-reactive cap dot would show. It is a pack concept for a pilot test, not a built product.
 - **Schedule.**
   - Protection is needed while the hourly UV index is 3 or more (WHO).
   - The first application is 15 minutes before the first outdoor window that falls inside those hours.

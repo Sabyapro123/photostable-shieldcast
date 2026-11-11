@@ -260,3 +260,11 @@ textarea{font:inherit;font-size:.95rem;color:var(--ink);background:var(--surface
 .agent-strip{text-decoration:none;color:var(--ink);border-color:var(--violet);background:var(--violet-soft);gap:6px}
 .agent-strip b{font-family:var(--f-display);font-size:1.25rem}
 .agent-strip:hover{box-shadow:0 0 0 2px color-mix(in srgb,var(--violet) 35%,transparent)}
+
+/* ---- v2: Course Rx, Season Switch, SunDot, Protected Days ---- */
+.feat > div { display: flex; flex-direction: column; gap: 6px; }
+.feat b { font-family: var(--f-display); font-size: 1.08rem; line-height: 1.25; }
+.sundot { display: flex; gap: 10px; align-items: center; padding: 10px 12px; border-radius: 12px; background: var(--sunk); }
+.dot { flex: 0 0 auto; width: 22px; height: 22px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 0 1px rgba(31,26,58,.25); transition: background .6s ease; }
+.dot-clear { background: #F4F1F8; } .dot-pale { background: #D8CCF0; } .dot-violet { background: #8E6BD1; } .dot-deep { background: #5B2A9E; }
+.pdbox { padding: 10px 12px; border-radius: 12px; background: #E6F2EE; font-size: .9rem; }

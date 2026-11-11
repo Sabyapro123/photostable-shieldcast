@@ -4,9 +4,9 @@
 export const SKUS = {
   gold:    { id: "gold",    name: "Photostable Gold",    short: "Gold",    mrp: 1039, label: "SPF 55, PA+++",   texture: "Matte gel",  img: "assets/tube_gold.png",
              role: "Oily or combination skin, tanning and post-acne marks, long outdoor days." },
-  acne:    { id: "acne",    name: "Photostable Acne",    short: "Acne",    mrp: 971,  label: "Gel for acne-prone skin", texture: "Light oil-free gel", img: "assets/tube_acne.png",
+  acne:    { id: "acne",    name: "Photostable Acne",    short: "Acne",    mrp: 971,  label: "SPF 55+",         texture: "Light oil-free gel", img: "assets/tube_acne.png",
              role: "Acne-prone skin and patients on retinoids or isotretinoin." },
-  emulgel: { id: "emulgel", name: "Photostable Emulgel", short: "Emulgel", mrp: 971,  label: "Emulgel",          texture: "Light emulgel", img: "assets/tube_emulgel.png",
+  emulgel: { id: "emulgel", name: "Photostable Emulgel", short: "Emulgel", mrp: 971,  label: "SPF 55+, PA++++", texture: "Light emulgel", img: "assets/tube_emulgel.png",
              role: "Normal to dry skin and daily use on indoor or cool, dry days." },
   pro:     { id: "pro",     name: "Photostable Pro+",    short: "Pro+",    mrp: 974,  label: "SPF 80+, PA++++", texture: "Hydragel", img: "assets/tube_proplus.png",
              role: "Melasma and pigmentation made worse by visible light. It claims UV, visible light and infrared cover." },
@@ -23,13 +23,33 @@ export const NEEDS = {
   proc: { id: "proc", label: "After a laser or peel",       base: null,      backup: null,      reapplyH: 2, note: "The Delphi panel advises a mineral sunscreen after procedures. Photostable has no mineral variant, so ShieldCast logs this as a portfolio gap." },
 };
 
-// The doctor may add a second tube with a weather rule. This is the clinical reason for writing two variants.
+// Season Switch. The doctor may allow one texture change for a weather spell. The plan reads the coming
+// week as a whole, so the tube never flips from day to day, and the change happens at a refill.
+// This is the clinical reason for a patient to use two Photostable variants across the year.
 export const SWITCHES = {
-  none:  { id: "none",  label: "No second tube" },
-  humid: { id: "humid", label: "Humid days: switch to a matte gel", when: "Relative humidity at midday is 75% or more", sku: "gold" },
-  dry:   { id: "dry",   label: "Dry or cool days: switch to Emulgel", when: "Relative humidity at midday is below 40%", sku: "emulgel" },
-  peak:  { id: "peak",  label: "Very high UV days: switch to Pro+", when: "Peak UV index is 8 or more", sku: "pro" },
+  none:  { id: "none",  label: "No season switch" },
+  humid: { id: "humid", label: "Humid spells: move to the matte gel", when: "The week's midday humidity averages 75% or more", sku: "gold" },
+  dry:   { id: "dry",   label: "Dry or cool spells: move to Emulgel", when: "The week's midday humidity averages below 40%", sku: "emulgel" },
+  peak:  { id: "peak",  label: "Very high UV spells: move to Pro+", when: "The week's peak UV averages 8 or more", sku: "pro" },
 };
+
+// Course Rx. The doctor writes how long the course runs, and the plan works out how many tubes that takes.
+export const COURSES = [{ id: "8", label: "8 weeks" }, { id: "12", label: "12 weeks" }, { id: "24", label: "24 weeks" }];
+export const COURSE_DEFAULT = 12;
+
+// One reason to believe for each variant. Only label facts and listed ingredients are used.
+export const PROOF = {
+  pro: "Its listed filters include bemotrizinol, which the US FDA cleared in 2026, and it claims UV, visible light and infrared cover.",
+  gold: "A matte gel at SPF 55 and PA+++ for skin that shines or sweats.",
+  acne: "An oil-free gel at SPF 55+ made for acne-prone skin.",
+  emulgel: "A light emulgel at SPF 55+ and PA++++ that does not dry the skin.",
+};
+
+// Search links that open the exact variant on large Indian e-pharmacies. They are plain search links, not affiliate links.
+export function buyLinks(skuName) {
+  const q = encodeURIComponent(skuName);
+  return [["Tata 1mg", "https://www.1mg.com/search/all?name=" + q], ["Apollo 24|7", "https://www.apollopharmacy.in/search-medicines/" + q], ["PharmEasy", "https://pharmeasy.in/search/all?name=" + q]];
+}
 
 // Where the patient is outdoors. Hours are local decimal hours.
 export const ROUTINES = {

@@ -1,0 +1,41 @@
+id,factor,exact,two,block,buy,reapply,switch,feedback,proof,emr
+D001,Broad-spectrum protection and SPF,Usually,Rarely,Cost to the patient,Not confident,Not confident,No,Maybe,A peer-reviewed study,On e-prescription software
+D002,Fit with skin type and condition,Always,Never,The variants look alike,Not confident,Not confident,Yes,No,A peer-reviewed study,Both
+D003,"Feel on skin, so the patient uses it",Sometimes,Sometimes,No clear clinical reason,Very,Somewhat,Yes,Yes,A consensus guideline,Both
+D004,"Feel on skin, so the patient uses it",Sometimes,Rarely,No clear clinical reason,Not confident,Somewhat,Maybe,Yes,In vivo SPF data on Indian skin,On e-prescription software
+D005,"Feel on skin, so the patient uses it",Rarely,Sometimes,Cost to the patient,Somewhat,Not confident,Maybe,Yes,In vivo SPF data on Indian skin,On paper
+D006,"Feel on skin, so the patient uses it",Always,Rarely,The variants look alike,Not confident,Not confident,Maybe,Yes,A peer-reviewed study,On e-prescription software
+D007,Cost to the patient,Always,Rarely,No clear clinical reason,Somewhat,Not confident,Yes,Maybe,Visible-light protection data,On paper
+D008,Fit with skin type and condition,Usually,Sometimes,Doubt about stock,Somewhat,Not confident,Maybe,Yes,In vivo SPF data on Indian skin,Both
+D009,Broad-spectrum protection and SPF,Sometimes,Never,The variants look alike,Somewhat,Not confident,Yes,Yes,In vivo SPF data on Indian skin,On paper
+D010,Broad-spectrum protection and SPF,Always,Sometimes,No clear clinical reason,Somewhat,Not confident,Maybe,Yes,A peer-reviewed study,Both
+D011,Published evidence,Always,Rarely,The variants look alike,Very,Not confident,Yes,Yes,In vivo SPF data on Indian skin,Both
+D012,"Feel on skin, so the patient uses it",Sometimes,Rarely,Cost to the patient,Somewhat,Not confident,No,Maybe,A consensus guideline,On paper
+D013,Broad-spectrum protection and SPF,Sometimes,Rarely,Cost to the patient,Somewhat,Not confident,Maybe,No,A peer-reviewed study,On e-prescription software
+D014,Fit with skin type and condition,Sometimes,Rarely,Doubt about stock,Not confident,Not confident,Yes,Yes,Visible-light protection data,On e-prescription software
+D015,Broad-spectrum protection and SPF,Usually,Never,Doubt about stock,Somewhat,Not confident,No,Maybe,Samples,On e-prescription software
+D016,Fit with skin type and condition,Usually,Sometimes,No clear clinical reason,Somewhat,Not confident,Yes,Yes,A peer-reviewed study,On paper
+D017,Broad-spectrum protection and SPF,Always,Never,Cost to the patient,Not confident,Somewhat,Yes,Yes,A consensus guideline,Both
+D018,Broad-spectrum protection and SPF,Usually,Never,The variants look alike,Somewhat,Not confident,Yes,No,A consensus guideline,On paper
+D019,"Feel on skin, so the patient uses it",Usually,Never,No clear clinical reason,Somewhat,Not confident,Yes,Yes,In vivo SPF data on Indian skin,On paper
+D020,Broad-spectrum protection and SPF,Always,Rarely,No clear clinical reason,Somewhat,Not confident,Maybe,Yes,In vivo SPF data on Indian skin,On paper
+D021,Fit with skin type and condition,Always,Rarely,Doubt about stock,Somewhat,Not confident,Maybe,Yes,A peer-reviewed study,On e-prescription software
+D022,Broad-spectrum protection and SPF,Usually,Often,No clear clinical reason,Not confident,Somewhat,No,Yes,Visible-light protection data,On e-prescription software
+D023,Broad-spectrum protection and SPF,Sometimes,Never,No clear clinical reason,Very,Not confident,No,Yes,Visible-light protection data,On paper
+D024,Broad-spectrum protection and SPF,Rarely,Rarely,No clear clinical reason,Not confident,Not confident,No,Maybe,In vivo SPF data on Indian skin,On paper
+D025,Published evidence,Usually,Rarely,The variants look alike,Not confident,Somewhat,No,Yes,Visible-light protection data,On paper
+D026,Published evidence,Usually,Rarely,No clear clinical reason,Somewhat,Not confident,Yes,No,A peer-reviewed study,On paper
+D027,Broad-spectrum protection and SPF,Always,Rarely,No clear clinical reason,Not confident,Not confident,Maybe,No,A peer-reviewed study,On paper
+D028,Fit with skin type and condition,Always,Rarely,No clear clinical reason,Somewhat,Somewhat,Yes,Maybe,Visible-light protection data,On e-prescription software
+D029,Broad-spectrum protection and SPF,Usually,Rarely,No clear clinical reason,Very,Not confident,Yes,No,A peer-reviewed study,On paper
+D030,Cost to the patient,Usually,Sometimes,Cost to the patient,Somewhat,Not confident,Yes,Yes,A consensus guideline,Both
+D031,Broad-spectrum protection and SPF,Always,Sometimes,No clear clinical reason,Somewhat,Somewhat,Maybe,Yes,In vivo SPF data on Indian skin,On e-prescription software
+D032,Cost to the patient,Usually,Often,Cost to the patient,Somewhat,Not confident,Maybe,Yes,In vivo SPF data on Indian skin,Both
+D033,"Feel on skin, so the patient uses it",Sometimes,Never,No clear clinical reason,Somewhat,Somewhat,Maybe,Yes,A peer-reviewed study,On paper
+D034,"Feel on skin, so the patient uses it",Sometimes,Rarely,The variants look alike,Somewhat,Not confident,Yes,Maybe,Visible-light protection data,Both
+D035,"Feel on skin, so the patient uses it",Sometimes,Never,The variants look alike,Not confident,Not confident,Yes,Yes,In vivo SPF data on Indian skin,On paper
+D036,"Feel on skin, so the patient uses it",Always,Never,Cost to the patient,Not confident,Not confident,Maybe,Yes,In vivo SPF data on Indian skin,On e-prescription software
+D037,"Feel on skin, so the patient uses it",Sometimes,Rarely,Cost to the patient,Somewhat,Not confident,Yes,No,In vivo SPF data on Indian skin,On e-prescription software
+D038,Broad-spectrum protection and SPF,Sometimes,Rarely,No clear clinical reason,Somewhat,Somewhat,Yes,Yes,Visible-light protection data,On paper
+D039,Fit with skin type and condition,Always,Never,Patients will not buy two,Not confident,Not confident,Maybe,Maybe,A consensus guideline,On e-prescription software
+D040,Fit with skin type and condition,Always,Rarely,No clear clinical reason,Somewhat,Very,Maybe,Maybe,A consensus guideline,On paper

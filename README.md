@@ -2,6 +2,7 @@
 
 **Live site:** https://sabyapro123.github.io/photostable-shieldcast/
 **Watch the film:** https://sabyapro123.github.io/photostable-shieldcast/film.html (two minutes, with captions)
+**See the research:** https://sabyapro123.github.io/photostable-shieldcast/research.html (modelled survey, live patient survey, competitor map)
 **Try a patient plan:** open the site and choose *Open Ananya's plan*, or scan the QR code on any card issued in the Doctor view.
 
 ShieldCast turns a dermatologist's Photostable prescription into a daily, weather-aware protection plan. The QR code on the Rx card opens a page that reads the live UV forecast for the patient's city. It tells her which Photostable tube to use today, the exact times to apply and reapply, how many days her tube has left and which partner pharmacy has the refill. The same forecast tells Sun's supply team which cities to restock before a high-UV week.
@@ -10,11 +11,22 @@ There is no app to install, no login and no patient data on a server, because th
 
 > Concept prototype by team **ChampsGrid** (Prerana Sahu, Sabyasachi Samal and Bhupender Pratap Singh), IIM Mumbai, for **Sun PRISM Season 2**. It is not a Sun Pharma service and gives no medical advice.
 
+## What is new in version 2
+
+The idea is now "right tube, right time, right through the year."
+
+- **Course Rx.** The doctor writes a course of 8, 12 or 24 weeks, and the plan turns it into a number of tubes.
+- **Season Switch.** The texture can change when the weather spell changes, at a refill and only if the doctor allows it. Melasma always stays on Pro+.
+- **Protected Days.** One number, shared only with consent, tells the clinic how many days the patient followed the plan.
+- **SunDot.** A UV-reactive dot on the cap is shown as a pack concept for a pilot test.
+- **E-prescription line.** One button copies the plan for the clinic's e-prescription software.
+- **Research page.** A modelled survey of patients, pharmacists and dermatologists, kept clearly apart from the live patient survey.
+
 ## Why this idea
 
 | Problem we found | What ShieldCast does | Evidence |
 | --- | --- | --- |
-| Doctors default to one variant because the roles overlap. | The Shield Map gives each variant one job, a backup and an optional weather rule for a second tube. | PRISM-ISF Delphi consensus, J Cosmet Dermatol, 2025 |
+| Doctors default to one variant because the roles overlap, and three of the four labels carry the same SPF 55. | The Shield Map gives each variant one job and a backup. Course Rx adds a course length, and Season Switch lets the texture change at a refill when the weather spell changes. | PRISM-ISF Delphi consensus, J Cosmet Dermatol, 2025 |
 | Patients do not know when to reapply, so they stop. | The plan reads the hourly UV forecast and gives exact times, only when UV is 3 or more and the patient is outdoors. | WHO UV index guidance |
 | Reminders with local weather work. | Calendar reminders now, and consented WhatsApp messages in the pilot, both built from the forecast. | Daily use rose from 30% to 56% in a randomised trial of weather-plus-reminder texts (Armstrong et al., Arch Dermatol, 2009) |
 | Melasma relapses without visible-light protection. | Pro+ stays on every day for melasma, with a midday top-up. | Visible-light protection improved MASI by 15% more than UV-only (Castanedo-Cazares et al., 2014) |

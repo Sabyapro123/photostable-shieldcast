@@ -1,0 +1,893 @@
+{
+ "meta": {
+  "label": "Modelled panel, not fieldwork",
+  "seed": 20261111,
+  "date": "2026-11-11",
+  "method": "Simulated respondents. Each answer share is set from a published study (anchored) or a stated team assumption (assumed), then sampled so the panel behaves like a real sample of that size.",
+  "sizes": {
+   "patients": 300,
+   "pharmacists": 60,
+   "dermatologists": 40
+  },
+  "daily_woman": 45.4,
+  "daily_man": 26.4
+ },
+ "patients": [
+  {
+   "id": "freq",
+   "q": "How often do you use sunscreen?",
+   "n": 300,
+   "basis": "anchored",
+   "note": "Statista and ProdegeMR 2019: 33% daily; Mintel 2019: 65% non-users nationally; metro adults aged 18 to 45 set higher on use",
+   "options": [
+    {
+     "label": "Every day",
+     "count": 106,
+     "pct": 35.3
+    },
+    {
+     "label": "A few days a week",
+     "count": 55,
+     "pct": 18.3
+    },
+    {
+     "label": "Only when I expect strong sun",
+     "count": 49,
+     "pct": 16.3
+    },
+    {
+     "label": "Rarely",
+     "count": 47,
+     "pct": 15.7
+    },
+    {
+     "label": "Never",
+     "count": 43,
+     "pct": 14.3
+    }
+   ]
+  },
+  {
+   "id": "times",
+   "q": "On a day you use it, how many times do you apply it?",
+   "n": 257,
+   "basis": "assumed",
+   "note": "Dermatologists say 99.4% of patients under-apply (Farberg 2017); no Indian reapplication rate published",
+   "options": [
+    {
+     "label": "Once",
+     "count": 175,
+     "pct": 68.1
+    },
+    {
+     "label": "Twice",
+     "count": 63,
+     "pct": 24.5
+    },
+    {
+     "label": "Three or more times",
+     "count": 19,
+     "pct": 7.4
+    }
+   ]
+  },
+  {
+   "id": "know",
+   "q": "Do you know when you should reapply?",
+   "n": 300,
+   "basis": "anchored",
+   "note": "Upadhyay 2021: 70% of medical students did not know the ideal SPF; Mintel 2019: 25% do not understand SPF or PA",
+   "options": [
+    {
+     "label": "Yes, clearly",
+     "count": 53,
+     "pct": 17.7
+    },
+    {
+     "label": "Roughly",
+     "count": 115,
+     "pct": 38.3
+    },
+    {
+     "label": "No",
+     "count": 132,
+     "pct": 44.0
+    }
+   ]
+  },
+  {
+   "id": "source",
+   "q": "Who or what led you to your sunscreen?",
+   "n": 257,
+   "basis": "assumed",
+   "note": "Digital-first brands hold about 47% of sun care value (Euromonitor 2025)",
+   "options": [
+    {
+     "label": "A dermatologist or doctor",
+     "count": 75,
+     "pct": 29.2
+    },
+    {
+     "label": "A pharmacist",
+     "count": 24,
+     "pct": 9.3
+    },
+    {
+     "label": "Social media or an influencer",
+     "count": 71,
+     "pct": 27.6
+    },
+    {
+     "label": "Friends or family",
+     "count": 60,
+     "pct": 23.3
+    },
+    {
+     "label": "An advertisement or online store",
+     "count": 27,
+     "pct": 10.5
+    }
+   ]
+  },
+  {
+   "id": "rx",
+   "q": "Has a doctor ever named a specific sunscreen for you?",
+   "n": 300,
+   "basis": "assumed",
+   "note": "Team assumption for metro adults",
+   "options": [
+    {
+     "label": "Yes",
+     "count": 114,
+     "pct": 38.0
+    },
+    {
+     "label": "No",
+     "count": 186,
+     "pct": 62.0
+    }
+   ]
+  },
+  {
+   "id": "bought",
+   "q": "If yes, what did you buy?",
+   "n": 114,
+   "basis": "assumed",
+   "note": "Matches the 60% baseline conversion in our financial model",
+   "options": [
+    {
+     "label": "Exactly that one",
+     "count": 63,
+     "pct": 55.3
+    },
+    {
+     "label": "A different one",
+     "count": 35,
+     "pct": 30.7
+    },
+    {
+     "label": "None",
+     "count": 16,
+     "pct": 14.0
+    }
+   ]
+  },
+  {
+   "id": "why",
+   "q": "If not the exact one, the main reason",
+   "n": 51,
+   "basis": "anchored",
+   "note": "Iyer and Berad: 34.8% of dermatology brands substituted; Vector 2025: prescribed brand unavailable in 10 to 60% of cases",
+   "options": [
+    {
+     "label": "Not available at the pharmacy",
+     "count": 15,
+     "pct": 29.4
+    },
+    {
+     "label": "Too expensive",
+     "count": 17,
+     "pct": 33.3
+    },
+    {
+     "label": "Pharmacist suggested another",
+     "count": 11,
+     "pct": 21.6
+    },
+    {
+     "label": "Preferred a brand I knew",
+     "count": 3,
+     "pct": 5.9
+    },
+    {
+     "label": "Ordered what was online",
+     "count": 5,
+     "pct": 9.8
+    }
+   ]
+  },
+  {
+   "id": "barrier",
+   "q": "What mainly stops you using sunscreen regularly?",
+   "n": 300,
+   "basis": "anchored",
+   "note": "Agarwal 2018: sticky 25% and expensive 18% among aware non-users; 'less sticky' wanted by 73%",
+   "options": [
+    {
+     "label": "I forget",
+     "count": 71,
+     "pct": 23.7
+    },
+    {
+     "label": "It feels sticky or oily",
+     "count": 77,
+     "pct": 25.7
+    },
+    {
+     "label": "The price",
+     "count": 42,
+     "pct": 14.0
+    },
+    {
+     "label": "I am not sure I need it",
+     "count": 33,
+     "pct": 11.0
+    },
+    {
+     "label": "It leaves a white cast",
+     "count": 23,
+     "pct": 7.7
+    },
+    {
+     "label": "It makes my skin break out",
+     "count": 21,
+     "pct": 7.0
+    },
+    {
+     "label": "Nothing stops me",
+     "count": 33,
+     "pct": 11.0
+    }
+   ]
+  },
+  {
+   "id": "lasts",
+   "q": "How long does a 50 g tube last you?",
+   "n": 257,
+   "basis": "assumed",
+   "note": "At the tested dose a 50 g tube lasts about 3 weeks, so longer means under-dosing",
+   "options": [
+    {
+     "label": "Less than 1 month",
+     "count": 34,
+     "pct": 13.2
+    },
+    {
+     "label": "1 to 2 months",
+     "count": 104,
+     "pct": 40.5
+    },
+    {
+     "label": "3 months or more",
+     "count": 77,
+     "pct": 30.0
+    },
+    {
+     "label": "Not sure",
+     "count": 42,
+     "pct": 16.3
+    }
+   ]
+  },
+  {
+   "id": "qr",
+   "q": "Would you scan a QR code on your prescription for a daily plan?",
+   "n": 300,
+   "basis": "assumed",
+   "note": "Team assumption; QR payments are an everyday habit in Indian cities",
+   "options": [
+    {
+     "label": "Yes",
+     "count": 158,
+     "pct": 52.7
+    },
+    {
+     "label": "Maybe",
+     "count": 95,
+     "pct": 31.7
+    },
+    {
+     "label": "No",
+     "count": 47,
+     "pct": 15.7
+    }
+   ]
+  },
+  {
+   "id": "wa",
+   "q": "Would you accept WhatsApp reminders you can stop any time?",
+   "n": 300,
+   "basis": "assumed",
+   "note": "Team assumption; evidence on reminders is mixed (PLOS ONE 2020)",
+   "options": [
+    {
+     "label": "Yes",
+     "count": 126,
+     "pct": 42.0
+    },
+    {
+     "label": "Maybe",
+     "count": 79,
+     "pct": 26.3
+    },
+    {
+     "label": "No",
+     "count": 95,
+     "pct": 31.7
+    }
+   ]
+  },
+  {
+   "id": "help",
+   "q": "Which one would help you most?",
+   "n": 300,
+   "basis": "assumed",
+   "note": "Team assumption, to be replaced by the live survey",
+   "options": [
+    {
+     "label": "Exact reapply times for today's sun",
+     "count": 93,
+     "pct": 31.0
+    },
+    {
+     "label": "A sunscreen matched to the season",
+     "count": 79,
+     "pct": 26.3
+    },
+    {
+     "label": "A reminder when my tube runs low",
+     "count": 62,
+     "pct": 20.7
+    },
+    {
+     "label": "Knowing which pharmacy has it",
+     "count": 40,
+     "pct": 13.3
+    },
+    {
+     "label": "None of these",
+     "count": 26,
+     "pct": 8.7
+    }
+   ]
+  }
+ ],
+ "pharmacists": [
+  {
+   "id": "oos",
+   "q": "How often is the exact prescribed sunscreen out of stock?",
+   "n": 60,
+   "basis": "anchored",
+   "note": "Vector Consulting 2025 (900+ chemists, 18 cities): prescribed brand unavailable in 10 to 60% of cases",
+   "options": [
+    {
+     "label": "Often",
+     "count": 19,
+     "pct": 31.7
+    },
+    {
+     "label": "Sometimes",
+     "count": 29,
+     "pct": 48.3
+    },
+    {
+     "label": "Rarely",
+     "count": 11,
+     "pct": 18.3
+    },
+    {
+     "label": "Never",
+     "count": 1,
+     "pct": 1.7
+    }
+   ]
+  },
+  {
+   "id": "then",
+   "q": "When it is out of stock, what do you usually do?",
+   "n": 60,
+   "basis": "anchored",
+   "note": "Iyer and Berad: 34.8% of dermatology brand requests were substituted",
+   "options": [
+    {
+     "label": "Offer another brand",
+     "count": 26,
+     "pct": 43.3
+    },
+    {
+     "label": "Order it for later",
+     "count": 13,
+     "pct": 21.7
+    },
+    {
+     "label": "Offer another variant of the same brand",
+     "count": 8,
+     "pct": 13.3
+    },
+    {
+     "label": "Send the customer elsewhere",
+     "count": 13,
+     "pct": 21.7
+    }
+   ]
+  },
+  {
+   "id": "range",
+   "q": "How many of the four Photostable variants do you keep?",
+   "n": 60,
+   "basis": "anchored",
+   "note": "Vector 2025: chemists carry 60 to 85% of a company's brands",
+   "options": [
+    {
+     "label": "All four",
+     "count": 18,
+     "pct": 30.0
+    },
+    {
+     "label": "Two or three",
+     "count": 31,
+     "pct": 51.7
+    },
+    {
+     "label": "One",
+     "count": 6,
+     "pct": 10.0
+    },
+    {
+     "label": "None",
+     "count": 5,
+     "pct": 8.3
+    }
+   ]
+  },
+  {
+   "id": "season",
+   "q": "Does sunscreen demand change with the season?",
+   "n": 60,
+   "basis": "assumed",
+   "note": "Team assumption; Euromonitor notes strong summer seasonality",
+   "options": [
+    {
+     "label": "Yes, a lot",
+     "count": 43,
+     "pct": 71.7
+    },
+    {
+     "label": "A little",
+     "count": 12,
+     "pct": 20.0
+    },
+    {
+     "label": "No",
+     "count": 5,
+     "pct": 8.3
+    }
+   ]
+  },
+  {
+   "id": "ask",
+   "q": "Do customers ask how much to use or when to reapply?",
+   "n": 60,
+   "basis": "assumed",
+   "note": "Team assumption",
+   "options": [
+    {
+     "label": "Often",
+     "count": 7,
+     "pct": 11.7
+    },
+    {
+     "label": "Sometimes",
+     "count": 32,
+     "pct": 53.3
+    },
+    {
+     "label": "Rarely",
+     "count": 21,
+     "pct": 35.0
+    }
+   ]
+  },
+  {
+   "id": "scan",
+   "q": "Would you scan a QR code on a prescription if it took under 10 seconds?",
+   "n": 60,
+   "basis": "assumed",
+   "note": "Team assumption, the riskiest belief in our plan",
+   "options": [
+    {
+     "label": "Yes",
+     "count": 21,
+     "pct": 35.0
+    },
+    {
+     "label": "Maybe",
+     "count": 27,
+     "pct": 45.0
+    },
+    {
+     "label": "No",
+     "count": 12,
+     "pct": 20.0
+    }
+   ]
+  },
+  {
+   "id": "worth",
+   "q": "What would make scanning worthwhile?",
+   "n": 60,
+   "basis": "assumed",
+   "note": "Team assumption",
+   "options": [
+    {
+     "label": "Priority restock before peak weeks",
+     "count": 12,
+     "pct": 20.0
+    },
+    {
+     "label": "Customers returning for refills",
+     "count": 20,
+     "pct": 33.3
+    },
+    {
+     "label": "A small credit per scan",
+     "count": 16,
+     "pct": 26.7
+    },
+    {
+     "label": "Product training",
+     "count": 7,
+     "pct": 11.7
+    },
+    {
+     "label": "Nothing",
+     "count": 5,
+     "pct": 8.3
+    }
+   ]
+  },
+  {
+   "id": "hold",
+   "q": "Would you hold a tube for 24 hours on a phone request?",
+   "n": 60,
+   "basis": "assumed",
+   "note": "Team assumption",
+   "options": [
+    {
+     "label": "Yes",
+     "count": 36,
+     "pct": 60.0
+    },
+    {
+     "label": "Maybe",
+     "count": 19,
+     "pct": 31.7
+    },
+    {
+     "label": "No",
+     "count": 5,
+     "pct": 8.3
+    }
+   ]
+  }
+ ],
+ "dermatologists": [
+  {
+   "id": "factor",
+   "q": "What decides which sunscreen you prescribe?",
+   "n": 40,
+   "basis": "anchored",
+   "note": "Farberg 2017: 71% of dermatologists weigh cosmetic elegance; PRISM-ISF 2025: feel and affordability drive adherence",
+   "options": [
+    {
+     "label": "Broad-spectrum protection and SPF",
+     "count": 15,
+     "pct": 37.5
+    },
+    {
+     "label": "Feel on skin, so the patient uses it",
+     "count": 11,
+     "pct": 27.5
+    },
+    {
+     "label": "Fit with skin type and condition",
+     "count": 8,
+     "pct": 20.0
+    },
+    {
+     "label": "Cost to the patient",
+     "count": 3,
+     "pct": 7.5
+    },
+    {
+     "label": "Published evidence",
+     "count": 3,
+     "pct": 7.5
+    }
+   ]
+  },
+  {
+   "id": "exact",
+   "q": "How often do you name the exact variant?",
+   "n": 40,
+   "basis": "assumed",
+   "note": "Team assumption",
+   "options": [
+    {
+     "label": "Always",
+     "count": 14,
+     "pct": 35.0
+    },
+    {
+     "label": "Usually",
+     "count": 12,
+     "pct": 30.0
+    },
+    {
+     "label": "Sometimes",
+     "count": 12,
+     "pct": 30.0
+    },
+    {
+     "label": "Rarely",
+     "count": 2,
+     "pct": 5.0
+    }
+   ]
+  },
+  {
+   "id": "two",
+   "q": "How often do you prescribe two sunscreens to one patient?",
+   "n": 40,
+   "basis": "assumed",
+   "note": "Team assumption; the case itself reports low multi-SKU prescribing",
+   "options": [
+    {
+     "label": "Often",
+     "count": 2,
+     "pct": 5.0
+    },
+    {
+     "label": "Sometimes",
+     "count": 7,
+     "pct": 17.5
+    },
+    {
+     "label": "Rarely",
+     "count": 20,
+     "pct": 50.0
+    },
+    {
+     "label": "Never",
+     "count": 11,
+     "pct": 27.5
+    }
+   ]
+  },
+  {
+   "id": "block",
+   "q": "What mainly stops a second variant?",
+   "n": 40,
+   "basis": "assumed",
+   "note": "Three of four Photostable labels carry the same SPF 55",
+   "options": [
+    {
+     "label": "No clear clinical reason",
+     "count": 18,
+     "pct": 45.0
+    },
+    {
+     "label": "Cost to the patient",
+     "count": 9,
+     "pct": 22.5
+    },
+    {
+     "label": "The variants look alike",
+     "count": 8,
+     "pct": 20.0
+    },
+    {
+     "label": "Patients will not buy two",
+     "count": 1,
+     "pct": 2.5
+    },
+    {
+     "label": "Doubt about stock",
+     "count": 4,
+     "pct": 10.0
+    }
+   ]
+  },
+  {
+   "id": "buy",
+   "q": "How confident are you that patients buy the exact product?",
+   "n": 40,
+   "basis": "anchored",
+   "note": "Substitution of dermatology brands 34.8% (Iyer and Berad)",
+   "options": [
+    {
+     "label": "Very",
+     "count": 4,
+     "pct": 10.0
+    },
+    {
+     "label": "Somewhat",
+     "count": 23,
+     "pct": 57.5
+    },
+    {
+     "label": "Not confident",
+     "count": 13,
+     "pct": 32.5
+    }
+   ]
+  },
+  {
+   "id": "reapply",
+   "q": "How confident are you that patients reapply as advised?",
+   "n": 40,
+   "basis": "anchored",
+   "note": "Farberg 2017: 99.4% say patients under-apply",
+   "options": [
+    {
+     "label": "Very",
+     "count": 1,
+     "pct": 2.5
+    },
+    {
+     "label": "Somewhat",
+     "count": 9,
+     "pct": 22.5
+    },
+    {
+     "label": "Not confident",
+     "count": 30,
+     "pct": 75.0
+    }
+   ]
+  },
+  {
+   "id": "switch",
+   "q": "Would you allow a texture switch by season at refill?",
+   "n": 40,
+   "basis": "assumed",
+   "note": "Team assumption; PRISM-ISF asks for texture matched to need",
+   "options": [
+    {
+     "label": "Yes",
+     "count": 18,
+     "pct": 45.0
+    },
+    {
+     "label": "Maybe",
+     "count": 15,
+     "pct": 37.5
+    },
+    {
+     "label": "No",
+     "count": 7,
+     "pct": 17.5
+    }
+   ]
+  },
+  {
+   "id": "feedback",
+   "q": "Would a monthly report on patients' buying and use help?",
+   "n": 40,
+   "basis": "assumed",
+   "note": "Team assumption",
+   "options": [
+    {
+     "label": "Yes",
+     "count": 24,
+     "pct": 60.0
+    },
+    {
+     "label": "Maybe",
+     "count": 9,
+     "pct": 22.5
+    },
+    {
+     "label": "No",
+     "count": 7,
+     "pct": 17.5
+    }
+   ]
+  },
+  {
+   "id": "proof",
+   "q": "Which proof would raise your trust most?",
+   "n": 40,
+   "basis": "assumed",
+   "note": "BIS made in vivo SPF proof compulsory in 2026",
+   "options": [
+    {
+     "label": "In vivo SPF data on Indian skin",
+     "count": 13,
+     "pct": 32.5
+    },
+    {
+     "label": "A peer-reviewed study",
+     "count": 11,
+     "pct": 27.5
+    },
+    {
+     "label": "Visible-light protection data",
+     "count": 8,
+     "pct": 20.0
+    },
+    {
+     "label": "A consensus guideline",
+     "count": 7,
+     "pct": 17.5
+    },
+    {
+     "label": "Samples",
+     "count": 1,
+     "pct": 2.5
+    }
+   ]
+  },
+  {
+   "id": "emr",
+   "q": "How do you write prescriptions?",
+   "n": 40,
+   "basis": "anchored",
+   "note": "Eka Care is IADVL's preferred clinic software (12,500+ dermatologists reached, 2023)",
+   "options": [
+    {
+     "label": "On e-prescription software",
+     "count": 13,
+     "pct": 32.5
+    },
+    {
+     "label": "Both",
+     "count": 9,
+     "pct": 22.5
+    },
+    {
+     "label": "On paper",
+     "count": 18,
+     "pct": 45.0
+    }
+   ]
+  }
+ ],
+ "funnel": {
+  "base_n": 114,
+  "steps": [
+   [
+    "Given a named sunscreen",
+    100
+   ],
+   [
+    "Bought exactly that one",
+    55
+   ],
+   [
+    "Use it every day",
+    26
+   ],
+   [
+    "Reapply at least once",
+    8
+   ]
+  ],
+  "counts": [
+   114,
+   63,
+   30,
+   9
+  ]
+ }
+}

@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ShieldCast research · Photostable</title>
+<meta name="description" content="The research behind ShieldCast: a modelled survey of patients, pharmacists and dermatologists, a live patient survey, a competitor map and the gaps in the Photostable range.">
+<meta name="theme-color" content="#1F1A3A">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .q { display: flex; flex-direction: column; gap: 6px; padding: 14px 0; border-top: 1px solid var(--line, #E3DEEE); }
+  .q:first-of-type { border-top: 0; }
+  .q h4 { margin: 0; font-family: var(--f-display); font-size: 1.02rem; }
+  .bar { display: grid; grid-template-columns: minmax(120px, 42%) 1fr 48px; gap: 8px; align-items: center; font-size: .88rem; }
+  .bar i { display: block; height: 14px; border-radius: 7px; background: var(--violet); min-width: 2px; }
+  .bar.top i { background: var(--orange); }
+  .bar b { text-align: right; font-variant-numeric: tabular-nums; }
+  .tag { font: 600 .68rem/1 "IBM Plex Sans", sans-serif; letter-spacing: .06em; text-transform: uppercase; padding: 4px 7px; border-radius: 999px; }
+  .tag.a { background: #E6F2EE; color: #1E5B4D; } .tag.h { background: #FDF0E4; color: #8A4208; }
+  .stamp { border: 2px dashed var(--orange); border-radius: 14px; padding: 14px 16px; background: #FFF8F1; }
+  .funnel { display: flex; flex-direction: column; gap: 8px; }
+  .funnel div { background: var(--ink); color: #fff; border-radius: 10px; padding: 10px 14px; display: flex; justify-content: space-between; gap: 12px; min-width: 150px; }
+  .funnel div:nth-child(2) { background: #4A3F86; } .funnel div:nth-child(3) { background: #8A5A2B; } .funnel div:nth-child(4) { background: var(--orange); }
+  .seg2 { display: flex; gap: 8px; flex-wrap: wrap; }
+  .seg2 button { font: inherit; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--line, #D9D4E6); background: #fff; cursor: pointer; }
+  .seg2 button[aria-pressed="true"] { background: var(--ink); color: #fff; border-color: var(--ink); }
+  td.y { color: #1E5B4D; font-weight: 600; } td.n { color: var(--muted); }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap top-in">
+    <a class="brand" href="./" aria-label="ShieldCast home">
+      <svg viewBox="0 0 64 64" width="30" height="30" aria-hidden="true"><circle cx="32" cy="32" r="13" fill="var(--amber)"/><g stroke="var(--orange)" stroke-width="5" stroke-linecap="round"><path d="M32 5v8M32 51v8M5 32h8M51 32h8M13 13l6 6M45 45l6 6M13 51l6-6M45 19l6-6"/></g></svg>
+      <span><b>ShieldCast</b><small>the research behind it</small></span>
+    </a>
+    <nav class="tabs" aria-label="Main"><a href="./">Prototype</a><a href="./#agents">Agents</a><a href="film.html">Film</a><a href="research.html" aria-current="page">Research</a></nav>
+  </div>
+</header>
+<div class="notice"><div class="wrap">Concept prototype by team ChampsGrid, IIM Mumbai, for Sun PRISM Season 2. It is not a Sun Pharma service and gives no medical advice.</div></div>
+<main class="wrap">
+<section class="view">
+  <div class="panel">
+    <span class="eyebrow">Research</span>
+    <h1 style="font-size:clamp(1.6rem,3.4vw,2.4rem)">What patients, pharmacists and dermatologists would tell us</h1>
+    <p class="lead measure">We read the published Indian studies, turned them into a modelled survey panel and opened a real patient survey. This page keeps the three apart, so you always know which numbers are measured and which are modelled.</p>
+    <div class="stamp"><b>Read this first.</b> The charts in the next section come from a <b>modelled panel, not fieldwork</b>. Each answer share is set from a published study (tagged <span class="tag a">Anchored</span>) or from a stated team assumption (tagged <span class="tag h">Assumed</span>), and then sampled so the panel behaves like a real sample of that size. The code, the seed and every simulated answer are in the <a href="survey/">survey folder</a> of the repository.</div>
+  </div>
+
+  <div class="grid2">
+    <div class="panel">
+      <span class="eyebrow">Live patient survey</span>
+      <h2>Two minutes, sixteen tick boxes, no name or number</h2>
+      <p class="small">Real answers replace the modelled patient numbers as they arrive. The survey is anonymous and reports only totals.</p>
+      <div class="row"><a class="btn" target="_blank" rel="noopener" href="https://docs.google.com/forms/d/e/1FAIpQLSdTzWxVR_gYSt6cCenM-p6zF8hNUcJF6g28NC7v_BLpWuaAzw/viewform">Take the survey</a><span class="pill" id="liveN">Collecting responses</span></div>
+      <div id="liveOut"></div>
+    </div>
+    <div class="panel">
+      <span class="eyebrow">Modelled leak funnel</span>
+      <h2>Of 100 patients given a named sunscreen</h2>
+      <div class="funnel" id="funnel"></div>
+      <p class="tiny muted" id="funnelNote"></p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="row between"><div><span class="eyebrow">Modelled panel, not fieldwork</span><h2 id="grpTitle">Patients</h2></div><div class="seg2" id="seg"></div></div>
+    <p class="small muted" id="grpNote"></p>
+    <div id="qs"></div>
+  </div>
+
+  <div class="panel">
+    <span class="eyebrow">Competitor map</span>
+    <h2>Photostable leads on trust, but rivals cover formats it does not</h2>
+    <div class="tablewrap"><table class="data">
+      <tr><th>Brand and company</th><th>Where it wins</th><th>Tint</th><th>Mineral</th><th>Kids</th><th>About 50 g costs</th></tr>
+      <tr><td><b>Photostable</b>, Sun Pharma</td><td>Dermatologist trust; four gel textures; Pro+ at SPF 80+ with modern filters</td><td class="n">No</td><td class="n">No</td><td class="n">No</td><td>₹971 to ₹1,039</td></tr>
+      <tr><td>La Shield, Glenmark</td><td>Widest prescription range: gel, IR, Lite, Urban Protect, Fisico and Kids</td><td class="n">No</td><td class="y">Yes</td><td class="y">Yes</td><td>₹790 for 60 g</td></tr>
+      <tr><td>UV Doux, Brinton</td><td>Silicone gel feel with a matte finish</td><td class="n">No</td><td class="n">No</td><td class="n">No</td><td>₹845</td></tr>
+      <tr><td>Acne-UV, Ipca</td><td>Owns acne by name; oil-free and water-resistant</td><td class="n">No</td><td class="n">No</td><td class="n">No</td><td>₹814</td></tr>
+      <tr><td>La Roche-Posay, Cetaphil Sun, ISDIN</td><td>Global dermocosmetics with trial data, now detailed to Indian clinics</td><td class="y">Some</td><td class="y">Some</td><td class="y">Some</td><td>Premium</td></tr>
+      <tr><td>Dot &amp; Key, The Derma Co, Aqualogica, Dr Sheth's</td><td>About 47% of sun care value; habit, new formats and loud proof of SPF</td><td class="y">Some</td><td class="y">Some</td><td class="n">Few</td><td>About ₹450 to ₹600</td></tr>
+    </table></div>
+    <p class="tiny muted">Sources: November 2026 listings on Tata 1mg, Apollo Pharmacy, PharmEasy and Truemeds; Euromonitor International, Sun Care in India, May 2026 (source: © Euromonitor International). Suncros is a sister brand from Sun Pharma, so it is not shown as a rival. A blank format means we found no such listing, not that one cannot exist.</p>
+  </div>
+
+  <div class="grid2">
+    <div class="panel">
+      <span class="eyebrow">Where differentiation is weak</span>
+      <h2>Three of the four tubes say the same thing on the box</h2>
+      <p class="small">Gold, Acne and Emulgel all carry SPF 55 on the label. The label gives a doctor, a pharmacist or a patient no reason to choose one over another. The reason to choose has to come from somewhere else, which is the job of the Shield Map, Course Rx and Season Switch.</p>
+      <p class="small"><b>A hidden strength.</b> The ingredient list of Pro+ includes bemotrizinol, the filter the US FDA cleared in June 2026 as its first new sunscreen active in over twenty years. Photostable already has it, yet nothing on the Rx says so.</p>
+    </div>
+    <div class="panel">
+      <span class="eyebrow">Global trends and the missing links</span>
+      <h2>What the range needs next</h2>
+      <ul class="list small">
+        <li><b>Visible-light tints.</b> Iron-oxide tints are advised for melasma (PRISM-ISF 2025). Photostable has no tint under its own name.</li>
+        <li><b>Mineral after procedures.</b> La Shield Fisico holds this space. ShieldCast logs every such patient to size a Photostable mineral.</li>
+        <li><b>Reapplication formats.</b> Sticks, mists and powders are growing because they go over sweat and make-up.</li>
+        <li><b>Verified SPF.</b> BIS made in vivo SPF proof compulsory in 2026, so proof is now a selling point.</li>
+        <li><b>Connected use.</b> Euromonitor expects QR checks and app reminders to become standard in sun care.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="panel">
+    <span class="eyebrow">Published evidence we anchored to</span>
+    <ol class="list small">
+      <li>Agarwal S.B. et al., Indian Journal of Dermatology, 2018: 2,037 adults at a Mumbai hospital; 61% did not know about sunscreens; users wanted less sticky (73%) products; stickiness (25%) and price (18%) were the named reasons for not using.</li>
+      <li>Mintel, 2019: 65% of 3,000 Indian adults had not used sunscreen in a year, and 25% did not understand SPF or PA.</li>
+      <li>Statista and ProdegeMR, 2019: 33% of Indians surveyed used sun care daily.</li>
+      <li>Upadhyay H. et al., Journal of Clinical and Diagnostic Research, 2021: 70% of 300 medical students did not know the ideal SPF.</li>
+      <li>KrupaShankar D.S.R. et al., Dermatology and Therapy, 2014: 35% of 331 melasma patients used any sunscreen.</li>
+      <li>Farberg A.S. et al., JAMA Dermatology, 2017: 99.4% of dermatologists said patients under-apply, and 71% weigh cosmetic elegance.</li>
+      <li>Vector Consulting Group, 2025: a prescribed brand was unavailable in 10 to 60% of cases across 900+ chemists.</li>
+      <li>Iyer H.K. and Berad N., Mumbai pilot of 120 prescriptions: 34.8% of dermatology brand requests were substituted.</li>
+      <li>Hacker E. et al., Preventive Medicine, 2019: UV stickers lifted sunscreen reapplication from 68% to 80%.</li>
+      <li>Kohli M. et al., PRISM-ISF Delphi consensus, Journal of Cosmetic Dermatology, 2025.</li>
+    </ol>
+  </div>
+</section>
+</main>
+<footer class="foot"><div class="wrap"><span>Modelled numbers are simulations for planning, and they are not survey findings.</span><span><a href="./">Back to the prototype</a> · Code on <a href="https://github.com/Sabyapro123/photostable-shieldcast" target="_blank" rel="noopener">GitHub</a></span></div></footer>
+<script type="module">
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const $ = (s) => document.querySelector(s);
+const GROUPS = { patients: ["Patients", "300 simulated metro adults aged 18 to 45."], pharmacists: ["Pharmacists", "60 simulated neighbourhood pharmacists near skin clinics."], dermatologists: ["Dermatologists", "40 simulated dermatologists."] };
+let model = null, cur = "patients";
+function draw() {
+  const [title, note] = GROUPS[cur];
+  $("#grpTitle").textContent = title; $("#grpNote").textContent = note + " Orange marks the most common answer.";
+  $("#seg").innerHTML = Object.keys(GROUPS).map((k) => `<button type="button" data-k="${k}" aria-pressed="${k === cur}">${GROUPS[k][0]}</button>`).join("");
+  $("#seg").querySelectorAll("button").forEach((b) => b.addEventListener("click", () => { cur = b.dataset.k; draw(); }));
+  $("#qs").innerHTML = model[cur].map((q) => {
+    const top = Math.max(...q.options.map((o) => o.pct));
+    return `<div class="q"><div class="row between"><h4>${esc(q.q)}</h4><span class="tag ${q.basis === "anchored" ? "a" : "h"}">${q.basis === "anchored" ? "Anchored" : "Assumed"}</span></div>
+      ${q.options.map((o) => `<div class="bar ${o.pct === top ? "top" : ""}"><span>${esc(o.label)}</span><i style="width:${Math.max(1, o.pct)}%"></i><b>${o.pct.toFixed(0)}%</b></div>`).join("")}
+      <span class="tiny muted">Simulated answers: ${q.n}. Basis: ${esc(q.note)}.</span></div>`;
+  }).join("");
+}
+fetch("survey/survey_model.json").then((r) => r.json()).then((m) => {
+  model = m; draw();
+  $("#funnel").innerHTML = m.funnel.steps.map(([l, v]) => `<div style="width:${Math.max(34, v)}%"><span>${esc(l)}</span><b>${v}</b></div>`).join("");
+  $("#funnelNote").textContent = `Modelled from the ${m.funnel.base_n} simulated patients who were given a named sunscreen. It is a planning picture, not a measurement.`;
+}).catch(() => { $("#qs").innerHTML = `<p class="small">The modelled panel could not be loaded.</p>`; });
+fetch("survey/live.json").then((r) => (r.ok ? r.json() : null)).then((live) => {
+  if (!live || !live.n) return;
+  $("#liveN").textContent = `${live.n} real responses by ${live.asOf}`; $("#liveN").className = "pill ok";
+  $("#liveOut").innerHTML = live.items.map((x) => `<div class="bar top"><span>${esc(x.label)}</span><i style="width:${Math.max(1, x.pct)}%"></i><b>${Math.round(x.pct)}%</b></div>`).join("") + `<p class="tiny muted">${esc(live.note)}</p>`;
+}).catch(() => {});
+</script>
+</body>
+</html>
