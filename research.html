@@ -19,7 +19,7 @@
   .bar.top i { background: var(--orange); }
   .bar b { text-align: right; font-variant-numeric: tabular-nums; }
   .tag { font: 600 .68rem/1 "IBM Plex Sans", sans-serif; letter-spacing: .06em; text-transform: uppercase; padding: 4px 7px; border-radius: 999px; }
-  .tag.a { background: #E6F2EE; color: #1E5B4D; } .tag.h { background: #FDF0E4; color: #8A4208; }
+  .tag.a { background: #E6F2EE; color: #1E5B4D; } .tag.s { background: #ECE9F8; color: #3D3180; } .tag.h { background: #FDF0E4; color: #8A4208; }
   .stamp { border: 2px dashed var(--orange); border-radius: 14px; padding: 14px 16px; background: #FFF8F1; }
   .funnel { display: flex; flex-direction: column; gap: 8px; }
   .funnel div { background: var(--ink); color: #fff; border-radius: 10px; padding: 10px 14px; display: flex; justify-content: space-between; gap: 12px; min-width: 150px; }
@@ -46,15 +46,16 @@
   <div class="panel">
     <span class="eyebrow">Research</span>
     <h1 style="font-size:clamp(1.6rem,3.4vw,2.4rem)">What patients, pharmacists and dermatologists would tell us</h1>
-    <p class="lead measure">We read the published Indian studies, turned them into a modelled survey panel and opened a real patient survey. This page keeps the three apart, so you always know which numbers are measured and which are modelled.</p>
-    <div class="stamp"><b>Read this first.</b> The charts in the next section come from a <b>modelled panel, not fieldwork</b>. Each answer share is set from a published study (tagged <span class="tag a">Anchored</span>) or from a stated team assumption (tagged <span class="tag h">Assumed</span>), and then sampled so the panel behaves like a real sample of that size. The code, the seed and every simulated answer are in the <a href="survey/">survey folder</a> of the repository.</div>
+    <p class="lead measure">We ran a real survey of sunscreen users, read the published Indian studies and then built a modelled panel on both. This page keeps the three apart, so you always know which numbers are measured and which are modelled.</p>
+    <div class="stamp"><b>Read this first.</b> The charts in the next section come from a <b>modelled panel, not fieldwork</b>. Each answer share is set from our real survey blended with a published prior (tagged <span class="tag s">Survey</span>), from a published study (tagged <span class="tag a">Anchored</span>) or from a stated team assumption (tagged <span class="tag h">Assumed</span>), and then sampled so the panel behaves like a real sample of that size. The code, the seed and every simulated answer are in the <a href="survey/">survey folder</a> of the repository.</div>
   </div>
 
   <div class="grid2">
     <div class="panel">
-      <span class="eyebrow">How the panel was built</span>
-      <h2>Four hundred simulated respondents, with every source shown</h2>
-      <p class="small">A published study sets each answer share where one exists, and a stated team assumption fills the rest. The respondents are simulated with a fixed seed, so anyone can rerun the model. Real interviews in the pilot replace every modelled number.</p>
+      <span class="eyebrow">Real survey</span>
+      <h2 id="realTitle">What 17 sunscreen users told us</h2>
+      <p class="small" id="realNote"></p>
+      <div id="realOut"></div>
     </div>
     <div class="panel">
       <span class="eyebrow">Modelled leak funnel</span>
@@ -126,7 +127,7 @@
 <script type="module">
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const $ = (s) => document.querySelector(s);
-const GROUPS = { patients: ["Patients", "300 simulated metro adults aged 18 to 45."], pharmacists: ["Pharmacists", "60 simulated neighbourhood pharmacists near skin clinics."], dermatologists: ["Dermatologists", "40 simulated dermatologists."] };
+const GROUPS = { patients: ["Patients", "50 simulated metro adults aged 18 to 45, calibrated to our real survey of 17 users."], pharmacists: ["Pharmacists", "15 simulated neighbourhood pharmacists near skin clinics."], dermatologists: ["Dermatologists", "10 simulated dermatologists."] };
 let model = null, cur = "patients";
 function draw() {
   const [title, note] = GROUPS[cur];
@@ -135,15 +136,20 @@ function draw() {
   $("#seg").querySelectorAll("button").forEach((b) => b.addEventListener("click", () => { cur = b.dataset.k; draw(); }));
   $("#qs").innerHTML = model[cur].map((q) => {
     const top = Math.max(...q.options.map((o) => o.pct));
-    return `<div class="q"><div class="row between"><h4>${esc(q.q)}</h4><span class="tag ${q.basis === "anchored" ? "a" : "h"}">${q.basis === "anchored" ? "Anchored" : "Assumed"}</span></div>
+    return `<div class="q"><div class="row between"><h4>${esc(q.q)}</h4><span class="tag ${q.basis === "anchored" ? "a" : q.basis === "survey" ? "s" : "h"}">${q.basis === "anchored" ? "Anchored" : q.basis === "survey" ? "Survey" : "Assumed"}</span></div>
       ${q.options.map((o) => `<div class="bar ${o.pct === top ? "top" : ""}"><span>${esc(o.label)}</span><i style="width:${Math.max(1, o.pct)}%"></i><b>${o.pct.toFixed(0)}%</b></div>`).join("")}
       <span class="tiny muted">Simulated answers: ${q.n}. Basis: ${esc(q.note)}.</span></div>`;
   }).join("");
 }
 fetch("survey/survey_model.json").then((r) => r.json()).then((m) => {
   model = m; draw();
+  if (m.real) {
+    $("#realTitle").textContent = `What ${m.real.n} sunscreen users told us`;
+    $("#realNote").textContent = `${m.real.method}, ${m.real.collected}. A note on the sample: ${m.real.sample}.`;
+    $("#realOut").innerHTML = m.real.items.filter((x) => !x.base).map((x) => `<div class="bar top"><span>${esc(x.label)} (${x.count} of ${m.real.n})</span><i style="width:${Math.max(1, x.pct)}%"></i><b>${x.pct}%</b></div>`).join("");
+  }
   $("#funnel").innerHTML = m.funnel.steps.map(([l, v]) => `<div style="width:${Math.max(34, v)}%"><span>${esc(l)}</span><b>${v}</b></div>`).join("");
-  $("#funnelNote").textContent = `Modelled from the ${m.funnel.base_n} simulated patients who were given a named sunscreen. It is a planning picture, not a measurement.`;
+  $("#funnelNote").textContent = `This is the expected path from a large run of the same model. It is a planning picture, not a measurement.`;
 }).catch(() => { $("#qs").innerHTML = `<p class="small">The modelled panel could not be loaded.</p>`; });
 </script>
 </body>

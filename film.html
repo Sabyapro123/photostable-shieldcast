@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ShieldCast film</title>
-<meta name="description" content="A two-minute film of Ananya's journey with ShieldCast, the Photostable prescription that reads the sky.">
+<meta name="description" content="A short film of Ananya's journey with ShieldCast, the Photostable prescription that reads the sky.">
 <style>
   :root { --ink: #1F1A3A; --orange: #E0701A; --amber: #F2B33D; --paper: #F4F1F8; --muted: #6B6680; }
   * { box-sizing: border-box; }
@@ -25,18 +25,18 @@
 <body>
 <main>
   <span class="eyebrow">Sun PRISM Season 2 · Team ChampsGrid · IIM Mumbai</span>
-  <h1>ShieldCast: Ananya's journey in two minutes</h1>
-  <p>Follow one prescription from the clinic to the counter, the 6 am message, a trek to Sinhagad fort, the refill and the doctor's review. Every screen is the real website running on the live forecast for Pune.</p>
+  <h1>ShieldCast: Ananya's journey, and three new moves</h1>
+  <p>Follow one prescription from the clinic to the counter, the 6 am message, a trek to Sinhagad fort, the refill and the doctor's review. Then see Course Rx, Season Switch and SunDot. Every screen is the real website running on the live forecast for Pune.</p>
   <video id="film" controls playsinline preload="metadata" poster="media/shieldcast-poster.jpg">
     <source src="media/shieldcast-film.mp4" type="video/mp4">
     <track kind="captions" src="media/shieldcast-film.vtt" srclang="en" label="English" default>
     Your browser cannot play this video. <a href="media/shieldcast-film.mp4">Download the film</a>.
   </video>
   <ol id="chapters"></ol>
-  <p class="foot">Open the live prototype at <a href="./">sabyapro123.github.io/photostable-shieldcast</a>. The people in the film are made up, the images were generated with ChatGPT and the music was composed in code for this film. This is a concept prototype, not a Sun Pharma service, and it gives no medical advice.</p>
+  <p class="foot">Open the live prototype at <a href="./">sabyapro123.github.io/photostable-shieldcast</a>. The people in the film are made up, the images were generated with ChatGPT, the 3D scenes are our own renders and the music was composed in code for this film. This is a concept prototype, not a Sun Pharma service, and it gives no medical advice.</p>
 </main>
 <script>
-  const chapters = [[0, "Why a good prescription still fails"], [28, "The clinic and the Prescribing Copilot"], [44, "The pharmacy counter and the check code"], [56, "The 6 am message and her plan for today"], [71, "The Sinhagad trek and the Companion"], [86, "The refill and Sun's supply team"], [99, "Day 30 and the four agents"], [113, "What the pilot takes"]];
+  const chapters = [[0, "Why a good prescription still fails"], [28, "What 17 sunscreen users told us"], [36, "The clinic and the Prescribing Copilot"], [52, "The pharmacy counter and the check code"], [64, "The 6 am message and her plan for today"], [79, "The Sinhagad trek and the Companion"], [94, "The refill and Sun's supply team"], [107, "Day 30 at the clinic"], [112, "Three new moves: Course Rx, Season Switch and SunDot"], [133, "The four agents"], [142, "What the pilot takes"]];
   const v = document.getElementById("film"), ol = document.getElementById("chapters");
   const fmt = (t) => Math.floor(t / 60) + ":" + String(t % 60).padStart(2, "0");
   chapters.forEach(([t, name]) => {

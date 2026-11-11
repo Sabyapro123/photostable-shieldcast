@@ -1,61 +1,16 @@
 id,oos,then,range,season,ask,scan,worth,hold
-C001,Sometimes,Offer another brand,None,"Yes, a lot",Sometimes,Yes,Product training,No
-C002,Sometimes,Offer another variant of the same brand,Two or three,A little,Often,Maybe,Priority restock before peak weeks,Yes
-C003,Sometimes,Send the customer elsewhere,Two or three,A little,Sometimes,Yes,Customers returning for refills,Yes
-C004,Sometimes,Offer another brand,None,"Yes, a lot",Sometimes,No,Customers returning for refills,Yes
-C005,Sometimes,Send the customer elsewhere,All four,A little,Sometimes,Maybe,A small credit per scan,Yes
-C006,Sometimes,Offer another variant of the same brand,All four,"Yes, a lot",Rarely,Maybe,Customers returning for refills,Yes
-C007,Often,Send the customer elsewhere,Two or three,"Yes, a lot",Rarely,Maybe,A small credit per scan,Yes
-C008,Often,Offer another brand,All four,A little,Sometimes,Yes,Priority restock before peak weeks,Maybe
-C009,Sometimes,Offer another variant of the same brand,All four,"Yes, a lot",Sometimes,Yes,Product training,Maybe
-C010,Rarely,Offer another variant of the same brand,All four,"Yes, a lot",Rarely,Maybe,Customers returning for refills,Maybe
-C011,Rarely,Offer another brand,All four,No,Rarely,Yes,Priority restock before peak weeks,Maybe
-C012,Sometimes,Order it for later,All four,"Yes, a lot",Sometimes,Yes,Priority restock before peak weeks,Yes
-C013,Often,Send the customer elsewhere,Two or three,"Yes, a lot",Rarely,Yes,A small credit per scan,Yes
-C014,Often,Offer another brand,Two or three,"Yes, a lot",Sometimes,Maybe,Customers returning for refills,Yes
-C015,Sometimes,Offer another brand,All four,"Yes, a lot",Sometimes,Maybe,Product training,Maybe
-C016,Often,Order it for later,All four,A little,Often,No,Nothing,Yes
-C017,Sometimes,Offer another brand,One,"Yes, a lot",Sometimes,Yes,A small credit per scan,Yes
-C018,Often,Offer another brand,All four,"Yes, a lot",Rarely,Maybe,Customers returning for refills,Yes
-C019,Sometimes,Send the customer elsewhere,Two or three,"Yes, a lot",Often,Yes,Customers returning for refills,Yes
-C020,Sometimes,Offer another brand,Two or three,"Yes, a lot",Rarely,Maybe,A small credit per scan,Maybe
-C021,Often,Offer another variant of the same brand,Two or three,"Yes, a lot",Often,Maybe,Product training,Yes
-C022,Often,Offer another brand,One,A little,Sometimes,Maybe,Customers returning for refills,Yes
-C023,Sometimes,Order it for later,All four,"Yes, a lot",Sometimes,Yes,A small credit per scan,Maybe
-C024,Sometimes,Order it for later,All four,A little,Rarely,No,A small credit per scan,No
-C025,Sometimes,Offer another brand,Two or three,"Yes, a lot",Rarely,Yes,A small credit per scan,Maybe
-C026,Rarely,Offer another brand,Two or three,"Yes, a lot",Sometimes,Yes,Customers returning for refills,Maybe
-C027,Sometimes,Order it for later,Two or three,"Yes, a lot",Sometimes,Yes,Customers returning for refills,Yes
-C028,Sometimes,Send the customer elsewhere,None,"Yes, a lot",Sometimes,Maybe,Nothing,Yes
-C029,Never,Order it for later,One,"Yes, a lot",Rarely,Yes,Customers returning for refills,Yes
-C030,Often,Send the customer elsewhere,Two or three,A little,Rarely,Yes,Nothing,Maybe
-C031,Often,Order it for later,Two or three,"Yes, a lot",Rarely,No,Customers returning for refills,Yes
-C032,Sometimes,Offer another variant of the same brand,Two or three,"Yes, a lot",Sometimes,Yes,A small credit per scan,Yes
-C033,Rarely,Offer another brand,All four,A little,Sometimes,Yes,Priority restock before peak weeks,Yes
-C034,Sometimes,Offer another brand,One,"Yes, a lot",Sometimes,Maybe,Product training,No
-C035,Often,Order it for later,Two or three,A little,Sometimes,Maybe,Priority restock before peak weeks,Yes
-C036,Often,Order it for later,All four,"Yes, a lot",Sometimes,Yes,Customers returning for refills,Yes
-C037,Sometimes,Offer another variant of the same brand,All four,"Yes, a lot",Sometimes,No,Priority restock before peak weeks,Maybe
-C038,Often,Offer another brand,Two or three,"Yes, a lot",Sometimes,Maybe,Customers returning for refills,Maybe
-C039,Often,Offer another brand,Two or three,"Yes, a lot",Often,Maybe,Priority restock before peak weeks,Yes
-C040,Sometimes,Order it for later,Two or three,"Yes, a lot",Rarely,Maybe,Priority restock before peak weeks,Yes
-C041,Rarely,Offer another brand,Two or three,No,Often,No,A small credit per scan,Maybe
-C042,Rarely,Order it for later,Two or three,"Yes, a lot",Rarely,Maybe,Priority restock before peak weeks,Yes
-C043,Rarely,Offer another brand,One,"Yes, a lot",Sometimes,Maybe,Customers returning for refills,Yes
-C044,Sometimes,Order it for later,Two or three,"Yes, a lot",Rarely,Maybe,Customers returning for refills,Yes
-C045,Sometimes,Order it for later,All four,"Yes, a lot",Rarely,No,A small credit per scan,Maybe
-C046,Sometimes,Offer another variant of the same brand,All four,A little,Rarely,No,A small credit per scan,Yes
-C047,Rarely,Offer another brand,Two or three,A little,Rarely,No,Product training,No
-C048,Often,Offer another brand,Two or three,"Yes, a lot",Sometimes,Maybe,Customers returning for refills,Yes
-C049,Sometimes,Offer another brand,All four,"Yes, a lot",Sometimes,No,Nothing,Yes
-C050,Sometimes,Offer another brand,Two or three,No,Rarely,Maybe,A small credit per scan,Yes
-C051,Often,Send the customer elsewhere,Two or three,No,Rarely,Yes,Customers returning for refills,Yes
-C052,Rarely,Send the customer elsewhere,None,"Yes, a lot",Sometimes,Maybe,Priority restock before peak weeks,No
-C053,Often,Send the customer elsewhere,Two or three,"Yes, a lot",Sometimes,Maybe,Product training,Maybe
-C054,Often,Offer another brand,Two or three,"Yes, a lot",Sometimes,Yes,Priority restock before peak weeks,Yes
-C055,Rarely,Send the customer elsewhere,Two or three,"Yes, a lot",Rarely,Yes,A small credit per scan,Maybe
-C056,Often,Send the customer elsewhere,Two or three,"Yes, a lot",Sometimes,Maybe,A small credit per scan,Maybe
-C057,Sometimes,Offer another brand,Two or three,"Yes, a lot",Sometimes,No,Customers returning for refills,Maybe
-C058,Sometimes,Offer another brand,Two or three,"Yes, a lot",Often,Maybe,Customers returning for refills,Maybe
-C059,Sometimes,Offer another brand,One,No,Sometimes,Maybe,A small credit per scan,Yes
-C060,Rarely,Send the customer elsewhere,None,"Yes, a lot",Sometimes,No,Nothing,Yes
+C001,Often,Offer another brand,All four,A little,Rarely,Maybe,Nothing,Maybe
+C002,Often,Order it for later,All four,"Yes, a lot",Rarely,Yes,Priority restock before peak weeks,Yes
+C003,Sometimes,Order it for later,One,"Yes, a lot",Rarely,Maybe,Priority restock before peak weeks,Yes
+C004,Sometimes,Order it for later,All four,"Yes, a lot",Often,No,Customers returning for refills,Maybe
+C005,Sometimes,Offer another brand,Two or three,"Yes, a lot",Sometimes,Maybe,Nothing,Yes
+C006,Sometimes,Offer another variant of the same brand,Two or three,"Yes, a lot",Rarely,Maybe,Customers returning for refills,Maybe
+C007,Sometimes,Order it for later,Two or three,"Yes, a lot",Sometimes,No,Priority restock before peak weeks,Maybe
+C008,Often,Order it for later,All four,A little,Rarely,Maybe,Priority restock before peak weeks,Yes
+C009,Often,Offer another brand,One,"Yes, a lot",Sometimes,Maybe,Priority restock before peak weeks,No
+C010,Often,Offer another brand,All four,"Yes, a lot",Rarely,Maybe,A small credit per scan,No
+C011,Rarely,Offer another brand,Two or three,A little,Sometimes,No,Priority restock before peak weeks,Yes
+C012,Often,Order it for later,All four,"Yes, a lot",Rarely,Maybe,Customers returning for refills,Yes
+C013,Sometimes,Send the customer elsewhere,Two or three,"Yes, a lot",Often,Maybe,Priority restock before peak weeks,Yes
+C014,Sometimes,Offer another brand,Two or three,A little,Rarely,Maybe,Customers returning for refills,Yes
+C015,Often,Send the customer elsewhere,Two or three,"Yes, a lot",Often,Maybe,Priority restock before peak weeks,Yes

@@ -1,301 +1,51 @@
 id,gender,rx,bought,why,freq,times,know,source,barrier,lasts,qr,wa,help
 P001,Woman,No,,,Every day,Once,No,An advertisement or online store,I forget,3 months or more,Yes,Maybe,Exact reapply times for today's sun
-P002,Woman,Yes,A different one,Too expensive,Every day,Once,"Yes, clearly",Social media or an influencer,The price,1 to 2 months,No,No,A sunscreen matched to the season
-P003,Man,Yes,None,Too expensive,Rarely,Once,"Yes, clearly",Friends or family,I forget,1 to 2 months,Yes,Maybe,Knowing which pharmacy has it
-P004,Man,No,,,Rarely,Twice,"Yes, clearly",A dermatologist or doctor,It feels sticky or oily,Not sure,Yes,Yes,A sunscreen matched to the season
-P005,Man,Yes,None,Too expensive,Rarely,Once,Roughly,Social media or an influencer,I am not sure I need it,1 to 2 months,Yes,No,Exact reapply times for today's sun
-P006,Man,No,,,Every day,Once,"Yes, clearly",Friends or family,I forget,3 months or more,Maybe,No,Exact reapply times for today's sun
-P007,Man,Yes,Exactly that one,,Every day,Once,No,An advertisement or online store,Nothing stops me,Less than 1 month,Maybe,No,Exact reapply times for today's sun
-P008,Man,No,,,Never,,"Yes, clearly",,It feels sticky or oily,,Yes,Maybe,A reminder when my tube runs low
-P009,Woman,No,,,Never,,No,,It feels sticky or oily,,Yes,No,Knowing which pharmacy has it
-P010,Man,No,,,Never,,Roughly,,It feels sticky or oily,,No,No,A reminder when my tube runs low
-P011,Woman,Yes,None,Too expensive,Every day,Twice,Roughly,Friends or family,The price,Not sure,Maybe,Maybe,Exact reapply times for today's sun
-P012,Man,No,,,Rarely,Once,Roughly,A pharmacist,It feels sticky or oily,Less than 1 month,Maybe,No,A reminder when my tube runs low
-P013,Woman,Yes,A different one,Too expensive,A few days a week,Once,No,Social media or an influencer,It feels sticky or oily,1 to 2 months,Yes,Maybe,A sunscreen matched to the season
-P014,Man,No,,,Only when I expect strong sun,Once,Roughly,Social media or an influencer,Nothing stops me,Not sure,Yes,Maybe,Exact reapply times for today's sun
-P015,Woman,Yes,Exactly that one,,Only when I expect strong sun,Twice,"Yes, clearly",A pharmacist,I forget,Not sure,Yes,Maybe,Exact reapply times for today's sun
-P016,Woman,No,,,Never,,Roughly,,I am not sure I need it,,Yes,Yes,Exact reapply times for today's sun
-P017,Man,Yes,Exactly that one,,Rarely,Once,Roughly,An advertisement or online store,It makes my skin break out,Not sure,No,Yes,A reminder when my tube runs low
-P018,Woman,No,,,Only when I expect strong sun,Twice,Roughly,An advertisement or online store,It feels sticky or oily,1 to 2 months,Maybe,Maybe,Exact reapply times for today's sun
-P019,Man,No,,,A few days a week,Once,No,A dermatologist or doctor,It feels sticky or oily,3 months or more,Yes,Yes,Exact reapply times for today's sun
-P020,Woman,No,,,Never,,No,,Nothing stops me,,Yes,No,A reminder when my tube runs low
-P021,Man,No,,,Rarely,Twice,Roughly,Friends or family,I am not sure I need it,3 months or more,Maybe,Yes,A sunscreen matched to the season
-P022,Woman,No,,,Every day,Once,No,A dermatologist or doctor,It feels sticky or oily,3 months or more,Yes,Yes,A reminder when my tube runs low
-P023,Man,Yes,None,Pharmacist suggested another,Only when I expect strong sun,Once,No,Social media or an influencer,Nothing stops me,1 to 2 months,Maybe,No,A sunscreen matched to the season
-P024,Man,No,,,Every day,Once,Roughly,A pharmacist,I forget,3 months or more,No,Maybe,Exact reapply times for today's sun
-P025,Man,Yes,Exactly that one,,Only when I expect strong sun,Once,Roughly,Friends or family,I am not sure I need it,Not sure,Yes,No,Knowing which pharmacy has it
-P026,Woman,Yes,None,Pharmacist suggested another,Never,,"Yes, clearly",,It feels sticky or oily,,Yes,No,A sunscreen matched to the season
-P027,Woman,No,,,Rarely,Once,No,A pharmacist,It feels sticky or oily,1 to 2 months,Maybe,No,A reminder when my tube runs low
-P028,Man,No,,,Only when I expect strong sun,Once,No,Social media or an influencer,I am not sure I need it,3 months or more,Yes,Maybe,A reminder when my tube runs low
-P029,Woman,No,,,Every day,Three or more times,No,A dermatologist or doctor,I forget,1 to 2 months,Maybe,No,A sunscreen matched to the season
-P030,Man,Yes,Exactly that one,,Every day,Twice,No,A dermatologist or doctor,The price,3 months or more,Yes,Maybe,None of these
-P031,Woman,No,,,Never,,No,,Nothing stops me,,Yes,Yes,Knowing which pharmacy has it
-P032,Woman,No,,,Every day,Once,"Yes, clearly",Friends or family,I forget,Not sure,Maybe,Maybe,A sunscreen matched to the season
-P033,Man,Yes,A different one,Not available at the pharmacy,A few days a week,Once,Roughly,Social media or an influencer,It feels sticky or oily,3 months or more,Maybe,No,Knowing which pharmacy has it
-P034,Man,Yes,A different one,Too expensive,Only when I expect strong sun,Once,No,Friends or family,The price,Not sure,Yes,Yes,A reminder when my tube runs low
-P035,Man,Yes,Exactly that one,,A few days a week,Twice,No,A dermatologist or doctor,I forget,Not sure,No,Maybe,Knowing which pharmacy has it
-P036,Man,Yes,Exactly that one,,Only when I expect strong sun,Once,No,A dermatologist or doctor,It feels sticky or oily,Less than 1 month,Yes,Yes,A sunscreen matched to the season
-P037,Man,Yes,Exactly that one,,Every day,Twice,No,A dermatologist or doctor,It feels sticky or oily,1 to 2 months,Yes,No,A sunscreen matched to the season
-P038,Woman,No,,,Rarely,Once,"Yes, clearly",A dermatologist or doctor,It leaves a white cast,Less than 1 month,No,Yes,Exact reapply times for today's sun
-P039,Woman,No,,,Every day,Once,Roughly,A dermatologist or doctor,I am not sure I need it,3 months or more,Maybe,Yes,A sunscreen matched to the season
-P040,Man,Yes,A different one,Not available at the pharmacy,Every day,Once,No,Social media or an influencer,I am not sure I need it,1 to 2 months,Yes,Yes,A reminder when my tube runs low
-P041,Man,Yes,Exactly that one,,Only when I expect strong sun,Once,"Yes, clearly",A dermatologist or doctor,It makes my skin break out,1 to 2 months,Maybe,Yes,A reminder when my tube runs low
-P042,Woman,No,,,Rarely,Twice,"Yes, clearly",Friends or family,It feels sticky or oily,Less than 1 month,Yes,No,A reminder when my tube runs low
-P043,Woman,No,,,Never,,Roughly,,I forget,,Yes,Yes,A sunscreen matched to the season
-P044,Man,No,,,A few days a week,Twice,"Yes, clearly",A dermatologist or doctor,The price,Not sure,Yes,No,A sunscreen matched to the season
-P045,Woman,Yes,Exactly that one,,Every day,Once,No,A dermatologist or doctor,I forget,Less than 1 month,Yes,No,Exact reapply times for today's sun
-P046,Woman,No,,,A few days a week,Twice,Roughly,Social media or an influencer,It feels sticky or oily,1 to 2 months,Yes,Yes,A sunscreen matched to the season
-P047,Woman,Yes,None,Too expensive,Every day,Once,"Yes, clearly",A dermatologist or doctor,I forget,1 to 2 months,No,Yes,Exact reapply times for today's sun
-P048,Man,No,,,A few days a week,Once,Roughly,Social media or an influencer,It feels sticky or oily,Less than 1 month,No,Yes,A sunscreen matched to the season
-P049,Woman,No,,,Only when I expect strong sun,Once,"Yes, clearly",Social media or an influencer,It makes my skin break out,1 to 2 months,Yes,Yes,A reminder when my tube runs low
-P050,Woman,Yes,Exactly that one,,Only when I expect strong sun,Twice,Roughly,An advertisement or online store,I am not sure I need it,Less than 1 month,Yes,Yes,Exact reapply times for today's sun
-P051,Man,Yes,Exactly that one,,A few days a week,Once,Roughly,Friends or family,It feels sticky or oily,3 months or more,Maybe,Yes,A sunscreen matched to the season
-P052,Woman,No,,,Every day,Once,"Yes, clearly",An advertisement or online store,It feels sticky or oily,3 months or more,Yes,Yes,A sunscreen matched to the season
-P053,Woman,Yes,Exactly that one,,Never,,Roughly,,It feels sticky or oily,,Maybe,Maybe,Exact reapply times for today's sun
-P054,Man,No,,,Only when I expect strong sun,Once,Roughly,Social media or an influencer,It feels sticky or oily,1 to 2 months,Yes,No,Exact reapply times for today's sun
-P055,Man,Yes,Exactly that one,,Every day,Twice,No,Social media or an influencer,I forget,3 months or more,Yes,Yes,Knowing which pharmacy has it
-P056,Woman,No,,,A few days a week,Once,No,A dermatologist or doctor,It feels sticky or oily,Less than 1 month,Maybe,No,A sunscreen matched to the season
-P057,Man,No,,,Rarely,Once,Roughly,Friends or family,It feels sticky or oily,3 months or more,Yes,Maybe,Exact reapply times for today's sun
-P058,Woman,Yes,Exactly that one,,A few days a week,Twice,Roughly,Social media or an influencer,It feels sticky or oily,Not sure,Maybe,Yes,Exact reapply times for today's sun
-P059,Man,Yes,Exactly that one,,A few days a week,Once,Roughly,Friends or family,It makes my skin break out,3 months or more,Yes,Yes,Exact reapply times for today's sun
-P060,Man,Yes,Exactly that one,,Every day,Once,"Yes, clearly",Social media or an influencer,The price,Less than 1 month,No,Yes,Exact reapply times for today's sun
-P061,Man,No,,,Rarely,Once,"Yes, clearly",Social media or an influencer,I am not sure I need it,3 months or more,Yes,Maybe,A sunscreen matched to the season
-P062,Man,No,,,Never,,Roughly,,I am not sure I need it,,Yes,Yes,A reminder when my tube runs low
-P063,Man,No,,,Only when I expect strong sun,Once,No,A pharmacist,I forget,Less than 1 month,No,Maybe,Exact reapply times for today's sun
-P064,Man,No,,,Rarely,Once,No,Friends or family,It leaves a white cast,1 to 2 months,Maybe,Yes,Knowing which pharmacy has it
-P065,Woman,No,,,Never,,No,,I forget,,Maybe,No,Exact reapply times for today's sun
-P066,Man,Yes,Exactly that one,,Every day,Twice,No,An advertisement or online store,It feels sticky or oily,Less than 1 month,Yes,Maybe,Knowing which pharmacy has it
-P067,Woman,No,,,Only when I expect strong sun,Once,No,Social media or an influencer,I am not sure I need it,Not sure,Maybe,No,Exact reapply times for today's sun
-P068,Woman,No,,,Every day,Once,Roughly,A dermatologist or doctor,I forget,Less than 1 month,Maybe,Maybe,Exact reapply times for today's sun
-P069,Man,No,,,A few days a week,Once,Roughly,Friends or family,It makes my skin break out,3 months or more,No,No,Exact reapply times for today's sun
-P070,Man,Yes,Exactly that one,,A few days a week,Once,No,An advertisement or online store,It feels sticky or oily,1 to 2 months,Yes,Maybe,Exact reapply times for today's sun
-P071,Man,Yes,None,Not available at the pharmacy,Every day,Once,No,A dermatologist or doctor,It leaves a white cast,3 months or more,Yes,Yes,Knowing which pharmacy has it
-P072,Woman,Yes,A different one,Too expensive,Only when I expect strong sun,Twice,Roughly,An advertisement or online store,The price,1 to 2 months,Maybe,Yes,A reminder when my tube runs low
-P073,Woman,Yes,Exactly that one,,A few days a week,Once,"Yes, clearly",Friends or family,Nothing stops me,Not sure,Yes,Yes,Knowing which pharmacy has it
-P074,Woman,No,,,Rarely,Twice,Roughly,A pharmacist,The price,3 months or more,Maybe,Maybe,Exact reapply times for today's sun
-P075,Man,No,,,A few days a week,Once,No,A pharmacist,It feels sticky or oily,Not sure,Yes,No,A reminder when my tube runs low
-P076,Man,Yes,Exactly that one,,Rarely,Three or more times,Roughly,Social media or an influencer,The price,3 months or more,Yes,Maybe,Exact reapply times for today's sun
-P077,Woman,No,,,Only when I expect strong sun,Twice,Roughly,Social media or an influencer,Nothing stops me,1 to 2 months,Yes,No,Exact reapply times for today's sun
-P078,Man,No,,,Rarely,Twice,No,A dermatologist or doctor,Nothing stops me,3 months or more,Maybe,No,Exact reapply times for today's sun
-P079,Woman,No,,,Only when I expect strong sun,Twice,No,Friends or family,It feels sticky or oily,Not sure,No,No,A sunscreen matched to the season
-P080,Woman,No,,,A few days a week,Once,"Yes, clearly",An advertisement or online store,It leaves a white cast,3 months or more,Maybe,Maybe,None of these
-P081,Woman,No,,,Every day,Twice,No,Friends or family,It makes my skin break out,1 to 2 months,Yes,No,Exact reapply times for today's sun
-P082,Woman,No,,,Every day,Twice,"Yes, clearly",Social media or an influencer,I forget,Less than 1 month,Maybe,Yes,A sunscreen matched to the season
-P083,Man,No,,,Every day,Once,No,A dermatologist or doctor,It leaves a white cast,3 months or more,Maybe,Yes,A reminder when my tube runs low
-P084,Man,No,,,Only when I expect strong sun,Once,Roughly,Friends or family,I forget,1 to 2 months,Maybe,No,Exact reapply times for today's sun
-P085,Woman,Yes,A different one,Not available at the pharmacy,Only when I expect strong sun,Three or more times,No,Social media or an influencer,I forget,3 months or more,No,No,A sunscreen matched to the season
-P086,Woman,Yes,Exactly that one,,A few days a week,Once,Roughly,Social media or an influencer,I forget,3 months or more,Maybe,Yes,Exact reapply times for today's sun
-P087,Woman,Yes,Exactly that one,,Every day,Twice,Roughly,A dermatologist or doctor,Nothing stops me,1 to 2 months,Yes,Maybe,A reminder when my tube runs low
-P088,Woman,Yes,Exactly that one,,Only when I expect strong sun,Once,"Yes, clearly",Social media or an influencer,I forget,1 to 2 months,Maybe,No,A reminder when my tube runs low
-P089,Woman,No,,,Rarely,Once,No,A dermatologist or doctor,I am not sure I need it,Less than 1 month,Yes,Yes,Knowing which pharmacy has it
-P090,Man,Yes,Exactly that one,,A few days a week,Once,No,A dermatologist or doctor,It feels sticky or oily,Less than 1 month,Yes,No,A reminder when my tube runs low
-P091,Man,Yes,Exactly that one,,Every day,Twice,No,A dermatologist or doctor,Nothing stops me,Not sure,Maybe,Yes,Exact reapply times for today's sun
-P092,Man,No,,,Rarely,Once,No,A dermatologist or doctor,Nothing stops me,3 months or more,No,No,A reminder when my tube runs low
-P093,Man,No,,,Only when I expect strong sun,Once,"Yes, clearly",Friends or family,I am not sure I need it,1 to 2 months,Maybe,Maybe,Knowing which pharmacy has it
-P094,Man,Yes,Exactly that one,,Every day,Twice,No,A dermatologist or doctor,The price,3 months or more,Yes,Yes,A reminder when my tube runs low
-P095,Woman,No,,,Every day,Once,No,Social media or an influencer,It feels sticky or oily,3 months or more,Yes,Maybe,A sunscreen matched to the season
-P096,Man,Yes,A different one,Not available at the pharmacy,Rarely,Once,No,Friends or family,The price,Not sure,Maybe,No,A sunscreen matched to the season
-P097,Man,No,,,Every day,Once,"Yes, clearly",A dermatologist or doctor,It feels sticky or oily,Not sure,Yes,No,Knowing which pharmacy has it
-P098,Man,No,,,Rarely,Once,Roughly,Social media or an influencer,Nothing stops me,1 to 2 months,Maybe,Maybe,Exact reapply times for today's sun
-P099,Woman,No,,,Every day,Twice,"Yes, clearly",Social media or an influencer,It feels sticky or oily,Less than 1 month,Maybe,Yes,A sunscreen matched to the season
-P100,Man,Yes,Exactly that one,,Only when I expect strong sun,Once,No,Friends or family,Nothing stops me,1 to 2 months,Maybe,Yes,Exact reapply times for today's sun
-P101,Woman,Yes,None,Not available at the pharmacy,Every day,Three or more times,Roughly,Social media or an influencer,The price,1 to 2 months,Yes,Yes,A sunscreen matched to the season
-P102,Man,Yes,None,Pharmacist suggested another,Never,,No,,It makes my skin break out,,Yes,Maybe,Knowing which pharmacy has it
-P103,Man,No,,,Never,,No,,It feels sticky or oily,,Yes,Maybe,A sunscreen matched to the season
-P104,Man,No,,,Every day,Once,No,Social media or an influencer,I am not sure I need it,1 to 2 months,No,No,None of these
-P105,Man,Yes,A different one,Too expensive,A few days a week,Once,Roughly,Friends or family,It makes my skin break out,1 to 2 months,Yes,No,Exact reapply times for today's sun
-P106,Woman,Yes,Exactly that one,,Every day,Once,Roughly,Friends or family,It leaves a white cast,1 to 2 months,Yes,Yes,Exact reapply times for today's sun
-P107,Man,Yes,None,Too expensive,Never,,Roughly,,Nothing stops me,,Maybe,Maybe,None of these
-P108,Woman,Yes,A different one,Not available at the pharmacy,Every day,Once,No,Friends or family,I forget,3 months or more,Yes,No,A sunscreen matched to the season
-P109,Woman,No,,,Every day,Once,No,Social media or an influencer,I forget,Not sure,Maybe,No,Exact reapply times for today's sun
-P110,Man,Yes,A different one,Too expensive,Every day,Once,No,A dermatologist or doctor,It feels sticky or oily,1 to 2 months,Yes,Yes,A sunscreen matched to the season
-P111,Woman,No,,,A few days a week,Once,No,A dermatologist or doctor,I forget,3 months or more,Yes,No,Exact reapply times for today's sun
-P112,Man,No,,,A few days a week,Once,Roughly,An advertisement or online store,It makes my skin break out,Less than 1 month,Yes,No,Exact reapply times for today's sun
-P113,Woman,No,,,Every day,Once,Roughly,A dermatologist or doctor,The price,Less than 1 month,Yes,No,Knowing which pharmacy has it
-P114,Woman,No,,,A few days a week,Once,"Yes, clearly",A dermatologist or doctor,I am not sure I need it,3 months or more,Yes,Maybe,A reminder when my tube runs low
-P115,Woman,No,,,Never,,No,,I am not sure I need it,,Maybe,No,Exact reapply times for today's sun
-P116,Woman,No,,,Never,,No,,I forget,,Yes,Maybe,A reminder when my tube runs low
-P117,Man,No,,,A few days a week,Three or more times,Roughly,Friends or family,The price,Not sure,Yes,No,Knowing which pharmacy has it
-P118,Man,No,,,Rarely,Three or more times,No,Social media or an influencer,I am not sure I need it,Less than 1 month,Maybe,Yes,A sunscreen matched to the season
-P119,Woman,No,,,Every day,Once,No,A pharmacist,It makes my skin break out,3 months or more,Yes,Yes,A reminder when my tube runs low
-P120,Man,Yes,Exactly that one,,Every day,Twice,"Yes, clearly",A pharmacist,It feels sticky or oily,3 months or more,Yes,Maybe,A reminder when my tube runs low
-P121,Woman,Yes,A different one,Too expensive,Rarely,Once,Roughly,A pharmacist,I am not sure I need it,Not sure,Yes,No,Exact reapply times for today's sun
-P122,Man,No,,,A few days a week,Three or more times,No,A dermatologist or doctor,I am not sure I need it,1 to 2 months,Yes,Maybe,None of these
-P123,Woman,No,,,Every day,Twice,No,A dermatologist or doctor,I am not sure I need it,1 to 2 months,No,Maybe,Exact reapply times for today's sun
-P124,Man,Yes,Exactly that one,,Every day,Once,"Yes, clearly",Social media or an influencer,It feels sticky or oily,Not sure,Yes,No,None of these
-P125,Woman,No,,,Every day,Once,Roughly,A pharmacist,I forget,1 to 2 months,Yes,Yes,Exact reapply times for today's sun
-P126,Woman,No,,,Every day,Twice,"Yes, clearly",Social media or an influencer,I forget,1 to 2 months,Yes,Yes,A reminder when my tube runs low
-P127,Man,No,,,Never,,No,,It leaves a white cast,,No,Yes,Exact reapply times for today's sun
-P128,Man,No,,,Never,,Roughly,,Nothing stops me,,No,Yes,A sunscreen matched to the season
-P129,Woman,Yes,Exactly that one,,Every day,Once,Roughly,A dermatologist or doctor,I am not sure I need it,1 to 2 months,Yes,Maybe,A reminder when my tube runs low
-P130,Woman,No,,,Only when I expect strong sun,Once,Roughly,Social media or an influencer,I forget,1 to 2 months,Yes,Yes,A reminder when my tube runs low
-P131,Man,No,,,Never,,No,,I forget,,Maybe,No,Exact reapply times for today's sun
-P132,Woman,No,,,Every day,Three or more times,No,Social media or an influencer,It makes my skin break out,3 months or more,Yes,Yes,Exact reapply times for today's sun
-P133,Woman,Yes,Exactly that one,,Every day,Once,No,A dermatologist or doctor,It makes my skin break out,1 to 2 months,Yes,No,A reminder when my tube runs low
-P134,Man,No,,,Every day,Once,Roughly,A dermatologist or doctor,It feels sticky or oily,1 to 2 months,Yes,Maybe,A reminder when my tube runs low
-P135,Woman,Yes,A different one,Pharmacist suggested another,Never,,No,,Nothing stops me,,No,Maybe,None of these
-P136,Man,No,,,Rarely,Twice,No,A pharmacist,I forget,1 to 2 months,Maybe,Maybe,A sunscreen matched to the season
-P137,Man,Yes,Exactly that one,,A few days a week,Once,No,Friends or family,I am not sure I need it,3 months or more,Yes,No,Exact reapply times for today's sun
-P138,Man,No,,,Only when I expect strong sun,Once,No,A dermatologist or doctor,It feels sticky or oily,1 to 2 months,Maybe,Maybe,A reminder when my tube runs low
-P139,Man,No,,,Every day,Twice,Roughly,Friends or family,Nothing stops me,1 to 2 months,Yes,Maybe,Exact reapply times for today's sun
-P140,Woman,No,,,Every day,Twice,No,A dermatologist or doctor,It feels sticky or oily,3 months or more,Yes,No,Knowing which pharmacy has it
-P141,Woman,Yes,Exactly that one,,A few days a week,Once,No,A dermatologist or doctor,Nothing stops me,1 to 2 months,Yes,Yes,A reminder when my tube runs low
-P142,Man,No,,,Every day,Once,Roughly,A dermatologist or doctor,The price,1 to 2 months,Yes,Maybe,A reminder when my tube runs low
-P143,Woman,No,,,A few days a week,Twice,No,Friends or family,I am not sure I need it,1 to 2 months,Yes,No,None of these
-P144,Woman,No,,,A few days a week,Twice,Roughly,A dermatologist or doctor,The price,1 to 2 months,Yes,Yes,Knowing which pharmacy has it
-P145,Man,No,,,Rarely,Three or more times,No,An advertisement or online store,I forget,Not sure,No,Yes,Exact reapply times for today's sun
-P146,Woman,No,,,Every day,Twice,Roughly,Friends or family,Nothing stops me,1 to 2 months,No,Maybe,A reminder when my tube runs low
-P147,Man,No,,,A few days a week,Once,No,Social media or an influencer,It leaves a white cast,3 months or more,Yes,No,Knowing which pharmacy has it
-P148,Woman,No,,,Only when I expect strong sun,Twice,No,Friends or family,I forget,1 to 2 months,Yes,Yes,Exact reapply times for today's sun
-P149,Man,No,,,Only when I expect strong sun,Once,"Yes, clearly",A dermatologist or doctor,The price,3 months or more,Yes,Yes,Exact reapply times for today's sun
-P150,Man,Yes,A different one,Not available at the pharmacy,Rarely,Once,No,A dermatologist or doctor,It feels sticky or oily,Less than 1 month,Maybe,Yes,A sunscreen matched to the season
-P151,Man,No,,,Rarely,Three or more times,Roughly,Friends or family,I am not sure I need it,3 months or more,Maybe,Yes,None of these
-P152,Woman,No,,,Every day,Once,Roughly,Friends or family,I forget,3 months or more,No,Yes,A sunscreen matched to the season
-P153,Woman,No,,,Every day,Once,No,Social media or an influencer,The price,1 to 2 months,Yes,Yes,Knowing which pharmacy has it
-P154,Man,Yes,A different one,Preferred a brand I knew,A few days a week,Once,Roughly,A dermatologist or doctor,Nothing stops me,3 months or more,Yes,No,None of these
-P155,Man,No,,,Never,,No,,The price,,Yes,No,Exact reapply times for today's sun
-P156,Woman,No,,,Never,,Roughly,,I am not sure I need it,,Yes,Yes,A sunscreen matched to the season
-P157,Woman,Yes,A different one,Ordered what was online,A few days a week,Three or more times,"Yes, clearly",Social media or an influencer,I forget,1 to 2 months,No,Yes,A sunscreen matched to the season
-P158,Man,Yes,A different one,Pharmacist suggested another,Every day,Twice,No,A pharmacist,I forget,3 months or more,No,Maybe,None of these
-P159,Man,Yes,A different one,Too expensive,Every day,Once,No,Social media or an influencer,I forget,3 months or more,Yes,Yes,A sunscreen matched to the season
-P160,Man,No,,,Every day,Once,No,A dermatologist or doctor,Nothing stops me,1 to 2 months,Yes,Yes,A sunscreen matched to the season
-P161,Man,No,,,Every day,Twice,Roughly,Social media or an influencer,It leaves a white cast,1 to 2 months,Yes,Maybe,A sunscreen matched to the season
-P162,Man,No,,,A few days a week,Once,"Yes, clearly",A pharmacist,I forget,1 to 2 months,Yes,No,A reminder when my tube runs low
-P163,Man,Yes,A different one,Preferred a brand I knew,Only when I expect strong sun,Twice,No,An advertisement or online store,It feels sticky or oily,3 months or more,Yes,Yes,Exact reapply times for today's sun
-P164,Man,No,,,Never,,No,,It feels sticky or oily,,Yes,Yes,A sunscreen matched to the season
-P165,Man,Yes,None,Not available at the pharmacy,Never,,No,,I am not sure I need it,,Yes,No,Exact reapply times for today's sun
-P166,Woman,No,,,Never,,No,,Nothing stops me,,Yes,Maybe,Exact reapply times for today's sun
-P167,Man,No,,,Never,,No,,Nothing stops me,,Yes,Yes,A sunscreen matched to the season
-P168,Woman,No,,,A few days a week,Once,No,Social media or an influencer,It feels sticky or oily,3 months or more,Yes,No,A sunscreen matched to the season
-P169,Man,No,,,Rarely,Once,No,A dermatologist or doctor,The price,3 months or more,Yes,Yes,A sunscreen matched to the season
-P170,Woman,Yes,A different one,Ordered what was online,Every day,Once,No,A dermatologist or doctor,I forget,1 to 2 months,Yes,Maybe,None of these
-P171,Man,Yes,Exactly that one,,Rarely,Three or more times,No,A dermatologist or doctor,The price,Not sure,Yes,Maybe,None of these
-P172,Woman,No,,,Every day,Once,No,A pharmacist,It feels sticky or oily,1 to 2 months,Yes,Yes,A sunscreen matched to the season
-P173,Man,No,,,Every day,Twice,Roughly,An advertisement or online store,The price,1 to 2 months,Maybe,No,Exact reapply times for today's sun
-P174,Man,No,,,Rarely,Once,No,A dermatologist or doctor,It leaves a white cast,Not sure,Yes,No,A reminder when my tube runs low
-P175,Woman,No,,,Never,,No,,The price,,Maybe,Yes,A sunscreen matched to the season
-P176,Man,No,,,Never,,Roughly,,It feels sticky or oily,,Maybe,Maybe,A sunscreen matched to the season
-P177,Woman,No,,,A few days a week,Twice,"Yes, clearly",Friends or family,It leaves a white cast,3 months or more,No,Yes,A sunscreen matched to the season
-P178,Man,No,,,Never,,Roughly,,I forget,,Yes,No,A reminder when my tube runs low
-P179,Man,No,,,Every day,Twice,Roughly,A dermatologist or doctor,I am not sure I need it,1 to 2 months,Yes,No,A sunscreen matched to the season
-P180,Man,Yes,None,Pharmacist suggested another,Rarely,Once,No,A pharmacist,The price,Not sure,Yes,Yes,Exact reapply times for today's sun
-P181,Woman,No,,,A few days a week,Twice,No,A pharmacist,The price,Not sure,Maybe,No,Knowing which pharmacy has it
-P182,Woman,Yes,Exactly that one,,Only when I expect strong sun,Once,Roughly,An advertisement or online store,It leaves a white cast,3 months or more,Yes,Maybe,A sunscreen matched to the season
-P183,Woman,Yes,Exactly that one,,Only when I expect strong sun,Once,Roughly,Social media or an influencer,The price,Less than 1 month,Maybe,No,A sunscreen matched to the season
-P184,Woman,No,,,Every day,Twice,No,A pharmacist,It makes my skin break out,3 months or more,Yes,Yes,Knowing which pharmacy has it
-P185,Man,No,,,Every day,Once,"Yes, clearly",Social media or an influencer,It feels sticky or oily,Not sure,Maybe,Yes,A reminder when my tube runs low
-P186,Man,Yes,Exactly that one,,A few days a week,Once,Roughly,Social media or an influencer,It leaves a white cast,1 to 2 months,Yes,Maybe,None of these
-P187,Man,Yes,A different one,Pharmacist suggested another,Rarely,Twice,No,Social media or an influencer,I forget,Not sure,Yes,Yes,Exact reapply times for today's sun
-P188,Man,No,,,Rarely,Twice,Roughly,Friends or family,The price,1 to 2 months,No,Maybe,Knowing which pharmacy has it
-P189,Woman,No,,,Every day,Once,"Yes, clearly",Friends or family,It feels sticky or oily,Less than 1 month,Yes,Yes,Knowing which pharmacy has it
-P190,Man,No,,,Every day,Twice,No,Friends or family,It makes my skin break out,1 to 2 months,Maybe,Yes,Exact reapply times for today's sun
-P191,Man,Yes,A different one,Ordered what was online,A few days a week,Once,Roughly,A dermatologist or doctor,It feels sticky or oily,Less than 1 month,Yes,No,Knowing which pharmacy has it
-P192,Man,No,,,A few days a week,Once,No,Social media or an influencer,Nothing stops me,1 to 2 months,Yes,Maybe,Exact reapply times for today's sun
-P193,Man,No,,,Only when I expect strong sun,Once,Roughly,Friends or family,The price,3 months or more,Yes,No,A reminder when my tube runs low
-P194,Woman,Yes,Exactly that one,,Every day,Once,Roughly,A pharmacist,I forget,3 months or more,Maybe,Yes,A sunscreen matched to the season
-P195,Woman,No,,,Rarely,Three or more times,No,A dermatologist or doctor,I forget,Less than 1 month,Maybe,Yes,A reminder when my tube runs low
-P196,Man,No,,,Rarely,Once,Roughly,Social media or an influencer,It leaves a white cast,3 months or more,Yes,Yes,A reminder when my tube runs low
-P197,Man,Yes,Exactly that one,,Only when I expect strong sun,Once,No,Social media or an influencer,It leaves a white cast,3 months or more,Maybe,No,Knowing which pharmacy has it
-P198,Woman,No,,,Every day,Once,Roughly,A dermatologist or doctor,I am not sure I need it,1 to 2 months,Yes,No,A reminder when my tube runs low
-P199,Man,No,,,Every day,Once,No,An advertisement or online store,Nothing stops me,1 to 2 months,Maybe,Maybe,A reminder when my tube runs low
-P200,Woman,No,,,Every day,Once,"Yes, clearly",Friends or family,It feels sticky or oily,1 to 2 months,No,Maybe,A reminder when my tube runs low
-P201,Woman,Yes,Exactly that one,,Only when I expect strong sun,Twice,Roughly,Friends or family,It feels sticky or oily,1 to 2 months,No,Yes,None of these
-P202,Woman,Yes,A different one,Ordered what was online,A few days a week,Once,No,Friends or family,It feels sticky or oily,1 to 2 months,Maybe,Yes,A sunscreen matched to the season
-P203,Man,No,,,A few days a week,Once,"Yes, clearly",Friends or family,It feels sticky or oily,3 months or more,Yes,Yes,Exact reapply times for today's sun
-P204,Man,Yes,Exactly that one,,Every day,Once,No,Social media or an influencer,The price,Less than 1 month,Yes,Yes,A sunscreen matched to the season
-P205,Woman,Yes,A different one,Not available at the pharmacy,Never,,Roughly,,I am not sure I need it,,Maybe,No,Exact reapply times for today's sun
-P206,Woman,Yes,A different one,Pharmacist suggested another,Only when I expect strong sun,Twice,No,A pharmacist,The price,1 to 2 months,Yes,Maybe,None of these
-P207,Man,No,,,Never,,"Yes, clearly",,It makes my skin break out,,No,Maybe,Exact reapply times for today's sun
-P208,Woman,Yes,None,Pharmacist suggested another,Rarely,Once,Roughly,A dermatologist or doctor,It feels sticky or oily,1 to 2 months,Yes,Yes,Exact reapply times for today's sun
-P209,Woman,No,,,A few days a week,Once,Roughly,A dermatologist or doctor,It makes my skin break out,3 months or more,Yes,Yes,Knowing which pharmacy has it
-P210,Woman,No,,,Rarely,Once,Roughly,Friends or family,It feels sticky or oily,Less than 1 month,Yes,Maybe,Exact reapply times for today's sun
-P211,Woman,No,,,Rarely,Once,No,Friends or family,It leaves a white cast,Not sure,Maybe,Yes,A sunscreen matched to the season
-P212,Woman,No,,,A few days a week,Once,"Yes, clearly",A dermatologist or doctor,The price,3 months or more,No,Maybe,A sunscreen matched to the season
-P213,Woman,No,,,Only when I expect strong sun,Once,Roughly,A dermatologist or doctor,The price,1 to 2 months,Maybe,No,Exact reapply times for today's sun
-P214,Woman,No,,,Every day,Once,No,Friends or family,It feels sticky or oily,Not sure,Yes,Yes,Knowing which pharmacy has it
-P215,Man,No,,,Never,,No,,Nothing stops me,,No,Maybe,A sunscreen matched to the season
-P216,Man,No,,,Rarely,Once,No,Social media or an influencer,The price,Not sure,Maybe,Yes,Knowing which pharmacy has it
-P217,Man,No,,,Never,,"Yes, clearly",,I forget,,Yes,Yes,A sunscreen matched to the season
-P218,Man,Yes,Exactly that one,,Every day,Once,No,A dermatologist or doctor,It leaves a white cast,1 to 2 months,Maybe,Yes,A reminder when my tube runs low
-P219,Man,Yes,Exactly that one,,Only when I expect strong sun,Twice,No,A dermatologist or doctor,It makes my skin break out,1 to 2 months,No,No,None of these
-P220,Man,No,,,Every day,Once,Roughly,Friends or family,I forget,1 to 2 months,Maybe,No,None of these
-P221,Woman,No,,,Never,,Roughly,,It feels sticky or oily,,Maybe,No,None of these
-P222,Man,Yes,A different one,Not available at the pharmacy,A few days a week,Once,No,A pharmacist,Nothing stops me,3 months or more,No,Yes,Exact reapply times for today's sun
-P223,Woman,No,,,Every day,Twice,No,Friends or family,It feels sticky or oily,1 to 2 months,Maybe,Yes,A reminder when my tube runs low
-P224,Woman,No,,,Never,,"Yes, clearly",,I forget,,Yes,Yes,Knowing which pharmacy has it
-P225,Woman,No,,,Every day,Three or more times,Roughly,Friends or family,It leaves a white cast,3 months or more,No,No,Exact reapply times for today's sun
-P226,Woman,Yes,Exactly that one,,Every day,Once,"Yes, clearly",Friends or family,I forget,1 to 2 months,Maybe,No,Knowing which pharmacy has it
-P227,Man,No,,,A few days a week,Once,No,Friends or family,It leaves a white cast,3 months or more,Yes,No,Exact reapply times for today's sun
-P228,Woman,No,,,Every day,Once,No,A dermatologist or doctor,I am not sure I need it,1 to 2 months,Yes,No,A sunscreen matched to the season
-P229,Woman,No,,,Every day,Twice,Roughly,A dermatologist or doctor,It feels sticky or oily,Less than 1 month,No,Maybe,Knowing which pharmacy has it
-P230,Man,No,,,Only when I expect strong sun,Once,"Yes, clearly",An advertisement or online store,I forget,Not sure,Maybe,Maybe,A sunscreen matched to the season
-P231,Woman,No,,,Every day,Three or more times,Roughly,A dermatologist or doctor,I forget,Not sure,Maybe,Maybe,Knowing which pharmacy has it
-P232,Man,No,,,Only when I expect strong sun,Twice,No,An advertisement or online store,It feels sticky or oily,1 to 2 months,No,Yes,None of these
-P233,Woman,Yes,A different one,Not available at the pharmacy,Rarely,Once,No,Social media or an influencer,I forget,Less than 1 month,Maybe,Yes,Exact reapply times for today's sun
-P234,Man,Yes,Exactly that one,,Every day,Once,"Yes, clearly",Friends or family,It makes my skin break out,Not sure,Yes,Yes,Knowing which pharmacy has it
-P235,Woman,Yes,A different one,Not available at the pharmacy,Every day,Once,"Yes, clearly",Friends or family,It feels sticky or oily,Not sure,Yes,Yes,None of these
-P236,Woman,No,,,A few days a week,Once,No,Social media or an influencer,It leaves a white cast,3 months or more,Maybe,Maybe,A reminder when my tube runs low
-P237,Woman,Yes,Exactly that one,,Every day,Once,No,A dermatologist or doctor,I forget,1 to 2 months,Maybe,Maybe,Exact reapply times for today's sun
-P238,Man,No,,,Only when I expect strong sun,Twice,No,A pharmacist,I forget,3 months or more,No,No,Exact reapply times for today's sun
-P239,Woman,Yes,None,Pharmacist suggested another,Rarely,Once,Roughly,Friends or family,It feels sticky or oily,1 to 2 months,Maybe,Yes,A reminder when my tube runs low
-P240,Man,Yes,Exactly that one,,Only when I expect strong sun,Once,"Yes, clearly",Friends or family,Nothing stops me,3 months or more,Yes,No,None of these
-P241,Man,Yes,A different one,Preferred a brand I knew,Only when I expect strong sun,Once,No,A dermatologist or doctor,It feels sticky or oily,1 to 2 months,No,No,A reminder when my tube runs low
-P242,Man,No,,,Never,,Roughly,,It feels sticky or oily,,Yes,Yes,None of these
-P243,Man,Yes,Exactly that one,,Every day,Once,Roughly,A dermatologist or doctor,It feels sticky or oily,1 to 2 months,Yes,Yes,A reminder when my tube runs low
-P244,Man,No,,,Never,,Roughly,,Nothing stops me,,Maybe,Maybe,Knowing which pharmacy has it
-P245,Woman,No,,,Every day,Once,No,Social media or an influencer,I forget,3 months or more,Maybe,Maybe,A sunscreen matched to the season
-P246,Woman,No,,,Every day,Once,Roughly,Friends or family,It feels sticky or oily,3 months or more,Maybe,Maybe,Exact reapply times for today's sun
-P247,Man,No,,,Only when I expect strong sun,Three or more times,Roughly,Social media or an influencer,Nothing stops me,1 to 2 months,Yes,Maybe,Exact reapply times for today's sun
-P248,Woman,No,,,A few days a week,Three or more times,"Yes, clearly",Social media or an influencer,I forget,1 to 2 months,Maybe,No,A reminder when my tube runs low
-P249,Woman,Yes,Exactly that one,,Every day,Once,Roughly,Social media or an influencer,I forget,Less than 1 month,Maybe,Maybe,A sunscreen matched to the season
-P250,Woman,Yes,None,Ordered what was online,Every day,Once,No,A dermatologist or doctor,The price,1 to 2 months,Yes,No,A sunscreen matched to the season
-P251,Woman,Yes,Exactly that one,,Every day,Once,Roughly,Social media or an influencer,The price,3 months or more,Maybe,Yes,Exact reapply times for today's sun
-P252,Woman,No,,,Every day,Three or more times,Roughly,A dermatologist or doctor,The price,Less than 1 month,Maybe,No,Exact reapply times for today's sun
-P253,Woman,Yes,Exactly that one,,Only when I expect strong sun,Once,No,A pharmacist,Nothing stops me,Not sure,No,Yes,A sunscreen matched to the season
-P254,Woman,No,,,Only when I expect strong sun,Once,Roughly,A dermatologist or doctor,It feels sticky or oily,3 months or more,Yes,Yes,None of these
-P255,Woman,Yes,Exactly that one,,A few days a week,Once,No,An advertisement or online store,It feels sticky or oily,3 months or more,Yes,Yes,A sunscreen matched to the season
-P256,Woman,No,,,A few days a week,Twice,Roughly,Social media or an influencer,It feels sticky or oily,1 to 2 months,No,Yes,Exact reapply times for today's sun
-P257,Woman,No,,,Only when I expect strong sun,Twice,No,Friends or family,I forget,1 to 2 months,Yes,Yes,A sunscreen matched to the season
-P258,Man,Yes,Exactly that one,,Every day,Once,Roughly,Friends or family,I forget,Less than 1 month,Yes,Yes,Exact reapply times for today's sun
-P259,Man,No,,,Rarely,Once,"Yes, clearly",A dermatologist or doctor,It makes my skin break out,3 months or more,Yes,Yes,A sunscreen matched to the season
-P260,Woman,No,,,Every day,Twice,No,Friends or family,I forget,1 to 2 months,Yes,Yes,A reminder when my tube runs low
-P261,Man,Yes,Exactly that one,,A few days a week,Once,Roughly,A dermatologist or doctor,I forget,1 to 2 months,No,Yes,A sunscreen matched to the season
-P262,Woman,No,,,Every day,Twice,Roughly,Social media or an influencer,I forget,1 to 2 months,Maybe,No,A reminder when my tube runs low
-P263,Man,Yes,A different one,Not available at the pharmacy,Never,,Roughly,,Nothing stops me,,Maybe,Yes,A sunscreen matched to the season
-P264,Woman,No,,,Only when I expect strong sun,Once,Roughly,Social media or an influencer,It leaves a white cast,3 months or more,Maybe,No,A reminder when my tube runs low
-P265,Man,No,,,Rarely,Once,Roughly,Social media or an influencer,The price,Not sure,Maybe,No,Knowing which pharmacy has it
-P266,Man,No,,,Rarely,Once,No,Social media or an influencer,It feels sticky or oily,1 to 2 months,No,Maybe,A sunscreen matched to the season
-P267,Woman,Yes,Exactly that one,,Every day,Once,No,A dermatologist or doctor,The price,1 to 2 months,Maybe,No,Exact reapply times for today's sun
-P268,Man,No,,,Never,,Roughly,,I am not sure I need it,,Yes,Maybe,Exact reapply times for today's sun
-P269,Woman,No,,,Every day,Once,"Yes, clearly",An advertisement or online store,I forget,1 to 2 months,Yes,No,A reminder when my tube runs low
-P270,Man,Yes,Exactly that one,,Every day,Once,Roughly,Social media or an influencer,It makes my skin break out,1 to 2 months,Yes,Maybe,Exact reapply times for today's sun
-P271,Man,Yes,Exactly that one,,Every day,Twice,"Yes, clearly",Friends or family,I forget,1 to 2 months,Yes,Yes,A reminder when my tube runs low
-P272,Man,Yes,A different one,Too expensive,Rarely,Once,No,An advertisement or online store,It feels sticky or oily,Not sure,Yes,Maybe,A sunscreen matched to the season
-P273,Woman,No,,,Every day,Once,No,Social media or an influencer,It makes my skin break out,3 months or more,No,No,Exact reapply times for today's sun
-P274,Woman,Yes,Exactly that one,,A few days a week,Once,No,A dermatologist or doctor,The price,3 months or more,Yes,Yes,A sunscreen matched to the season
-P275,Man,Yes,Exactly that one,,A few days a week,Once,"Yes, clearly",Social media or an influencer,It feels sticky or oily,1 to 2 months,Maybe,Yes,Exact reapply times for today's sun
-P276,Man,No,,,Only when I expect strong sun,Once,Roughly,An advertisement or online store,The price,Not sure,Yes,Maybe,Knowing which pharmacy has it
-P277,Man,No,,,Never,,"Yes, clearly",,It leaves a white cast,,Yes,Yes,A reminder when my tube runs low
-P278,Man,Yes,A different one,Too expensive,Only when I expect strong sun,Once,No,A dermatologist or doctor,It feels sticky or oily,Less than 1 month,Yes,Yes,A sunscreen matched to the season
-P279,Woman,No,,,Rarely,Twice,Roughly,A dermatologist or doctor,I forget,1 to 2 months,Yes,No,Exact reapply times for today's sun
-P280,Woman,No,,,Every day,Once,Roughly,Friends or family,I forget,1 to 2 months,Maybe,Yes,None of these
-P281,Woman,Yes,A different one,Pharmacist suggested another,Every day,Once,Roughly,An advertisement or online store,I forget,1 to 2 months,No,Yes,Knowing which pharmacy has it
-P282,Man,No,,,Rarely,Once,"Yes, clearly",A pharmacist,I forget,1 to 2 months,Yes,Yes,A reminder when my tube runs low
-P283,Man,No,,,Never,,Roughly,,I forget,,Yes,Maybe,A sunscreen matched to the season
-P284,Man,No,,,Every day,Once,Roughly,An advertisement or online store,It feels sticky or oily,Not sure,Maybe,No,Exact reapply times for today's sun
-P285,Man,Yes,Exactly that one,,Every day,Once,Roughly,An advertisement or online store,Nothing stops me,1 to 2 months,Maybe,Yes,Exact reapply times for today's sun
-P286,Woman,No,,,Every day,Once,Roughly,Friends or family,It feels sticky or oily,3 months or more,No,Yes,A reminder when my tube runs low
-P287,Man,No,,,Every day,Twice,No,Social media or an influencer,The price,Not sure,Maybe,No,A reminder when my tube runs low
-P288,Man,No,,,A few days a week,Once,"Yes, clearly",Social media or an influencer,The price,Less than 1 month,Yes,Yes,Exact reapply times for today's sun
-P289,Woman,Yes,Exactly that one,,Every day,Once,Roughly,Social media or an influencer,I forget,1 to 2 months,Yes,Yes,A sunscreen matched to the season
-P290,Man,No,,,Never,,Roughly,,I forget,,Maybe,Yes,Exact reapply times for today's sun
-P291,Man,No,,,A few days a week,Twice,Roughly,Social media or an influencer,I forget,3 months or more,Yes,Yes,Exact reapply times for today's sun
-P292,Man,Yes,A different one,Too expensive,Rarely,Once,No,Social media or an influencer,It feels sticky or oily,3 months or more,Maybe,Maybe,A reminder when my tube runs low
-P293,Man,No,,,Every day,Three or more times,Roughly,Friends or family,I forget,3 months or more,No,No,None of these
-P294,Man,No,,,Never,,No,,I am not sure I need it,,No,Yes,A sunscreen matched to the season
-P295,Woman,Yes,A different one,Too expensive,Only when I expect strong sun,Twice,Roughly,Social media or an influencer,It leaves a white cast,1 to 2 months,Yes,No,Exact reapply times for today's sun
-P296,Man,No,,,Rarely,Once,Roughly,An advertisement or online store,I forget,3 months or more,Maybe,Maybe,Knowing which pharmacy has it
-P297,Woman,No,,,Every day,Once,No,A dermatologist or doctor,It feels sticky or oily,1 to 2 months,Maybe,Maybe,A sunscreen matched to the season
-P298,Man,No,,,A few days a week,Once,Roughly,A dermatologist or doctor,It feels sticky or oily,3 months or more,Maybe,No,A sunscreen matched to the season
-P299,Woman,Yes,None,Not available at the pharmacy,A few days a week,Once,No,An advertisement or online store,I am not sure I need it,1 to 2 months,Maybe,No,A sunscreen matched to the season
-P300,Man,No,,,Only when I expect strong sun,Once,Roughly,Social media or an influencer,I forget,1 to 2 months,Yes,Yes,A sunscreen matched to the season
+P002,Woman,Yes,A different one,Too expensive,Every day,Once,"Yes, clearly",Friends or family,I am not sure I need it,1 to 2 months,No,No,Exact reapply times for today's sun
+P003,Man,No,,,Never,,Roughly,,It leaves a white cast,,Maybe,Yes,A reminder when my tube runs low
+P004,Woman,Yes,Exactly that one,,Every day,Twice,No,Friends or family,I am not sure I need it,3 months or more,Yes,Yes,Exact reapply times for today's sun
+P005,Man,No,,,Every day,Once,No,A dermatologist or doctor,Nothing stops me,3 months or more,Maybe,Maybe,A sunscreen matched to the season
+P006,Woman,No,,,Every day,Once,No,A pharmacist,The price,Not sure,Yes,Yes,Exact reapply times for today's sun
+P007,Man,No,,,Rarely,Once,No,A dermatologist or doctor,The price,1 to 2 months,Maybe,Yes,Exact reapply times for today's sun
+P008,Man,No,,,Never,,"Yes, clearly",,Nothing stops me,,Maybe,Yes,Knowing which pharmacy has it
+P009,Man,No,,,Every day,Once,"Yes, clearly",Friends or family,I am not sure I need it,1 to 2 months,Yes,No,A reminder when my tube runs low
+P010,Woman,Yes,A different one,Preferred a brand I knew,Only when I expect strong sun,Three or more times,No,Social media or an influencer,I forget,3 months or more,Maybe,Maybe,Exact reapply times for today's sun
+P011,Woman,No,,,Every day,Once,No,A pharmacist,It makes my skin break out,3 months or more,No,No,A reminder when my tube runs low
+P012,Woman,No,,,A few days a week,Twice,Roughly,Social media or an influencer,I forget,1 to 2 months,Yes,No,None of these
+P013,Man,No,,,A few days a week,Once,Roughly,Friends or family,The price,Not sure,Maybe,Maybe,A sunscreen matched to the season
+P014,Woman,No,,,Every day,Three or more times,No,Social media or an influencer,I forget,1 to 2 months,Maybe,No,None of these
+P015,Woman,No,,,Every day,Once,Roughly,Friends or family,It leaves a white cast,3 months or more,Yes,Maybe,Exact reapply times for today's sun
+P016,Man,Yes,Exactly that one,,Every day,Once,No,An advertisement or online store,I forget,3 months or more,Maybe,Yes,Exact reapply times for today's sun
+P017,Man,No,,,Only when I expect strong sun,Twice,"Yes, clearly",A pharmacist,Nothing stops me,Not sure,No,No,Exact reapply times for today's sun
+P018,Man,No,,,Rarely,Once,No,Friends or family,Nothing stops me,1 to 2 months,Yes,No,A reminder when my tube runs low
+P019,Woman,No,,,Never,,Roughly,,I forget,,Maybe,Yes,Exact reapply times for today's sun
+P020,Man,No,,,A few days a week,Once,Roughly,Social media or an influencer,Nothing stops me,Not sure,No,Maybe,Knowing which pharmacy has it
+P021,Man,No,,,Only when I expect strong sun,Once,No,Social media or an influencer,It leaves a white cast,3 months or more,Maybe,Maybe,Exact reapply times for today's sun
+P022,Woman,No,,,A few days a week,Once,No,Friends or family,I forget,1 to 2 months,Maybe,Maybe,Exact reapply times for today's sun
+P023,Man,No,,,Every day,Three or more times,No,Social media or an influencer,I forget,3 months or more,Maybe,No,Exact reapply times for today's sun
+P024,Man,No,,,Only when I expect strong sun,Three or more times,No,A dermatologist or doctor,It feels sticky or oily,1 to 2 months,Yes,Yes,A reminder when my tube runs low
+P025,Man,No,,,Every day,Once,Roughly,Friends or family,Nothing stops me,3 months or more,Maybe,No,A reminder when my tube runs low
+P026,Man,No,,,Never,,No,,I forget,,Yes,No,A reminder when my tube runs low
+P027,Man,Yes,Exactly that one,,Every day,Twice,Roughly,A dermatologist or doctor,It leaves a white cast,Not sure,Yes,No,Exact reapply times for today's sun
+P028,Woman,No,,,Only when I expect strong sun,Twice,No,An advertisement or online store,It feels sticky or oily,3 months or more,Yes,No,A sunscreen matched to the season
+P029,Man,No,,,A few days a week,Once,No,Social media or an influencer,Nothing stops me,Less than 1 month,No,Maybe,Exact reapply times for today's sun
+P030,Woman,No,,,Only when I expect strong sun,Twice,Roughly,An advertisement or online store,It feels sticky or oily,Less than 1 month,Yes,No,None of these
+P031,Woman,No,,,Rarely,Once,No,An advertisement or online store,I forget,3 months or more,No,No,None of these
+P032,Woman,No,,,Rarely,Once,No,A dermatologist or doctor,I forget,Less than 1 month,No,Yes,None of these
+P033,Man,No,,,Only when I expect strong sun,Three or more times,Roughly,Friends or family,I forget,1 to 2 months,Yes,Maybe,Exact reapply times for today's sun
+P034,Woman,No,,,Rarely,Three or more times,No,Friends or family,I forget,3 months or more,Maybe,Maybe,A sunscreen matched to the season
+P035,Man,No,,,Only when I expect strong sun,Three or more times,Roughly,Social media or an influencer,I am not sure I need it,3 months or more,Yes,Maybe,A sunscreen matched to the season
+P036,Man,No,,,A few days a week,Once,No,An advertisement or online store,The price,3 months or more,Maybe,Yes,Exact reapply times for today's sun
+P037,Man,No,,,Rarely,Once,Roughly,A dermatologist or doctor,It feels sticky or oily,Less than 1 month,Yes,No,Exact reapply times for today's sun
+P038,Woman,No,,,Only when I expect strong sun,Once,"Yes, clearly",Social media or an influencer,I forget,1 to 2 months,Maybe,Maybe,Exact reapply times for today's sun
+P039,Woman,No,,,A few days a week,Once,"Yes, clearly",Friends or family,I forget,3 months or more,Yes,Yes,Exact reapply times for today's sun
+P040,Man,No,,,Every day,Once,Roughly,Friends or family,The price,3 months or more,Yes,Maybe,A sunscreen matched to the season
+P041,Woman,No,,,Every day,Once,Roughly,Friends or family,It feels sticky or oily,3 months or more,Yes,Yes,Exact reapply times for today's sun
+P042,Man,No,,,A few days a week,Once,No,Social media or an influencer,I forget,Less than 1 month,No,Maybe,Knowing which pharmacy has it
+P043,Woman,No,,,A few days a week,Twice,No,Friends or family,I forget,3 months or more,Yes,Yes,Exact reapply times for today's sun
+P044,Man,No,,,Only when I expect strong sun,Three or more times,No,A pharmacist,I forget,Less than 1 month,Yes,Maybe,None of these
+P045,Woman,No,,,Only when I expect strong sun,Once,"Yes, clearly",Friends or family,Nothing stops me,Less than 1 month,No,Maybe,Exact reapply times for today's sun
+P046,Woman,No,,,Every day,Once,No,A dermatologist or doctor,I forget,Less than 1 month,Yes,No,Exact reapply times for today's sun
+P047,Woman,No,,,A few days a week,Three or more times,Roughly,Friends or family,I forget,1 to 2 months,Yes,Yes,A sunscreen matched to the season
+P048,Woman,No,,,Rarely,Once,Roughly,Social media or an influencer,I forget,Less than 1 month,Yes,Maybe,None of these
+P049,Woman,Yes,None,Ordered what was online,Every day,Once,Roughly,Social media or an influencer,I forget,Less than 1 month,No,Maybe,A sunscreen matched to the season
+P050,Woman,No,,,Only when I expect strong sun,Once,"Yes, clearly",Social media or an influencer,Nothing stops me,1 to 2 months,Yes,Yes,A reminder when my tube runs low

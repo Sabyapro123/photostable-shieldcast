@@ -1,5 +1,7 @@
 """ShieldCast modelled survey panel.
-This is NOT fieldwork. It simulates respondents whose answer shares are set from published studies
+The team ran a real online survey of 17 sunscreen users in November 2026 (see real_survey.json).
+Questions marked 'survey' blend those real shares (weight 0.6) with a published prior (weight 0.4).
+The panel below is NOT fieldwork. It simulates respondents whose answer shares are set from published studies
 (marked 'anchored') or from stated team assumptions (marked 'assumed'). Seeded, so anyone can rerun it."""
 import json, csv, random
 random.seed(20261111)
@@ -11,27 +13,28 @@ def draw(opts):
         if r < c: return k
     return opts[-1][0]
 
-A, H = "anchored", "assumed"
-PAT = [  # id, question, [(option, share)], basis, note; shares for the whole base unless 'base' says otherwise
+A, H, S = "anchored", "assumed", "survey"
+SIZES = {"patients": 50, "pharmacists": 15, "dermatologists": 10}
+PAT = [
  ("freq", "How often do you use sunscreen?", None, A, "Statista and ProdegeMR 2019: 33% daily; Mintel 2019: 65% non-users nationally; metro adults aged 18 to 45 set higher on use"),
- ("times", "On a day you use it, how many times do you apply it?", [("Once", .68), ("Twice", .24), ("Three or more times", .08)], H, "Dermatologists say 99.4% of patients under-apply (Farberg 2017); no Indian reapplication rate published"),
- ("know", "Do you know when you should reapply?", [("Yes, clearly", .18), ("Roughly", .37), ("No", .45)], A, "Upadhyay 2021: 70% of medical students did not know the ideal SPF; Mintel 2019: 25% do not understand SPF or PA"),
- ("source", "Who or what led you to your sunscreen?", [("A dermatologist or doctor", .29), ("A pharmacist", .06), ("Social media or an influencer", .33), ("Friends or family", .20), ("An advertisement or online store", .12)], H, "Digital-first brands hold about 47% of sun care value (Euromonitor 2025)"),
- ("rx", "Has a doctor ever named a specific sunscreen for you?", [("Yes", .34), ("No", .66)], H, "Team assumption for metro adults"),
+ ("times", "On a day you use it, how many times do you apply it?", [("Once", .72), ("Twice", .17), ("Three or more times", .11)], S, "Real survey: 12 of 17 apply once a day and 2 apply twice; prior from Farberg 2017"),
+ ("know", "Do you know when you should reapply?", [("Yes, clearly", .21), ("Roughly", .36), ("No", .43)], S, "Real survey: 7 of 17 said no and 6 said roughly; prior from Upadhyay 2021 and Mintel 2019"),
+ ("source", "Who or what led you to your sunscreen?", [("A dermatologist or doctor", .19), ("A pharmacist", .06), ("Social media or an influencer", .20), ("Friends or family", .40), ("An advertisement or online store", .15)], S, "Real survey: 9 of 17 followed friends or family and 2 followed a doctor; prior from Euromonitor 2025"),
+ ("rx", "Has a doctor ever named a specific sunscreen for you?", [("Yes", .17), ("No", .83)], S, "Real survey: 16 of 17 said never; the sample is young, so the prior for metro adults lifts the share"),
  ("bought", "If yes, what did you buy?", [("Exactly that one", .60), ("A different one", .26), ("None", .14)], H, "Matches the 60% baseline conversion in our financial model"),
  ("why", "If not the exact one, the main reason", [("Not available at the pharmacy", .31), ("Too expensive", .27), ("Pharmacist suggested another", .20), ("Preferred a brand I knew", .12), ("Ordered what was online", .10)], A, "Iyer and Berad: 34.8% of dermatology brands substituted; Vector 2025: prescribed brand unavailable in 10 to 60% of cases"),
- ("barrier", "What mainly stops you using sunscreen regularly?", [("I forget", .24), ("It feels sticky or oily", .25), ("The price", .16), ("I am not sure I need it", .12), ("It leaves a white cast", .09), ("It makes my skin break out", .06), ("Nothing stops me", .08)], A, "Agarwal 2018: sticky 25% and expensive 18% among aware non-users; 'less sticky' wanted by 73%"),
- ("lasts", "How long does a 50 g tube last you?", [("Less than 1 month", .14), ("1 to 2 months", .38), ("3 months or more", .33), ("Not sure", .15)], H, "At the tested dose a 50 g tube lasts about 3 weeks, so longer means under-dosing"),
- ("qr", "Would you scan a QR code on your prescription for a daily plan?", [("Yes", .52), ("Maybe", .31), ("No", .17)], H, "Team assumption; QR payments are an everyday habit in Indian cities"),
- ("wa", "Would you accept WhatsApp reminders you can stop any time?", [("Yes", .41), ("Maybe", .30), ("No", .29)], H, "Team assumption; evidence on reminders is mixed (PLOS ONE 2020)"),
- ("help", "Which one would help you most?", [("Exact reapply times for today's sun", .29), ("A sunscreen matched to the season", .27), ("A reminder when my tube runs low", .18), ("Knowing which pharmacy has it", .14), ("None of these", .12)], H, "Team assumption, to be replaced by pilot interviews"),
+ ("barrier", "What mainly stops you using sunscreen regularly?", [("I forget", .31), ("It feels sticky or oily", .18), ("The price", .11), ("I am not sure I need it", .08), ("It leaves a white cast", .06), ("It makes my skin break out", .05), ("Nothing stops me", .21)], S, "Real survey: 6 of 17 forget and 5 said nothing stops them; prior from Agarwal 2018"),
+ ("lasts", "How long does a 50 g tube last you?", [("Less than 1 month", .15), ("1 to 2 months", .36), ("3 months or more", .34), ("Not sure", .15)], S, "Real survey: 6 of 17 said 1 to 2 months and 6 said 3 months or more"),
+ ("qr", "Would you scan a QR code on your prescription for a daily plan?", [("Yes", .42), ("Maybe", .34), ("No", .24)], S, "Real survey: 6 yes, 6 maybe and 5 no out of 17"),
+ ("wa", "Would you accept WhatsApp reminders you can stop any time?", [("Yes", .30), ("Maybe", .33), ("No", .37)], S, "Real survey: 4 yes, 6 maybe and 7 no out of 17"),
+ ("help", "Which one would help you most?", [("Exact reapply times for today's sun", .43), ("A sunscreen matched to the season", .18), ("A reminder when my tube runs low", .14), ("Knowing which pharmacy has it", .06), ("None of these", .19)], S, "Real survey: 9 of 17 chose exact reapply times and nobody chose the pharmacy finder"),
 ]
 FREQ = {"Woman": [("Every day", .38), ("A few days a week", .19), ("Only when I expect strong sun", .21), ("Rarely", .11), ("Never", .11)],
         "Man":   [("Every day", .21), ("A few days a week", .15), ("Only when I expect strong sun", .23), ("Rarely", .18), ("Never", .23)]}
 
 EXACT_BUYER = [("Every day", .48), ("A few days a week", .22), ("Only when I expect strong sun", .18), ("Rarely", .08), ("Never", .04)]
 
-def patients(n=300):
+def patients(n=50):
     spec = {qid: opts for qid, _, opts, _, _ in PAT}
     rows = []
     for i in range(n):
@@ -89,22 +92,23 @@ def tally(rows, spec, opts_override=None):
                     "options": [{"label": l, "count": vals.count(l), "pct": round(100 * vals.count(l) / n, 1) if n else 0} for l in labels]})
     return out
 
-P, C, D = patients(300), simple(PHA, 60, "C"), simple(DOC, 40, "D")
-res = {"meta": {"label": "Modelled panel, not fieldwork", "seed": 20261111, "date": "2026-11-11",
-                "method": "Simulated respondents. Each answer share is set from a published study (anchored) or a stated team assumption (assumed), then sampled so the panel behaves like a real sample of that size.",
-                "sizes": {"patients": 300, "pharmacists": 60, "dermatologists": 40}},
+P, C, D = patients(SIZES["patients"]), simple(PHA, SIZES["pharmacists"], "C"), simple(DOC, SIZES["dermatologists"], "D")
+REAL = json.load(open("real_survey.json"))
+res = {"meta": {"label": "Modelled panel, not fieldwork", "seed": 20261111, "date": "2026-11-12",
+                "method": "Simulated respondents. Each answer share is set from the team's real survey of 17 users blended with a published prior (survey), from a published study (anchored) or from a stated team assumption (assumed), then sampled so the panel behaves like a real sample of that size.",
+                "sizes": SIZES}, "real": REAL,
        "patients": tally(P, PAT), "pharmacists": tally(C, PHA), "dermatologists": tally(D, DOC)}
 # gender split on daily use
 for g in ("Woman", "Man"):
     sub = [r for r in P if r["gender"] == g]
     res["meta"][f"daily_{g.lower()}"] = round(100 * sum(r["freq"] == "Every day" for r in sub) / len(sub), 1)
-# the leak funnel, per 100 patients who were given a named sunscreen
-rx = [r for r in P if r["rx"] == "Yes"]; n = len(rx)
+# the leak funnel, per 100 patients who were given a named sunscreen: the expectation from 20,000 simulated patients
+BIG = patients(20000)
+rx = [r for r in BIG if r["rx"] == "Yes"]; n = len(rx)
 exact = [r for r in rx if r["bought"] == "Exactly that one"]
 daily = [r for r in exact if r["freq"] == "Every day"]
 reap = [r for r in daily if r["times"] in ("Twice", "Three or more times")]
-res["funnel"] = {"base_n": n, "steps": [["Given a named sunscreen", 100], ["Bought exactly that one", round(100 * len(exact) / n)], ["Use it every day", round(100 * len(daily) / n)], ["Reapply at least once", round(100 * len(reap) / n)]],
-                 "counts": [n, len(exact), len(daily), len(reap)]}
+res["funnel"] = {"base_n": n, "steps": [["Given a named sunscreen", 100], ["Bought exactly that one", round(100 * len(exact) / n)], ["Use it every day", round(100 * len(daily) / n)], ["Reapply at least once", round(100 * len(reap) / n)]]}
 json.dump(res, open("survey_model.json", "w"), indent=1)
 for name, rows in (("patients", P), ("pharmacists", C), ("dermatologists", D)):
     with open(f"modelled_{name}.csv", "w", newline="") as f:

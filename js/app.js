@@ -216,10 +216,19 @@ async function renderPatient() {
     ls.set(`sc-pd-${code}-${d.date}`, { need: sch.apps.length, done: cur.size });
     cb.closest("li").classList.toggle("done", cb.checked); renderTube(plan, code, days);
   }));
-  $("#weekPanel").innerHTML = `<div class="row between"><h3>Your next 7 days</h3><button class="btn small" id="icsBtn" type="button">Add all reminders to my calendar</button></div>
+  $("#weekPanel").innerHTML = `<div class="row between"><h3>Your next 7 days</h3><span class="row" style="gap:8px"><button class="btn small" id="icsBtn" type="button">Add all reminders to my calendar</button><button class="btn small ghost" id="shareBtn" type="button">Share today's sun times with a friend</button></span></div>
     <div class="week">${days.slice(0, 7).map((x) => { const xp = dayPlan(x), t = todaysTube(xp, x), s = daySchedule(xp, x.hours); return `<div class="wday ${t.switched ? "sw" : ""} ${xp.routine !== routine ? "chg" : ""}"><b>${dayLabel(x.date)}</b>${uvChip(x.uvMax)}<span>${esc(SKUS[t.sku].short)}</span><span class="muted">${s.apps.length} time${s.apps.length === 1 ? "" : "s"}</span></div>`; }).join("")}</div>
     ${r.second ? `<p class="small">Highlighted days follow your doctor's season rule: ${esc(skuName(r.second))} when ${esc(r.sw.when.charAt(0).toLowerCase() + r.sw.when.slice(1))}.</p>` : ""}
     <p class="tiny muted">The calendar file works with Google Calendar, Apple Calendar and Outlook, and needs no account with us.</p>`;
+  // Friends and family choose the sunscreen for about half of the users in our survey, so the plan is easy to pass on.
+  // Only the city's UV and safe times are shared, never the prescription.
+  $("#shareBtn").onclick = async () => {
+    const d0 = days[0], hrs = d0.hours.filter((h) => h.uv >= 3).map((h) => h.h);
+    const span = hrs.length ? `Protect your skin from ${fmtTime(Math.min(...hrs))} to ${fmtTime(Math.max(...hrs) + 1)}.` : "The UV stays low all day.";
+    const text = `Sun times for ${CITIES[plan.city].name} today: the peak UV is ${Math.round(d0.uvMax)}. ${span} Reapply sunscreen every 2 to 3 hours outdoors.`;
+    const url = location.origin + location.pathname;
+    try { if (navigator.share) await navigator.share({ title: "Today's sun times", text, url }); else { await navigator.clipboard.writeText(text + " " + url); $("#shareBtn").textContent = "Copied, now paste it to a friend"; } } catch (e) { /* the person closed the share sheet */ }
+  };
   $("#icsBtn").onclick = () => {
     const blob = new Blob([icsFor(plan, days.slice(0, 7), code)], { type: "text/calendar" });
     const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = `shieldcast-${code}.ics`; document.body.appendChild(a); a.click(); a.remove();
