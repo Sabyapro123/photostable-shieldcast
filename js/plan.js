@@ -93,10 +93,11 @@ export function protectedDays(log) {
 
 /* ---------- SunDot: the colour a UV-reactive cap dot would show ---------- */
 export function sunDot(uvNow) {
-  if (uvNow < 1) return { key: "clear", label: "clear", text: "The sun is down or very weak, so the dot stays clear." };
-  if (uvNow < 3) return { key: "pale", label: "pale lilac", text: "UV is low, so the dot is only pale lilac." };
-  if (uvNow < 6) return { key: "violet", label: "violet", text: "UV is 3 or more, so the dot turns violet. Sunscreen should be on." };
-  return { key: "deep", label: "deep violet", text: "UV is high, so the dot is deep violet. Reapply if you are outdoors." };
+  // A photochromic dot reacts to the sun that falls on it. It shows that UV is present and strong; it does not read the exact UV index.
+  if (uvNow < 1) return { key: "clear", label: "clear", text: "The sun is weak now, so a SunDot would stay clear." };
+  if (uvNow < 3) return { key: "pale", label: "pale lilac", text: "UV is low now, so a SunDot would look pale lilac in direct sun." };
+  if (uvNow < 6) return { key: "violet", label: "violet", text: "UV is moderate now, so a SunDot would turn violet in direct sun. Your sunscreen should be on." };
+  return { key: "deep", label: "deep violet", text: "UV is high now, so a SunDot would turn deep violet in direct sun. Reapply at the times below." };
 }
 
 /* ---------- the day's schedule ---------- */

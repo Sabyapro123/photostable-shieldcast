@@ -68,7 +68,7 @@ async function renderHome() {
   $("#sampleLink").href = `?rx=${sampleToken(0)}#today`;
   const steps = [
     ["Doctor", "Writes a Shield Plan", "One variant, a backup, a course length and an optional season switch.", "#doctor"],
-    ["QR card", "Carries the plan", "The prescription lives in the link, with a check code.", "#doctor"],
+    ["QR card", "Carries the plan", "Each card has its own number and QR code, with a check code.", "#doctor"],
     ["Forecast", "Reads today's sky", "Live hourly UV and humidity for the patient's city.", `?rx=${sampleToken(0)}#today`],
     ["Patient", "Gets exact times", "Which tube, when to apply, when to reapply and which tube comes next.", `?rx=${sampleToken(0)}#today`],
     ["Reminders", "Nudges by weather", "A calendar file now, WhatsApp with consent in the pilot.", `?rx=${sampleToken(0)}#today`],
@@ -96,6 +96,24 @@ function swDisabled(o) {
   if (F.need === "mel" && (o.id === "humid" || o.id === "dry")) return true;
   return SWITCHES[o.id].sku === r.base;
 }
+/* ---------- the clinic's one screen: example data for the demo ---------- */
+// The doctor never manages codes. Every card from her pad is already tied to her clinic, so she sees totals,
+// and a short list of the patients who need her attention. First names appear only when the patient agreed.
+function clinicMonth() {
+  const T = ["pro", "pro", "gold", "acne", "emulgel", "pro", "gold", "acne"];
+  const names = ["Ananya", "", "Kavya", "Rohit", "", "Sana", "", "Meenal", "Arjun", "", "Farah", "Ishita"];
+  const rows = names.map((n, i) => ({ no: "SC-PUN-0417-" + String(63 - i).padStart(4, "0"), name: n || "Not shared", tube: skuName(T[i % T.length]), bought: i % 4 !== 1, days: [6, 0, 5, 4, 0, 6, 3, 5, 2, 0, 7, 4][i], refill: [4, null, 9, 2, null, 12, 18, 6, 21, null, 15, 26][i] }));
+  return { issued: 64, bought: 41, refills: 17, avgDays: 4.6, rows };
+}
+function renderClinic() {
+  const c = clinicMonth(), pc = (a, b) => Math.round((100 * a) / b);
+  const due = c.rows.filter((r) => r.refill !== null && r.refill <= 7);
+  $("#clinicPanel").innerHTML = `<span class="eyebrow">My clinic this month</span><h3>One screen for all your patients</h3>
+    <div class="kpis"><div><b>${c.issued}</b><span>cards given</span></div><div><b>${pc(c.bought, c.issued)}%</b><span>bought the exact tube</span></div><div><b>${c.refills}</b><span>refills</span></div><div><b>${c.avgDays} of 7</b><span>protected days a week</span></div></div>
+    <p class="small"><b>Needs you.</b> ${due.length} refills fall due this week, and the patients are reminded automatically. One patient reported redness, and the pharmacist on the care desk has already called her. One patient had no Photostable fit and was logged.</p>
+    <div class="tablewrap"><table class="data"><tr><th>Card</th><th>Patient</th><th>Tube</th><th>Bought</th><th>Protected days</th></tr>${c.rows.slice(0, 6).map((r) => `<tr><td class="tiny">${r.no}</td><td>${esc(r.name)}</td><td>${esc(r.tube)}</td><td>${r.bought ? "Yes" : "Not yet"}</td><td>${r.bought ? r.days + " of 7" : ""}</td></tr>`).join("")}</table></div>
+    <p class="tiny muted">Example data for the demo. Protected days come from the patient's own ticks in the app, and purchases come from pharmacy scans. A one-page version of this screen reaches the clinic every month, and the rep walks through it.</p>`;
+}
 function renderDoctor() {
   if (!docInit) {
     docInit = true;
@@ -105,6 +123,8 @@ function renderDoctor() {
     $("#fCity").onchange = (e) => { F.city = e.target.value; preview(); };
     $("#issueBtn").onclick = issue;
     $("#toCopilot").onclick = () => { AG.agent = "copilot"; };
+    qrInto($("#padQr"), planUrl(sampleToken(0)), 120);
+    renderClinic();
   }
   chips($("#cNeed"), Object.values(NEEDS), "need", F.need, (v) => { F.need = v; if (swDisabled(SWITCHES[F.sw])) F.sw = "none"; renderDoctor(); });
   chips($("#cSkin"), SKINS, "skin", F.skin, (v) => { F.skin = v; if (swDisabled(SWITCHES[F.sw])) F.sw = "none"; renderDoctor(); });
@@ -307,9 +327,15 @@ function renderPharmacy() {
   $("#scanBtn").onclick = startScan;
   $("#pasteForm").onsubmit = (e) => { e.preventDefault(); verify($("#pasteIn").value); };
   $("#clearLog").onclick = () => { ls.set("sc-log", []); renderPharmacy(); };
-  renderShelf(); renderLog();
+  renderShelf(); renderLog(); renderHolds();
   if (!$("#verifyOut").innerHTML) $("#verifyOut").innerHTML = `<p class="small muted">Try it: issue a card in the Doctor view, then scan its QR code here with a second device, or paste its link. You can also use <a href="#" id="tryAnanya">Ananya's sample card</a>.</p>`;
   const ta = $("#tryAnanya"); if (ta) ta.onclick = (e) => { e.preventDefault(); verify(planUrl(sampleToken(0))); };
+}
+function renderHolds() {
+  const H = [["10:30 am", "SC-PUN-0417-0063", "Pro+", "Ananya"], ["1:15 pm", "SC-PUN-0402-0012", "Gold", "Not shared"], ["5:40 pm", "SC-PUN-0417-0060", "Emulgel", "Rohit"]];
+  $("#holdPanel").innerHTML = `<div class="row between"><h3>Held for pickup today</h3><span class="small muted">One shop account on the shop phone, and no patient list to manage.</span></div>
+    <div class="tablewrap"><table class="data"><tr><th>Asked at</th><th>Card</th><th>Tube to keep aside</th><th>Name</th></tr>${H.map((h) => `<tr><td>${h[0]}</td><td class="tiny">${h[1]}</td><td>${h[2]}</td><td>${h[3]}</td></tr>`).join("")}</table></div>
+    <p class="tiny muted">Example data for the demo. Each hold lasts 24 hours. Every verified scan adds a credit to the shop's account, which is settled each month through the stockist's trade scheme.</p>`;
 }
 async function startScan() {
   const v = $("#scanVideo"), st = $("#scanState");

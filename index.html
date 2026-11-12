@@ -106,7 +106,7 @@
     <div class="grid3 feat">
       <div><span class="eyebrow">Course Rx</span><b>A dose and a course, like any other prescription</b><p class="small">The doctor writes 12 weeks, and the plan turns that into a number of tubes. The patient knows on day one that one tube is not the whole treatment.</p></div>
       <div><span class="eyebrow">Season Switch</span><b>The texture changes with the weather, at the refill</b><p class="small">Gold for humid spells and Emulgel for dry ones, only if the doctor allows it. One patient uses two Photostable variants across the year and never holds two tubes in a day.</p></div>
-      <div><span class="eyebrow">SunDot</span><b>A cap that shows when UV is up</b><p class="small">A UV-reactive dot on the cap turns violet when the UV index passes 3. It works without a phone. In a field trial, UV stickers lifted reapplication from 68% to 80% (Hacker et al., 2019).</p><div class="row"><span class="dot dot-clear"></span><span class="dot dot-pale"></span><span class="dot dot-violet"></span><span class="dot dot-deep"></span><span class="tiny muted">from indoors to midday sun</span></div></div>
+      <div><span class="eyebrow">SunDot</span><b>A cap that shows when UV is up</b><p class="small">A dot of photochromic ink on the cap is clear indoors and turns violet within seconds in direct sun. It works without a phone. In a field trial, UV stickers lifted reapplication from 68% to 80% (Hacker et al., 2019).</p><div class="row"><span class="dot dot-clear"></span><span class="dot dot-pale"></span><span class="dot dot-violet"></span><span class="dot dot-deep"></span><span class="tiny muted">from indoors to midday sun</span></div></div>
     </div>
   </div>
 
@@ -146,6 +146,26 @@
       </div>
     </div>
   </div>
+  <div class="grid2">
+    <div class="panel">
+      <span class="eyebrow">How each patient gets a unique code</span>
+      <h3>You never make a QR code yourself</h3>
+      <ol class="routes">
+        <li><b>On e-prescription software.</b> Tick "Add ShieldCast plan" and the QR code prints on the prescription itself.</li>
+        <li><b>On paper.</b> Your rep gives you a pad of 100 Shield Cards. Every card already carries its own number and QR code, linked to your clinic. Tick the tube, the backup and the weeks, and sign it, as you would a prescription. Your assistant scans it once to copy the ticks, or the patient confirms them on her first scan.</li>
+        <li><b>On a teleconsult.</b> Issue the plan here and send the link on WhatsApp or SMS.</li>
+      </ol>
+      <div class="padcard" aria-label="Example Shield Card">
+        <div><b>Shield Card</b> <span class="tiny muted">No. SC-PUN-0417-0063</span><br><span class="tiny">Skin clinic, Kothrud, Pune</span>
+          <div class="ticks"><span>☑ Pro+</span><span>☐ Gold</span><span>☐ Acne</span><span>☐ Emulgel</span></div>
+          <div class="ticks"><span>Backup: ☑ Gold</span><span>Course: ☐ 4 ☐ 8 ☑ 12 weeks</span></div>
+          <span class="tiny muted">Doctor's signature ____________</span></div>
+        <div class="padqr" id="padQr"></div>
+      </div>
+    </div>
+    <div class="panel" id="clinicPanel"></div>
+  </div>
+
   <div class="panel">
     <div class="row between"><h3>Cards issued on this device</h3><span class="small muted" id="issuedCount"></span></div>
     <div class="tablewrap"><table class="data" id="issuedTable"></table></div>
@@ -194,6 +214,8 @@
       <div id="reorder"></div>
     </div>
   </div>
+  <div class="panel" id="holdPanel"></div>
+
   <div class="panel">
     <div class="row between"><h3>Dispensing log on this device</h3><button class="btn ghost small" id="clearLog" type="button">Clear the log</button></div>
     <div class="tablewrap"><table class="data" id="dispLog"></table></div>
