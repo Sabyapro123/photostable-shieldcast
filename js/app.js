@@ -75,7 +75,7 @@ async function renderHome() {
     ["Pharmacy", "Verifies and dispenses", "Scan the card and hand over the exact tube or the backup.", "#pharmacy"],
     ["Supply", "Restocks ahead of UV", "The week's UV load flags which cities need more tubes.", "#supply"],
   ];
-  $("#loop").innerHTML = steps.map((s, i) => `<li><a href="${s[3]}"><span class="n">${String(i + 1).padStart(2, "0")} · ${esc(s[0])}</span><b>${esc(s[1])}</b><span class="d">${esc(s[2])}</span></a></li>`).join("");
+  if ($("#loop")) $("#loop").innerHTML = steps.map((s, i) => `<li><a href="${s[3]}"><span class="n">${String(i + 1).padStart(2, "0")} · ${esc(s[0])}</span><b>${esc(s[1])}</b><span class="d">${esc(s[2])}</span></a></li>`).join("");
   if (homeDone) return; homeDone = true;
   const ids = Object.keys(CITIES);
   const { cities, live } = await metroOutlook(ids);
@@ -151,7 +151,7 @@ async function preview() {
     <dt>Proof</dt><dd>${esc(PROOF[r.base])}</dd>
     <dt>Season switch</dt><dd>${r.second ? `${esc(skuName(r.second))} at the next refill when ${esc(r.sw.when.charAt(0).toLowerCase() + r.sw.when.slice(1))}` : "None"}</dd>
     <dt>Course</dt><dd id="pvCourse">${courseWeeks(plan)} weeks</dd>
-    <dt>Dose</dt><dd>${esc(DOSE_TEXT)}</dd><dt>Reapply</dt><dd>Every ${r.need.reapplyH} hours while the UV index is 3 or more and the patient is outdoors</dd></dl>
+    <dt>Dose</dt><dd>${esc(DOSE_TEXT)}</dd><dt>Reapply</dt><dd>Every ${r.need.reapplyH} hours while she is outdoors and the UV index is 3 or more. Indoors, one full morning application lasts the day.</dd></dl>
     <div id="pvDay" class="small muted">Reading today's forecast for ${esc(CITIES[plan.city].name)}.</div>
     <p class="tiny muted">${esc(r.need.note)}</p>`;
   const { days, live } = await cityForecast(plan.city);
@@ -254,7 +254,7 @@ async function renderPatient() {
   $("#shareBtn").onclick = async () => {
     const d0 = days[0], hrs = d0.hours.filter((h) => h.uv >= 3).map((h) => h.h);
     const span = hrs.length ? `Protect your skin from ${fmtTime(Math.min(...hrs))} to ${fmtTime(Math.max(...hrs) + 1)}.` : "The UV stays low all day.";
-    const text = `Sun times for ${CITIES[plan.city].name} today: the peak UV is ${Math.round(d0.uvMax)}. ${span} Reapply sunscreen every 2 to 3 hours outdoors. A dermatologist can tell you which sunscreen suits your skin.`;
+    const text = `Sun times for ${CITIES[plan.city].name} today: the peak UV is ${Math.round(d0.uvMax)}. ${span} Outdoors, reapply every 2 to 3 hours, because sweat and rubbing wear sunscreen off. A dermatologist can tell you which sunscreen suits your skin.`;
     const url = location.origin + location.pathname;
     try { if (navigator.share) await navigator.share({ title: "Today's sun times", text, url }); else { await navigator.clipboard.writeText(text + " " + url); $("#shareBtn").textContent = "Copied, now paste it to a friend"; } } catch (e) { /* the person closed the share sheet */ }
   };

@@ -15,7 +15,7 @@ export const SKU_ORDER = ["pro", "gold", "acne", "emulgel"];
 
 // Each need sets the first-choice variant, the doctor's backup and the reapplication interval in hours.
 export const NEEDS = {
-  mel:  { id: "mel",  label: "Melasma",                     base: "pro",     backup: "gold",    reapplyH: 2, note: "The Delphi panel advises reapplying every 2 to 3 hours for melasma. Visible-light protection improved MASI scores by 15% more than UV-only sunscreen in a randomised trial." },
+  mel:  { id: "mel",  label: "Melasma",                     base: "pro",     backup: "gold",    reapplyH: 2, note: "Indian experts say one full application lasts about 8 hours unless sweat, water or rubbing removes it, so outdoor hours need reapplying. Visible-light protection improved MASI scores by 15% more than UV-only sunscreen in a randomised trial." },
   acne: { id: "acne", label: "Acne or on retinoids",        base: "acne",    backup: "gold",    reapplyH: 3, note: "The Delphi panel advises gel or dry-touch textures for acne-prone skin." },
   pih:  { id: "pih",  label: "Tanning or post-acne marks",  base: "gold",    backup: "pro",     reapplyH: 3, note: "Broad-spectrum SPF 30 or more, reapplied when outdoors." },
   daily:{ id: "daily",label: "Daily protection, dry skin",  base: "emulgel", backup: "pro",     reapplyH: 3, note: "A comfortable texture is what keeps patients using sunscreen every day." },
