@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>ShieldCast research · Photostable</title>
-<meta name="description" content="The research behind ShieldCast: a modelled survey of patients, pharmacists and dermatologists, a live patient survey, a competitor map and the gaps in the Photostable range.">
+<meta name="description" content="The research behind ShieldCast: our survey of sunscreen users, the published evidence on patients, pharmacy counters and dermatologists, a competitor map and six global trends.">
 <meta name="theme-color" content="#1F1A3A">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -45,30 +45,34 @@
 <section class="view">
   <div class="panel">
     <span class="eyebrow">Research</span>
-    <h1 style="font-size:clamp(1.6rem,3.4vw,2.4rem)">What patients, pharmacists and dermatologists would tell us</h1>
-    <p class="lead measure">We ran a real survey of sunscreen users, read the published Indian studies and then built a modelled panel on both. This page keeps the three apart, so you always know which numbers are measured and which are modelled.</p>
-    <div class="stamp"><b>Read this first.</b> The charts in the next section come from a <b>modelled panel, not fieldwork</b>. Each answer share is set from our real survey blended with a published prior (tagged <span class="tag s">Survey</span>), from a published study (tagged <span class="tag a">Anchored</span>) or from a stated team assumption (tagged <span class="tag h">Assumed</span>), and then sampled so the panel behaves like a real sample of that size. The code, the seed and every simulated answer are in the <a href="survey/">survey folder</a> of the repository.</div>
+    <h1 style="font-size:clamp(1.6rem,3.4vw,2.4rem)">What users, pharmacists and dermatologists tell us</h1>
+    <p class="lead measure">We ran our own survey of sunscreen users, and we read the published studies on patients, pharmacy counters and dermatologists. Every number on this page names its source.</p>
   </div>
 
   <div class="grid2">
     <div class="panel">
-      <span class="eyebrow">Real survey</span>
-      <h2 id="realTitle">What 17 sunscreen users told us</h2>
+      <span class="eyebrow">Our survey</span>
+      <h2 id="realTitle">What 30 sunscreen users told us</h2>
       <p class="small" id="realNote"></p>
       <div id="realOut"></div>
     </div>
     <div class="panel">
-      <span class="eyebrow">Modelled leak funnel</span>
-      <h2>Of 100 patients given a named sunscreen</h2>
-      <div class="funnel" id="funnel"></div>
-      <p class="tiny muted" id="funnelNote"></p>
+      <span class="eyebrow">What the answers changed in our design</span>
+      <h2>Three decisions came straight from the survey</h2>
+      <ul class="list small">
+        <li><b>The plan is pulled, not pushed.</b> Twelve of 30 would not accept WhatsApp reminders, while 22 would or might scan a QR code. So the app opens from a scan, and WhatsApp is only an opt-in.</li>
+        <li><b>Exact times come first.</b> Of the 9 people who forget their sunscreen, 7 asked for exact reapply times for today's sun, so that is the first screen a patient sees.</li>
+        <li><b>The daily routine is easy to pass on.</b> Friends and family guided 13 of 30, yet only 2 of those 13 use sunscreen every day. So the app shares today's sun times, and not just a product name.</li>
+        <li><b>The doctor's word works.</b> Of the 8 who were prescribed a sunscreen, 5 bought exactly that one, and 5 of the 6 guided by a doctor use it regularly. ShieldCast builds on that trust.</li>
+      </ul>
+      <p class="tiny muted">Twenty-one of the 30 respondents are under 25 and 26 are men, so the pilot begins with interviews of a wider group of patients in clinics.</p>
     </div>
   </div>
 
   <div class="panel">
-    <div class="row between"><div><span class="eyebrow">Modelled panel, not fieldwork</span><h2 id="grpTitle">Patients</h2></div><div class="seg2" id="seg"></div></div>
-    <p class="small muted" id="grpNote"></p>
-    <div id="qs"></div>
+    <span class="eyebrow">Market evidence from published studies</span>
+    <h2>The same three gaps appear in the research on patients, counters and doctors</h2>
+    <div class="grid3" id="ev"></div>
   </div>
 
   <div class="panel">
@@ -107,7 +111,7 @@
   </div>
 
   <div class="panel">
-    <span class="eyebrow">Published evidence we anchored to</span>
+    <span class="eyebrow">Published studies we used</span>
     <ol class="list small">
       <li>Agarwal S.B. et al., Indian Journal of Dermatology, 2018: 2,037 adults at a Mumbai hospital; 61% did not know about sunscreens; users wanted less sticky (73%) products; stickiness (25%) and price (18%) were the named reasons for not using.</li>
       <li>Mintel, 2019: 65% of 3,000 Indian adults had not used sunscreen in a year, and 25% did not understand SPF or PA.</li>
@@ -123,34 +127,21 @@
   </div>
 </section>
 </main>
-<footer class="foot"><div class="wrap"><span>Modelled numbers are simulations for planning, and they are not survey findings.</span><span><a href="./">Back to the prototype</a> · Code on <a href="https://github.com/Sabyapro123/photostable-shieldcast" target="_blank" rel="noopener">GitHub</a></span></div></footer>
+<footer class="foot"><div class="wrap"><span>Survey totals are from the team's anonymous form of November 2026.</span><span><a href="./">Back to the prototype</a> · Code on <a href="https://github.com/Sabyapro123/photostable-shieldcast" target="_blank" rel="noopener">GitHub</a></span></div></footer>
 <script type="module">
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const $ = (s) => document.querySelector(s);
-const GROUPS = { patients: ["Patients", "50 simulated metro adults aged 18 to 45, calibrated to our real survey of 17 users."], pharmacists: ["Pharmacists", "15 simulated neighbourhood pharmacists near skin clinics."], dermatologists: ["Dermatologists", "10 simulated dermatologists."] };
-let model = null, cur = "patients";
-function draw() {
-  const [title, note] = GROUPS[cur];
-  $("#grpTitle").textContent = title; $("#grpNote").textContent = note + " Orange marks the most common answer.";
-  $("#seg").innerHTML = Object.keys(GROUPS).map((k) => `<button type="button" data-k="${k}" aria-pressed="${k === cur}">${GROUPS[k][0]}</button>`).join("");
-  $("#seg").querySelectorAll("button").forEach((b) => b.addEventListener("click", () => { cur = b.dataset.k; draw(); }));
-  $("#qs").innerHTML = model[cur].map((q) => {
-    const top = Math.max(...q.options.map((o) => o.pct));
-    return `<div class="q"><div class="row between"><h4>${esc(q.q)}</h4><span class="tag ${q.basis === "anchored" ? "a" : q.basis === "survey" ? "s" : "h"}">${q.basis === "anchored" ? "Anchored" : q.basis === "survey" ? "Survey" : "Assumed"}</span></div>
-      ${q.options.map((o) => `<div class="bar ${o.pct === top ? "top" : ""}"><span>${esc(o.label)}</span><i style="width:${Math.max(1, o.pct)}%"></i><b>${o.pct.toFixed(0)}%</b></div>`).join("")}
-      <span class="tiny muted">Simulated answers: ${q.n}. Basis: ${esc(q.note)}.</span></div>`;
-  }).join("");
-}
-fetch("survey/survey_model.json").then((r) => r.json()).then((m) => {
-  model = m; draw();
-  if (m.real) {
-    $("#realTitle").textContent = `What ${m.real.n} sunscreen users told us`;
-    $("#realNote").textContent = `${m.real.method}, ${m.real.collected}. A note on the sample: ${m.real.sample}.`;
-    $("#realOut").innerHTML = m.real.items.filter((x) => !x.base).map((x) => `<div class="bar top"><span>${esc(x.label)} (${x.count} of ${m.real.n})</span><i style="width:${Math.max(1, x.pct)}%"></i><b>${x.pct}%</b></div>`).join("");
-  }
-  $("#funnel").innerHTML = m.funnel.steps.map(([l, v]) => `<div style="width:${Math.max(34, v)}%"><span>${esc(l)}</span><b>${v}</b></div>`).join("");
-  $("#funnelNote").textContent = `This is the expected path from a large run of the same model. It is a planning picture, not a measurement.`;
-}).catch(() => { $("#qs").innerHTML = `<p class="small">The modelled panel could not be loaded.</p>`; });
+const EV = [
+  ["Patients and users", [["65%", "of 3,000 Indian adults had not used sunscreen in a year.", "Mintel, 2019"], ["61%", "of 2,037 adults at a Mumbai hospital did not know about sunscreens.", "Agarwal et al., 2018"], ["73%", "of sunscreen users in that study wanted a less sticky product.", "Agarwal et al., 2018"], ["35%", "of 331 Indian melasma patients used any sunscreen.", "KrupaShankar et al., 2014"]]],
+  ["The pharmacy counter", [["10 to 60%", "of the time a prescribed brand was unavailable, across 900+ chemists in 18 cities.", "Vector Consulting Group, 2025"], ["34.8%", "of dermatology brand requests were substituted in a Mumbai study of live prescriptions.", "Iyer and Berad"], ["93.6%", "of India's sun protection sales still happen offline.", "Statista Market Insights, 2026"]]],
+  ["Dermatologists", [["99.4%", "of dermatologists in a US survey said that patients under-apply sunscreen.", "Farberg et al., 2017"], ["71%", "of them weigh how the product feels on skin when they recommend one.", "Farberg et al., 2017"], ["Consensus", "of Indian experts asks doctors to match the texture to the skin and the climate.", "PRISM-ISF Delphi, 2025"]]],
+];
+$("#ev").innerHTML = EV.map(([t, rows]) => `<div><h4>${esc(t)}</h4>${rows.map(([n, l, src]) => `<p class="small" style="margin:.5rem 0"><b style="font-size:1.25rem;color:var(--orange)">${esc(n)}</b> ${esc(l)} <span class="tiny muted">${esc(src)}</span></p>`).join("")}</div>`).join("");
+fetch("survey/real_survey.json").then((r) => r.json()).then((real) => {
+  $("#realTitle").textContent = `What ${real.n} sunscreen users told us`;
+  $("#realNote").textContent = `${real.method}, ${real.collected}.`;
+  $("#realOut").innerHTML = real.items.map((x) => `<div class="bar top"><span>${esc(x.label)} (${x.count} of ${x.base || real.n})</span><i style="width:${Math.max(1, x.pct)}%"></i><b>${x.pct}%</b></div>`).join("");
+}).catch(() => { $("#realOut").innerHTML = `<p class="small">The survey totals could not be loaded.</p>`; });
 </script>
 </body>
 </html>

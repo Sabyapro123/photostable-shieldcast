@@ -42,16 +42,25 @@ const sampleToken = (i) => encodePlan(SAMPLES[i]);
 /* ---------------- routing ---------------- */
 const VIEWS = ["home", "doctor", "today", "pharmacy", "supply", "agents", "how"];
 const params = new URLSearchParams(location.search);
+const STANDALONE = window.matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
 let rxToken = params.get("rx");
 function route() {
-  let v = location.hash.slice(1) || (rxToken ? "today" : "home");
+  let v = location.hash.slice(1) || (rxToken ? "today" : (STANDALONE && ls.get("sc-role", null)) || "home");
   if (!VIEWS.includes(v)) v = "home";
   VIEWS.forEach((n) => { $("#v-" + n).hidden = n !== v; });
-  document.querySelectorAll(".tabs a").forEach((a) => { if (a.dataset.v === v) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); });
+  document.querySelectorAll(".tabs a, .appbar a").forEach((a) => { if (a.dataset.v === v) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); });
   ({ home: renderHome, doctor: renderDoctor, today: renderPatient, pharmacy: renderPharmacy, supply: renderSupply, agents: renderAgents, how: renderHow })[v]();
   window.scrollTo(0, 0);
 }
 window.addEventListener("hashchange", route);
+
+/* ================= APP SHELL: install, remembered role, offline ================= */
+document.addEventListener("click", (e) => { const r = e.target.closest("[data-role]"); if (r) ls.set("sc-role", r.dataset.role); });
+let installEvent = null;
+window.addEventListener("beforeinstallprompt", (e) => { e.preventDefault(); installEvent = e; const b = $("#installBtn"); if (b) { b.hidden = false; $("#installHint").hidden = true; } });
+document.addEventListener("click", async (e) => { if (e.target.id !== "installBtn" || !installEvent) return; installEvent.prompt(); await installEvent.userChoice; installEvent = null; e.target.hidden = true; });
+if (STANDALONE) document.documentElement.classList.add("standalone");
+if ("serviceWorker" in navigator && location.protocol === "https:") navigator.serviceWorker.register("sw.js").catch(() => {});
 
 /* ================= HOME ================= */
 let homeDone = false;
@@ -220,7 +229,7 @@ async function renderPatient() {
     <div class="week">${days.slice(0, 7).map((x) => { const xp = dayPlan(x), t = todaysTube(xp, x), s = daySchedule(xp, x.hours); return `<div class="wday ${t.switched ? "sw" : ""} ${xp.routine !== routine ? "chg" : ""}"><b>${dayLabel(x.date)}</b>${uvChip(x.uvMax)}<span>${esc(SKUS[t.sku].short)}</span><span class="muted">${s.apps.length} time${s.apps.length === 1 ? "" : "s"}</span></div>`; }).join("")}</div>
     ${r.second ? `<p class="small">Highlighted days follow your doctor's season rule: ${esc(skuName(r.second))} when ${esc(r.sw.when.charAt(0).toLowerCase() + r.sw.when.slice(1))}.</p>` : ""}
     <p class="tiny muted">The calendar file works with Google Calendar, Apple Calendar and Outlook, and needs no account with us.</p>`;
-  // Friends and family choose the sunscreen for about half of the users in our survey, so the plan is easy to pass on.
+  // Friends and family choose the sunscreen for 13 of the 30 users in our survey, so the plan is easy to pass on.
   // Only the city's UV and safe times are shared, never the prescription.
   $("#shareBtn").onclick = async () => {
     const d0 = days[0], hrs = d0.hours.filter((h) => h.uv >= 3).map((h) => h.h);
@@ -565,7 +574,7 @@ function renderHow() {
   $("#arch").innerHTML = nodes.map((n, i) => `<div class="node ${n[2] ? "key" : ""}"><span class="tiny mono">${String(i + 1).padStart(2, "0")}</span><b>${esc(n[0])}</b><span class="small">${esc(n[1])}</span></div>`).join("");
   const li = (arr) => arr.map((t) => `<li>${t}</li>`).join("");
   $("#realList").innerHTML = li([
-    "It runs as a static website, so a pilot needs no app store approval and no new hardware in clinics or pharmacies.",
+    "It is a web app that installs from the browser, so a pilot needs no app store approval and no new hardware in clinics or pharmacies.",
     "The UV data is public. Open-Meteo is free for non-commercial use, and a commercial licence or IMD data covers the pilot.",
     "The QR code works with any phone camera, and the scanner works in any modern mobile browser.",
     "Every rule is plain, testable code. The repository includes automated tests for the plan engine.",

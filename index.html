@@ -6,8 +6,12 @@
 <title>ShieldCast · Photostable</title>
 <meta name="description" content="ShieldCast turns a dermatologist's Photostable prescription into a daily plan that reads the live UV forecast, times every reapplication, tracks the tube and finds the refill. Concept prototype by team ChampsGrid, IIM Mumbai.">
 <meta property="og:title" content="ShieldCast: the prescription that reads the sky">
-<meta property="og:description" content="A weather-aware Photostable prescription. No app, no login, no stored health data.">
+<meta property="og:description" content="One app for the doctor, the patient, the pharmacist and Sun. It opens from a scan, with nothing to download.">
 <meta name="theme-color" content="#1F1A3A">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="ShieldCast">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='14' fill='%23F2B33D'/%3E%3Cg stroke='%23E0701A' stroke-width='5' stroke-linecap='round'%3E%3Cpath d='M32 4v8M32 52v8M4 32h8M52 32h8M12 12l6 6M46 46l6 6M12 52l6-6M46 18l6-6'/%3E%3C/g%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -45,18 +49,31 @@
     <div class="hero-copy">
       <span class="eyebrow">The prescription that reads the sky</span>
       <h1>A Photostable prescription that knows today's UV, times every reapplication and finds the next tube.</h1>
-      <p class="lead">Dr Iyer writes a Shield Plan. Its QR code opens a daily plan built from the live UV forecast for the patient's city. There is no app to install, no login and no health data on a server, because the prescription lives inside the link.</p>
+      <p class="lead">Dr Iyer writes a Shield Plan. Its QR code opens a daily plan built from the live UV forecast for the patient's city. It opens as an app on any phone from one scan. There is nothing to download, no login and no health data on a server, because the prescription lives inside the link.</p>
       <div class="row">
         <a class="btn" href="#doctor">Write a Shield Plan</a>
         <a class="btn ghost" id="sampleLink" href="#today">Open Ananya's plan</a>
         <a class="btn ghost" href="film.html">Watch the film</a>
+        <button class="btn ghost" id="installBtn" type="button" hidden>Install the app</button>
       </div>
+      <p class="tiny muted" id="installHint">To keep ShieldCast on your phone, open the browser menu and choose "Add to Home screen".</p>
     </div>
     <div class="hero-sky panel dark">
       <div class="row between"><span class="eyebrow light">Peak UV today</span><span class="pill" id="skyLive">Loading the forecast</span></div>
       <div class="sky" id="sky"></div>
       <p class="tiny muted-light">WHO advises sun protection whenever the UV index is 3 or more. Most Indian metros pass 8 before noon.</p>
     </div>
+  </div>
+
+  <div class="panel">
+    <div class="row between"><h2>One app, four roles</h2><span class="small muted">Choose yours. The app remembers it and opens there next time.</span></div>
+    <div class="roles" id="roles">
+      <a class="role" href="#doctor" data-role="doctor"><span class="role-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v6a4 4 0 0 0 8 0V3"/><path d="M10 13v3a5 5 0 0 0 10 0v-2"/><circle cx="20" cy="12" r="2"/></svg></span><b>Doctor</b><span class="small">Write a Shield Plan in under a minute and see how patients did.</span></a>
+      <a class="role" href="#today" data-role="today"><span class="role-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/></svg></span><b>Patient</b><span class="small">See today's tube, the exact times to apply and how long the tube will last.</span></a>
+      <a class="role" href="#pharmacy" data-role="pharmacy"><span class="role-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h16v11H4z"/><path d="M3 9l2-5h14l2 5"/><path d="M12 12v5M9.5 14.5h5"/></svg></span><b>Pharmacist</b><span class="small">Scan the card, give the exact tube and hold a refill for 24 hours.</span></a>
+      <a class="role" href="#supply" data-role="supply"><span class="role-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7h11v9H2z"/><path d="M13 10h4l4 3v3h-8z"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></svg></span><b>Sun team</b><span class="small">See which cities need stock before a high-UV week, and each doctor's results.</span></a>
+    </div>
+    <p class="tiny muted">Everyone works from the same prescription, so the doctor's choice, the patient's day, the pharmacy shelf and Sun's supply stay in step.</p>
   </div>
 
   <div class="panel">
@@ -240,8 +257,15 @@
 </main>
 <footer class="foot"><div class="wrap">
   <span>UV, humidity and temperature data: <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> (CC BY 4.0). UV bands follow the WHO Global Solar UV Index.</span>
-  <span>Product facts are from November 2026 Indian pharmacy listings. Stores and stock are examples. Our <a href="research.html">research page</a> shows the modelled survey and its sources. Code on <a href="https://github.com/Sabyapro123/photostable-shieldcast" target="_blank" rel="noopener">GitHub</a>.</span>
+  <span>Product facts are from November 2026 Indian pharmacy listings. Stores and stock are examples. Our <a href="research.html">research page</a> shows our survey and the published evidence. Code on <a href="https://github.com/Sabyapro123/photostable-shieldcast" target="_blank" rel="noopener">GitHub</a>.</span>
 </div></footer>
+<nav class="appbar" aria-label="App">
+  <a href="#home" data-v="home"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg><span>Home</span></a>
+  <a href="#doctor" data-v="doctor"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3v6a4 4 0 0 0 8 0V3"/><path d="M10 13v3a5 5 0 0 0 10 0v-2"/><circle cx="20" cy="12" r="2"/></svg><span>Doctor</span></a>
+  <a href="#today" data-v="today"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/></svg><span>My plan</span></a>
+  <a href="#pharmacy" data-v="pharmacy"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9h16v11H4z"/><path d="M3 9l2-5h14l2 5"/><path d="M12 12v5M9.5 14.5h5"/></svg><span>Pharmacy</span></a>
+  <a href="#supply" data-v="supply"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 7h11v9H2z"/><path d="M13 10h4l4 3v3h-8z"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></svg><span>Sun team</span></a>
+</nav>
 <div class="toast" id="toast" role="status" hidden></div>
 </body>
 </html>

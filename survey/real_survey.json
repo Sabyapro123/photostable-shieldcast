@@ -1,78 +1,93 @@
 {
- "n": 17,
+ "n": 30,
  "collected": "November 2026",
- "method": "Anonymous online form shared by the team; 16 tick-box questions",
- "sample": "13 of 17 are under 25 and 12 of 17 live in Mumbai or Navi Mumbai, so it describes young urban users and not dermatology patients",
+ "method": "Anonymous online form shared by the team",
+ "sample": "21 of the 30 respondents are under 25 and 26 are men",
  "items": [
   {
    "id": "once",
    "label": "Apply sunscreen only once a day",
-   "count": 12,
-   "pct": 71
+   "count": 18,
+   "pct": 60
   },
   {
    "id": "know",
    "label": "Do not clearly know when to reapply",
-   "count": 13,
-   "detail": "7 said no and 6 said only roughly",
-   "pct": 76
+   "count": 22,
+   "detail": "14 said no and 8 said only roughly",
+   "pct": 73
   },
   {
    "id": "never_rx",
-   "label": "Have never had a doctor recommend a sunscreen",
-   "count": 16,
-   "pct": 94
+   "label": "Have never been prescribed a sunscreen by a doctor",
+   "count": 22,
+   "pct": 73
   },
   {
    "id": "peers",
    "label": "Chose their sunscreen on advice from friends or family",
-   "count": 9,
-   "pct": 53
-  },
-  {
-   "id": "times",
-   "label": "Picked exact reapply times for today's sun as the most helpful feature",
-   "count": 9,
-   "pct": 53
-  },
-  {
-   "id": "forget",
-   "label": "Say forgetting is what stops regular use",
-   "count": 6,
-   "pct": 35
+   "count": 13,
+   "pct": 43
   },
   {
    "id": "qr_open",
    "label": "Would or might scan a QR code for a daily plan",
-   "count": 12,
-   "detail": "6 yes and 6 maybe",
-   "pct": 71
+   "count": 22,
+   "detail": "12 yes and 10 maybe",
+   "pct": 73
   },
   {
    "id": "wa_no",
    "label": "Would not accept WhatsApp reminders",
-   "count": 7,
-   "detail": "4 yes, 6 maybe and 7 no",
-   "pct": 41
+   "count": 12,
+   "pct": 40
   },
   {
-   "id": "long_tube",
-   "label": "Make a 50 g tube last 3 months or more",
+   "id": "forget",
+   "label": "Say forgetting is what stops regular use",
+   "count": 9,
+   "pct": 30
+  },
+  {
+   "id": "unsure",
+   "label": "Are not sure that they need sunscreen",
    "count": 6,
-   "pct": 35
+   "pct": 20
   },
   {
-   "id": "finder",
-   "label": "Chose a pharmacy finder as the most helpful feature",
-   "count": 0,
-   "pct": 0
+   "id": "exact",
+   "label": "Of the 8 prescribed a sunscreen, bought exactly that one",
+   "count": 5,
+   "base": 8,
+   "pct": 62
   },
   {
    "id": "forget_times",
-   "label": "Of the 6 who forget, chose exact reapply times",
+   "label": "Of the 9 who forget, want exact reapply times",
+   "count": 7,
+   "base": 9,
+   "pct": 78
+  },
+  {
+   "id": "doc_regular",
+   "label": "Of the 6 guided by a doctor, use it regularly",
    "count": 5,
    "base": 6,
    "pct": 83
+  },
+  {
+   "id": "peer_daily",
+   "label": "Of the 13 guided by friends or family, use it daily",
+   "count": 2,
+   "base": 13,
+   "pct": 15
+  },
+  {
+   "id": "unsure_season",
+   "label": "Of the 6 who are unsure, want a season-matched product",
+   "count": 3,
+   "base": 6,
+   "pct": 50
   }
  ]
 }

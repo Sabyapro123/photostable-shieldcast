@@ -268,3 +268,20 @@ textarea{font:inherit;font-size:.95rem;color:var(--ink);background:var(--surface
 .dot { flex: 0 0 auto; width: 22px; height: 22px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 0 1px rgba(31,26,58,.25); transition: background .6s ease; }
 .dot-clear { background: #F4F1F8; } .dot-pale { background: #D8CCF0; } .dot-violet { background: #8E6BD1; } .dot-deep { background: #5B2A9E; }
 .pdbox { padding: 10px 12px; border-radius: 12px; background: #E6F2EE; font-size: .9rem; }
+
+/* ---------- app shell ---------- */
+.roles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:10px 0}
+.role{display:flex;flex-direction:column;gap:6px;padding:16px;border:1px solid var(--line);border-radius:16px;text-decoration:none;color:var(--ink);background:var(--surface)}
+.role:hover,.role:focus-visible{border-color:var(--orange);outline:none}
+.role b{font-family:var(--serif,inherit);font-size:1.1rem}
+.role-ic{display:grid;place-items:center;width:46px;height:46px;border-radius:14px;background:var(--ink);color:var(--amber)}
+.appbar{display:none}
+html.standalone #installHint{display:none}
+@media (max-width:760px){
+  .roles{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .tabs{display:none}
+  body{padding-bottom:calc(68px + env(safe-area-inset-bottom))}
+  .appbar{display:grid;grid-template-columns:repeat(5,1fr);position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--ink);padding:6px 4px calc(6px + env(safe-area-inset-bottom));box-shadow:0 -6px 20px rgba(0,0,0,.18)}
+  .appbar a{display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 2px;border-radius:12px;color:#C9C5D8;text-decoration:none;font-size:.7rem;font-weight:600}
+  .appbar a[aria-current="page"]{color:var(--ink);background:var(--amber)}
+}

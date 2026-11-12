@@ -2,12 +2,12 @@
 
 **Live site:** https://sabyapro123.github.io/photostable-shieldcast/
 **Watch the film:** https://sabyapro123.github.io/photostable-shieldcast/film.html (about two and a half minutes, with captions)
-**See the research:** https://sabyapro123.github.io/photostable-shieldcast/research.html (real survey of 17 users, modelled panel, competitor map)
+**See the research:** https://sabyapro123.github.io/photostable-shieldcast/research.html (our survey of 30 users, published evidence, competitor map)
 **Try a patient plan:** open the site and choose *Open Ananya's plan*, or scan the QR code on any card issued in the Doctor view.
 
 ShieldCast turns a dermatologist's Photostable prescription into a daily, weather-aware protection plan. The QR code on the Rx card opens a page that reads the live UV forecast for the patient's city. It tells her which Photostable tube to use today, the exact times to apply and reapply, how many days her tube has left and which partner pharmacy has the refill. The same forecast tells Sun's supply team which cities to restock before a high-UV week.
 
-There is no app to install, no login and no patient data on a server, because the prescription lives inside the link.
+ShieldCast is one app with four roles: doctor, patient, pharmacist and Sun team. It opens from a scan and installs from the browser, with nothing to download from an app store, no login and no patient data on a server.
 
 > Concept prototype by team **ChampsGrid** (Prerana Sahu, Sabyasachi Samal and Bhupender Pratap Singh), IIM Mumbai, for **Sun PRISM Season 2**. It is not a Sun Pharma service and gives no medical advice.
 
@@ -20,7 +20,7 @@ The idea is now "right tube, right time, right through the year."
 - **Protected Days.** One number, shared only with consent, tells the clinic how many days the patient followed the plan.
 - **SunDot.** A UV-reactive dot on the cap is shown as a pack concept for a pilot test.
 - **E-prescription line.** One button copies the plan for the clinic's e-prescription software.
-- **Research page.** A real survey of 17 sunscreen users, and a modelled panel of 50 patients, 15 pharmacists and 10 dermatologists that is built on it and labelled as modelled.
+- **Research page.** Our survey of 30 sunscreen users, the published evidence on patients, pharmacy counters and dermatologists, a competitor map and six global trends.
 
 ## Why this idea
 
