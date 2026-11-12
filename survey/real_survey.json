@@ -18,6 +18,13 @@
    "pct": 73
   },
   {
+   "id": "want",
+   "label": "Want exact reapply times or a season-matched sunscreen most",
+   "count": 21,
+   "detail": "12 chose exact times and 9 chose a season match",
+   "pct": 70
+  },
+  {
    "id": "never_rx",
    "label": "Have never been prescribed a sunscreen by a doctor",
    "count": 22,
